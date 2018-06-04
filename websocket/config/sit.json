@@ -1,0 +1,25 @@
+{
+  "env" : "development",
+  "redis" : {
+    "port" : 10604,
+    "host" : "10.213.33.156"
+  },
+  "apps" : [{
+        "name"   : "Qalarm",
+        "cwd": "/var/wd/wrs/webroot/qalarm-web/",
+        "script" : "./bin/www",
+        "env": {
+                "NODE_ENV":"prod"
+        },
+        "env_sit": {
+                "NODE_ENV":"sit"
+        },
+        "error_file" : "./logs/qalarm-err.log",
+        "out_file": "./logs/qalarm-out.log",
+        "pid_file": "./logs/qalarm.pid",
+        "watch":true,
+        "ignore_watch":["[\\/\\\\]\\./","node_modules", "sessions",".git",".gitignore"],
+        "exec_mode": "cluster_mode",
+        "instances": 1
+  }]
+}

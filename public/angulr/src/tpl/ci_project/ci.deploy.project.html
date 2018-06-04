@@ -1,0 +1,172 @@
+<div class="wrapper-sm">
+    <tabset class="nav-tabs">
+        <tab>
+            <tab-heading>
+                部署项目 
+            </tab-heading>
+            <div ng-controller="DeployProjectCtrl as vm">
+                <script type="text/ng-template", id="ci.deploylog.show.html">
+                    <div ng-include="'tpl/ci_project/ci.deploylog.show.html'"></div>
+                </script>
+
+                <script type="text/ng-template", id="ci.deploy.testreport.html">
+                    <div ng-include="'tpl/ci_project/ci.deploy.testreport.html'"></div>
+                </script>
+
+                <!--<script type="text/ng-template", id="ci.projectchange.show.html">-->
+                    <!--<div ng-include="'tpl/ci_project/ci.projectchange.show.html'"></div>-->
+                <!--</script>-->
+                <!--<script type="text/ng-template", id="ci.deploy.project.create.html">-->
+                    <!--<div ng-include="'tpl/ci_project/ci.deploy.project.create.html'"></div>-->
+                <!--</script>-->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <form class="form-inline" role="form">
+                            <div class="form-group">
+                                <label>项目名称</label>
+                                <select ng-model="vm.searchParams.projectId.currentVal" ng-change="vm.ciProjectSelect()" ng-options="value.id as value.name for value in vm.ciProjectList" class="form-control">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>部署状态</label>
+                                <select ng-model="vm.searchParams.deployStatus.currentVal" ng-change="vm.ciDeployStatusSelect()" ng-options="value.id as value.name for value in vm.ciDeployStatusList" class="form-control">
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-sm btn-info m-l-md" ng-click="vm.search()">
+                                <i class="glyphicon glyphicon-search"></i>
+                                <stong>搜索</stong>
+                            </button>
+
+                            <!--<a class="btn btn-sm btn-info m-l-md" ui-sref='app.ci_project.buildproject'>-->
+                                <!--<stong> 返回构建列表 </stong>-->
+                            <!--</a>-->
+                            <a class="btn btn-xs btn-default b-info" ui-sref='app.ci_project.buildproject'>
+                                <stong> 返回构建列表 </stong>
+                            </a>
+
+                        </form>
+                    </div>
+
+                        <table ng-table="vm.tableParams"
+                               class="table table-condensed table-bordered table-striped text-center small">
+                            <tr style="vertical-align: middle" ng-repeat="row in $data">
+                                <td data-title="'项目名称'">
+                                    <!--<span class=''> {{row.project_name}} / {{row.project_id}}</span>-->
+                                    <span class=''> {{row.project_name}} </span>
+                                </td>
+                                <td data-title="'部署Id'">
+                                    <span>{{row.deploy_id}}</span>
+                                </td>
+                                <td data-title="'构建Id'">
+                                    <a class="btn btn-xs btn-default b-info" ui-sref='app.ci_project.buildproject'>{{row.gaea_build_id}}</a>
+                                </td>
+                                <td data-title="'状态'">
+                                    <a class='text-info' ui-sref="app.ci_project.deploydetail({deploy_id: '{{row.deploy_id}}'})">
+                                        {{row.status_desc}}
+                                    </a>
+
+                                    <!--<a class="btn btn-xs btn-default b-success" title="" -->
+                                        <!--ui-sref="app.ci_project.deploydetail({deploy_id: '{{row.deploy_id}}'})">查看a</a>-->
+
+                                    <a class='text-info' ui-sref="app.ci_project.deploylasttask({deploy_id: '{{row.deploy_id}}'})">
+                                    <span ng-if="vm.formatDeployStatus.success(row.status)" class="btn btn-xs text-success b-success">
+                                        <i class="glyphicon glyphicon-ok icon text-success"></i> 
+                                        {{row.status}}
+                                    </span>
+                                    <span ng-if="vm.formatDeployStatus.fail(row.status)" class="btn btn-xs text-danger b-danger">
+                                        <i class="glyphicon glyphicon-remove icon text-danger"></i> 
+                                        {{row.status}}
+                                    </span>
+                                    <span ng-if="vm.formatDeployStatus.running(row.status)" class="btn btn-xs text-primary b-primary">
+                                        <!--<i class="glyphicon glyphicon-time icon text-warning"></i> -->
+                                        <i class="fa fa-spin fa-refresh show inline"></i>
+                                        {{row.status}}
+                                    </span>
+                                    <!--<span ng-if="vm.formatDeployStatus.waiting(row.status)" class="btn btn-xs text-info b-info">-->
+                                        <!--<i class="fa fa-spin fa-spinner show inline"></i>-->
+                                        <!--{{row.status}}-->
+                                    <!--</span>-->
+                                    <span ng-if="vm.formatDeployStatus.cancel(row.status)" class="btn btn-xs text-danger b-info">
+                                        <i class="glyphicon glyphicon-remove-circle icon text-danger"></i> 
+                                        {{row.status}}
+                                    </span>
+                                    </a>
+                                </td>
+
+
+
+                                <td data-title="'发布描述'" class="text-left">
+                                    <span class=''> {{row.title}} </span>
+                                </td>
+
+                                <!--<td data-title="'部署情况'">-->
+                                    <!--<div >-->
+                                        <!--<span ng-click="vm.showDeployLog(log)" ng-repeat="log in row.ci_deploy_project_logs" class="pull-left">-->
+                                            <!--<a ng-if="vm.formatDeployStatus.success(log.status)" class="btn btn-xs text-success b-success">-->
+                                                <!--<i class="glyphicon glyphicon-ok icon text-success"></i> -->
+                                                <!--{{log.host_name}} {{log.status}}-->
+                                            <!--</a>-->
+                                            <!--<a ng-if="vm.formatDeployStatus.fail(log.status)" class="btn btn-xs text-danger b-danger">-->
+                                                <!--<i class="glyphicon glyphicon-remove icon text-danger"></i> -->
+                                                <!--{{log.host_name}} {{log.status}}-->
+                                            <!--</a>-->
+                                            <!--<a ng-if="vm.formatDeployStatus.running(log.status)" class="btn btn-xs text-primary b-primary">-->
+                                                <!--[><i class="glyphicon glyphicon-time icon text-warning"></i> <]-->
+                                                <!--<i class="fa fa-spin fa-refresh show inline"></i>-->
+                                                <!--{{log.host_name}} {{log.status}}-->
+                                            <!--</a>-->
+                                            <!--<a ng-if="vm.formatDeployStatus.cancel(log.status)" class="btn btn-xs text-danger b-info">-->
+                                                <!--<i class="glyphicon glyphicon-remove-circle icon text-danger"></i> -->
+                                                <!--{{log.host_name}} {{log.status}}-->
+                                            <!--</a>-->
+                                        <!--</span>-->
+                                    <!--</div>-->
+                                <!--</td>-->
+
+                                <td title="'开始时间'">
+                                    {{row.started_time}}
+                                </td>
+
+                                <td title="'耗时'">
+                                    {{row.run_time}}
+                                </td>
+
+                                <td data-title="'负责人'" class="text-left">
+                                    <span class=''> {{row.user_name}} </span>
+                                </td>
+
+                                <td title="'操作'" class="text-left">
+
+                                    <!--<a class="btn btn-xs btn-default b-success" title="" -->
+                                        <!--ui-sref="app.ci_project.deploylasttask({deploy_id: '{{row.deploy_id}}'})">查看</a>-->
+
+                                    <a class="btn btn-xs btn-default b-success" title="" 
+                                        ui-sref="app.ci_project.deploydetail({deploy_id: '{{row.deploy_id}}'})">查看</a>
+
+                                    <a class="btn btn-xs btn-default b-success" title="" href="" 
+                                        ng-click="vm.deployHandle.rollBack(row.deploy_id,row.project_id,row.gaea_build_id)" 
+                                        ng-if="row.can_rollback&&row.member_permits.can_deploy_project==1">回滚</a>
+
+                                    <a class="btn btn-xs btn-default b-success" title="" href="" 
+                                        ng-click="vm.deployHandle.deploy(row.deploy_id, row.project_id, row.gaea_build_id)" 
+                                        ng-if="row.can_cd_a_level&&row.member_permits.can_deploy_project==1">Slave发布</a>
+
+                                    <a class="btn btn-xs btn-default b-success" title="" href="" 
+                                        ng-click="vm.deployHandle.deploy(row.deploy_id, row.project_id, row.gaea_build_id)" 
+                                        ng-if="row.can_cd_b_level&&row.member_permits.can_deploy_project==1" >正式发布</a>
+
+                                    <!--<a class="btn btn-xs btn-default b-success" title="" href="" ng-click="">开始测试</a>-->
+                                    <!--<a class="btn btn-xs btn-default b-success" title="" href="" ng-click="">测试结束</a>-->
+
+                                </td>
+                            </tr>
+                        </table>
+
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>
+
+

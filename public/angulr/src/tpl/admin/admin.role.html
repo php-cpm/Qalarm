@@ -1,0 +1,115 @@
+<div class="wrapper-sm">
+    <tabset class="nav-tabs">
+        <tab>
+            <tab-heading>
+                角色管理
+            </tab-heading>
+            <div ng-controller="AdminRoleCtrl as vm">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <button type="button" ng-click="vm.addData()" class="btn btn-sm btn-success">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            添加
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table ng-table="vm.tableParams"
+                               class="table table-condensed table-bordered table-striped">
+                            <tr ng-repeat="row in $data">
+                                <td title="'id'" filter="{ id: 'text'}" sortable="'id'">
+                                    {{row.id}}
+                                </td>
+                                <td title="'角色名'" filter="{ role_name: 'text'}" sortable="'role_name'">
+                                    {{row.role_name}}
+                                </td>
+                                <td title="'权限集合'" filter="{ authid_set: 'text'}" sortable="'authid_set'">
+                                    <!--{{row.role_permits}} -->
+                                    {{row.authid_set}}
+                                </td>
+
+                                <td title="'sid'">
+                                    {{row.sid}}
+                                </td>
+                                <td title="'mid'">
+                                    {{row.mid}}
+                                </td>
+
+                                <td title="'操作'">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-info" ng-click="vm.editData(row)">编辑</button>
+                                        <button type="button" class="btn btn-info" ng-click="vm.deleteData(row.id)">删除</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!--llw updage start-->
+
+                <script type="text/ng-template" id="admin.role.edit.html">
+                    <div class="panel panel-default">
+                        <div class="panel-heading font-bold">角色管理</div>
+                        <div class="modal-body  wrapper-lg">
+                            <form role="form" class="form-horizontal" novalidate="novalidate" name="admin_user_edit_form">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Mid</label>
+
+                                    <div class="col-sm-6" ng-class="">
+                                        <input type="text" class="form-control" placeholder="Mid"
+                                               ng-model="data.mid"
+                                               ng-required="true">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">SID</label>
+
+                                    <div class="col-sm-6" ng-class="">
+                                        <input type="text" class="form-control" placeholder="SID"
+                                               ng-model="data.sid"
+                                               ng-required="true">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">角色名</label>
+
+                                    <div class="col-sm-6"
+                                         ng-class="">
+                                        <input type="text" class="form-control" placeholder="角色名"
+                                               ng-model="data.role_name"
+                                               ng-required="true">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">角色权限</label>
+
+                                    <div class="col-sm-6" ng-class="">
+                                        <!--<input type="text" class="form-control" placeholder="角色权限"-->
+                                               <!--ng-model="data.role_permits"-->
+                                               <!--ng-required="true">-->
+                                        <select ui-jq="chosen"
+                                                multiple
+                                                data-placeholder="角色权限"
+                                                ng-model="data.permitsSelected"
+                                                ng-options="value.id as value.name for value in permits"
+                                                class="w-md form-control">
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-default" ng-click="cancel()">取消</button>
+                            <button class="btn btn-primary" ng-click="ok()">保存</button>
+                        </div>
+                    </div>
+
+                </script>
+
+                <!--llw update end-->
+            </div>
+        </tab>
+    </tabset>
+</div>

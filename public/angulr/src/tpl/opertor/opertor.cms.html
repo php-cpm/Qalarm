@@ -1,0 +1,271 @@
+<div class="wrapper-sm">
+    <div ng-controller="CMSCtrl as vm">
+        <tabset class="nav-tabs">
+            <tab>
+                <tab-heading>
+                    内容管理
+                </tab-heading>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <form class="form-inline" role="form">
+                            <div class="form-group">
+                                <label>一级频道</label>
+                                <select ng-model="vm.mainContentType" ng-change="mainContentSelect()"
+                                        ng-options="value.id as value.name for value in vm.mainContentTypes"
+                                        class="form-control">
+                                </select>
+                            </div>
+                            <div class="form-group m-l-md">
+                                <label>二级频道</label>
+                                <select ng-model="vm.secondContentType" ng-change="secondContentSelect()"
+                                        ng-options="value.id as value.name for value in vm.secondContentTypes"
+                                        class="form-control">
+                                </select>
+                            </div>
+                            <div class="form-group m-l-md">
+                                <label>三级频道</label>
+                                <select ng-model="vm.thridContentType"
+                                        ng-options="value.id as value.name for value in vm.thridContentTypes"
+                                        class="form-control">
+                                </select>
+                            </div>
+                            <div class="form-group m-l-md">
+                                <label>是否置顶</label>
+                                <select ng-model="vm.isTop"
+                                        ng-options="value.id as value.name for value in vm.isTops"
+                                        class="form-control">
+                                </select>
+                            </div>
+                            <div class="form-group m-l-md">
+                                <label>标题</label>
+                                <input type="text" ng-model="vm.searchTitle" class="form-control" placeholder="标题关键字">
+                            </div>
+                            <!--<div class="form-group m-l-md">-->
+                            <!--<label>发放时间</label>-->
+                            <!--<input name="daterange" ui-jq="daterangepicker" ui-options="{-->
+                            <!--format: 'YYYY/MM/DD' }" ng-model="coupontSendTime" class="w-md"/>-->
+                            <!--</div>-->
+                            <button type="submit" class="btn btn-sm btn-info m-l-md" ng-click="searchContents()">
+                                <i class="glyphicon glyphicon-search"></i>
+                                <stong>搜索文章</stong>
+                            </button>
+
+                            <script type="text/ng-template" , id="opertor.coupon.manual.edit.html">
+                                <div ng-include="'tpl/opertor/opertor.coupon.manual.edit.html'"></div>
+                            </script>
+                            <button type="button" ng-click="showEditTabFunction()" ng-show="!vm.showEditTab"
+                                    class="btn btn-sm btn-success m-l-md">
+                                <i class="glyphicon glyphicon-plus "></i>
+                                创建文章
+                            </button>
+                            <button type="button" ng-click="showEditTabFunction()" ng-show="vm.showEditTab"
+                                    class="btn btn-sm btn-success m-l-md">
+                                <i class="glyphicon glyphicon-plus "></i>
+                                退出创建
+                            </button>
+                        </form>
+
+
+                    </div>
+                    <form role="form" name="save_content_form" ng-if="vm.showEditTab">
+                        <div class="table-responsive">
+                            <div class="form-group">
+                                <label class="control-label color-grey">内容频道</label>
+
+                                <div>
+                                    <input type="text"
+                                           class="form-control"
+                                           ng-model="vm.contentTypeName"
+                                           ng-disabled="true"
+                                           ng-required="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label color-grey">发布时间（*默认为当前时间）</label>
+
+                                <div>
+                                    <input ng-model="vm.published_at"
+                                           type="text"
+                                           class="form-control"
+                                           datetimepicker
+                                           datetimepicker-options="{format:'YYYY-MM-DD HH:SS', icons:{next:'glyphicon glyphicon-arrow-right',previous:'glyphicon glyphicon-arrow-left',up:'glyphicon glyphicon-arrow-up',down:'glyphicon glyphicon-arrow-down'}}"
+                                           placeholder=""
+                                           ng-required="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label color-grey">标题(*文章标题）</label>
+
+                                <div>
+                                    <input type="text" class="form-control" placeholder=""
+                                           ng-model="vm.title"
+                                           ng-required="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label color-grey">关键词（*用于搜索引擎优化）</label>
+
+                                <div>
+                                    <input type="text" class="form-control" placeholder=""
+                                           ng-model="vm.keywords"
+                                    >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label color-grey">摘要（* 文章摘要）</label>
+
+                                <div>
+                                  <textarea rows="3"
+                                            type="text" class="form-control" placeholder=""
+                                            ng-model="vm.summary">
+
+                                  </textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label color-grey">内容</label>
+                                <div class="ueditor"
+                                     ng-model="vm.content"
+                                     ng-required="true">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="row text-center">
+                                <button type="button" ng-show="vm.showSaveBtn" ng-disabled="save_content_form.$invalid"
+                                        ng-click="saveContent()"
+                                        class="btn btn-lg btn-info m-l-md">
+                                    <stong>保存</stong>
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <div class="table-responsive small">
+                        <table ng-table="vm.tableParams"
+                               class="table table-condensed table-bordered table-striped">
+                            <tr ng-repeat="row in $data">
+                                <!--<td data-title="'id'">-->
+                                <!--{{row.id}}-->
+                                <!--</td>-->
+                                <!--<td title="'文章频道'" >-->
+                                <!--{{row.type_name}}-->
+                                <!--</td>-->
+                                <td title="'标题'">
+                                    {{row.title}}
+                                </td>
+                                <td title="'关键词'">
+                                    {{row.keywords}}
+                                </td>
+                                <td title="'摘要'">
+                                    {{row.summary}}
+                                </td>
+                                <!--<td title="'作者'">-->
+                                    <!--{{row.author}}-->
+                                <!--</td>-->
+                                <td title="'状态'">
+                                    {{row.statusDesc}}
+                                </td>
+                                <td title="'正文长度'">
+                                    {{row.content_length}}
+                                </td>
+                                <!--<td title="'浏览次数'">-->
+                                    <!--{{row.view_count}}-->
+                                <!--</td>-->
+                                <!--<td title="'评论数'">-->
+                                    <!--{{row.comment_count}}-->
+                                <!--</td>-->
+                                <td title="'发布时间'">
+                                    {{row.published_at}}
+                                </td>
+                                <td title="'操作'">
+                                    <div class="row">
+                                        <button type="button" ng-click="editContent(row.id)"
+                                                class="btn btn-xs btn-info">
+                                            编辑
+                                        </button>
+                                        <a class="btn btn-xs btn-primary" href="{{row.preview_url}}" target="_blank">预览</a>
+                                        <button type="button" ng-click="publishContent(row.id)"
+                                                ng-hide="row.status=='10'"
+                                                class="btn btn-xs btn-danger">
+                                            发布
+                                        </button>
+                                        <button type="button" ng-click="topContent(row.id)"
+                                                ng-hide="row.is_top =='1'"
+                                                class="btn btn-xs btn-success">
+                                            置顶
+                                        </button>
+                                        <button type="button" ng-click="unTopContent(row.id)"
+                                                ng-show="row.is_top =='1'"
+                                                class="btn btn-xs btn-success">
+                                            撤顶
+                                        </button>
+                                    </div>
+                    </div>
+                    </td>
+                    </tr>
+                    </table>
+                </div>
+    </div>
+    </tab>
+    <tab>
+        <tab-heading>
+            内容频道
+        </tab-heading>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <form class="form-inline" role="form">
+                    <div class="form-group">
+                        <label>一级频道</label>
+                        <select ng-model="vm.mainContentType" ng-change="mainContentSelect()"
+                                ng-options="value.id as value.name for value in vm.mainContentTypes"
+                                class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group m-l-md">
+                        <label>二级频道</label>
+                        <select ng-model="vm.secondContentType" ng-change="secondContentSelect()"
+                                ng-options="value.id as value.name for value in vm.secondContentTypes"
+                                class="form-control">
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-info m-l-md" ng-click="searchContentTypes()">
+                        <i class="glyphicon glyphicon-search"></i>
+                        <stong>搜索</stong>
+                    </button>
+                    <script type="text/ng-template" , id="opertor.cms.type.edit.html">
+                        <div ng-include="'tpl/opertor/opertor.cms.type.edit.html'"></div>
+                    </script>
+                    <button type="button" ng-click="openTypeCtrl('md')" class="btn btn-sm btn-success m-l-md">
+                        <i class="glyphicon glyphicon-plus "></i>
+                        添加
+                    </button>
+                </form>
+            </div>
+            <div class="table-responsive">
+                <table ng-table="vm.tableParamsType"
+                       class="table table-condensed table-bordered table-striped">
+                    <tr ng-repeat="row in $data">
+                        <td data-title="'id'">
+                            {{row.id}}
+                        </td>
+                        <td title="'名称'">
+                            {{row.name}}
+                        </td>
+                        <td title="'图标'">
+                            {{row.icon}}
+                        </td>
+                        <td title="'跳转URL'">
+                            {{row.url}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </tab>
+    </tabset>
+</div>
+</div>
+

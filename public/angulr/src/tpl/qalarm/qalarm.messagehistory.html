@@ -1,0 +1,57 @@
+<div class="wrapper-sm">
+    <tabset class="nav-tabs">
+        <tab>
+            <div ng-controller="QalarmMessageHistoryCtrl as vm" style="width:100%;  word-wrap: break-word; word-break: normal; word-break:break-all; ">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <form class="form-inline" role="form">
+                            <!--<button type="button" ng-click="vm.editProject('md', '', '')" class="btn btn-sm btn-success">-->
+                            <!--<i class="glyphicon glyphicon-plus"></i>-->
+                            <!--添加注册模块-->
+                            <!--</button>-->
+                            <button type="button" ng-click="vm.goback()" class="btn btn-sm btn-primary">
+                                <i class="glyphicon glyphicon-chevron-left"></i>
+                                返回
+                            </button>
+                        </form>
+                    </div>
+                    <table ng-table="vm.tableParams"
+                           class="table table-condensed table-bordered table-striped text-center small">
+                        <tr  ng-repeat-start="row in $data">
+                            <td data-title="'时间'" style="white-space:nowrap;">
+                                {{row.time}}
+                            </td>
+                            <td data-title="'类型'">
+                                {{row.module}}
+                            </td>
+
+                            <td data-title="'错误号'">
+                                {{row.code}}
+                            </td>
+
+                            <td title="'环境'">
+                                {{row.env}}
+                            </td>
+                            <td title="'服务器ip'">
+                                {{row.server_ip}}
+                            </td>
+                            <td title="'客户端ip'">
+                                {{row.client_ip}}
+                            </td>
+                            <td title="'脚本'">
+                                {{row.script}}
+                            </td>
+                        </tr>
+
+                        <tr ng-repeat-end>
+                            <td>详细错误：</td>
+                            <td colspan="7" class="text-left">{{ row.message }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>
+
+

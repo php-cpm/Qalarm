@@ -1,0 +1,96 @@
+<div class="wrapper-sm">
+    <tabset class="nav-tabs">
+        <tab>
+            <tab-heading>
+               gitlab 项目 
+            </tab-heading>
+            <div ng-controller="GitLabCtrl as vm">
+                <!--<script type="text/ng-template" , id="ci.gitlab.edit.html">-->
+                    <!--<div ng-include="'tpl/ci_project/ci.gitlab.edit.html'"></div>-->
+                <!--</script>-->
+                <!--<script type="text/ng-template" , id="ci.cdresource.html">-->
+                    <!--<div ng-include="'tpl/ci_project/ci.cdresource.html'"></div>-->
+                <!--</script>-->
+                <!--<script type="text/ng-template" , id="ci.member.html">-->
+                    <!--<div ng-include="'tpl/ci_project/ci.member.html'"></div>-->
+                <!--</script>-->
+                <!--<script type="text/ng-template" , id="ci.dns.html">-->
+                    <!--<div ng-include="'tpl/ci_project/ci.dns.html'"></div>-->
+                <!--</script>-->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <form class="form-inline" role="form">
+
+                        </form>
+                    </div>
+
+                        <table ng-table="vm.tableParams"
+                               class="table table-condensed table-bordered table-striped text-center small">
+                            <tr style="vertical-align: middle" ng-repeat="row in $data">
+                                
+                                <!--<td data-title="'xd'">-->
+                                    <!--{{row}}-->
+                                <!--</td>-->
+
+                                <td data-title="'项目id'">
+                                    {{row.project_id}}
+                                </td>
+
+                                <td data-title="'项目名称'">
+                                    <a class='text-info'> {{row.project_name}}</a>
+                                </td>
+
+                                <td title="'git 地址'">
+                                    {{row.project_addr}}
+                                </td>
+
+                                <td title="'监听分支'">
+                                    <a ng-repeat="branch in row.listener_branchs">{{branch.name}}|</a>
+                                    <!--{{row.listener_branchs}}-->
+                                </td>
+
+                                <td title="'代码检测目录'">
+                                    {{row.checkcode_dir}}
+                                </td>
+
+                                <td title="'ssh 用户'">
+                                    {{row.ssh_user}}
+                                </td>
+
+                                <td title="'操作'">
+
+                                 <!--<div class="btn-group">-->
+                                     <!--{{row.member_permits}} -->
+
+                                    <a class="btn btn-xs btn-default b-info" title="" href=""
+                                        ui-sref="app.ci_project.project_edit({ project_id: '{{row.project_id}}', project_name: '{{row.project_name}}' })">项目设置</a>
+
+                                        <!--<button type="button" class="btn btn-xs btn-default b-info" ng-click="vm.editData(row)" -->
+                                            <!--ng-show="row.member_permits.can_edit_project==1">编辑</button>-->
+                                        <!--<button type="button" class="btn btn-xs btn-default b-info" ng-click="vm.showCDResources(row, 'lg')"-->
+                                                <!--ng-show="row.member_permits.can_edit_project_host==1">部署资源</button>-->
+                                        <!--<button type="button" class="btn btn-xs btn-default b-info" ng-click="vm.showCiMembers(row)"-->
+                                            <!--ng-show="row.member_permits.can_edit_project_member==1">人员管理</button>-->
+                                        <div class="btn-group" ng-show="row.member_permits.can_build_project" uib-dropdown dropdown-append-to-body>
+                                            <button id="btn-append-to-body" class="btn btn-default btn-xs b-info" uib-dropdown-toggle>
+                                                手动构建 <span class="caret"></span>
+                                            </button>
+                                            <ul uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
+                                                <li ng-repeat="branch in row.listener_branchs">
+                                                    <a class="small" href="" title='' ng-click="vm.buildProject(row.project_id,branch.name)">分支{{branch.name}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    <!--</div>-->
+                                </td>
+
+                            </tr>
+                        </table>
+
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>
+
+

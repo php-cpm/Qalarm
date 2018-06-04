@@ -1,0 +1,147 @@
+<div class="wrapper-sm">
+    <div ng-controller="CMSCtrl as vm">
+        <tabset class="nav-tabs">
+            <tab>
+                <tab-heading>
+                    应用审核
+                </tab-heading>
+
+                <!--<div class="panel panel-default">-->
+                    <!--<form>-->
+                        <!--<button type="submit" class="btn btn-default" ng-click="searchContents()">-->
+                            <!--<stong>应用审核</stong>-->
+                        <!--</button>-->
+                    <!--</form>-->
+
+                <!--</div>-->
+                <script type="text/ng-template" , id="service.apply.detail.html">
+                    <div ng-include="'tpl/service/service.apply.detail.html'"></div>
+                </script>
+                <div class="table-responsive small">
+                    <table ng-table="vm.tableParams"
+                           class="table table-condensed table-bordered table-striped">
+                        <tr ng-repeat="row in $data">
+                            <td title="'业务名'">
+                                {{row.type_name}}
+                            </td>
+                            <td title="'申请人'">
+                                {{row.username}}
+                            </td>
+                            <td title="'申请对象名'">
+                                {{row.buss_name}}
+                            </td>
+                            <td title="'分配给'">
+                                {{row.alloc_name}}
+                            </td>
+                            <td title="'处理人'">
+                                {{row.opt_name}}
+                            </td>
+                            <td title="'状态'">
+                                {{row.statusDesc}}
+                            </td>
+                            <td title="'提交时间'">
+                                {{row.created_at}}
+                            </td>
+                            <td title="'附加信息'">
+                                {{row.attachment}}
+                            </td>
+                            <td title="'操作'">
+                                <div class="row">
+                                    <button type="button" ng-click="handler(row.id, 'pass', row.type, '')" ng-show="row.status=='1'"
+                                            class="btn btn-xs btn-default">
+                                        处理
+                                    </button>
+                                    <button type="button" ng-click="handler(row.id, 'done', row.type, '')" ng-show="row.status=='2'"
+                                            class="btn btn-xs btn-default">
+                                        完成
+                                    </button>
+                                    <button type="button" ng-click="handler(row.id, 'fail', row.type, '')" ng-show="row.status=='2'"
+                                            class="btn btn-xs btn-default">
+                                        失败
+                                    </button>
+                                    <button type="button" ng-click="handler(row.id, 'reback', row.type, '')" ng-show="row.status=='1'"
+                                            class="btn btn-xs btn-default">
+                                        打回
+                                    </button>
+                                    <button type="button" ng-click="handler(row.id, 'retry', row.type, '')" ng-show="row.status=='4'"
+                                            class="btn btn-xs btn-default">
+                                        重做
+                                    </button>
+                                    <button type="button" ng-click="handler(row.id, 'detail', row.type, row.attachmentFull)"
+                                            class="btn btn-xs btn-default">
+                                        详情
+                                    </button>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                </tab>
+                <tab>
+                <tab-heading>
+                    运维审核
+                </tab-heading>
+                <div class="table-responsive small">
+                    <table ng-table="vm.tableParamsOps"
+                           class="table table-condensed table-bordered table-striped">
+                        <tr ng-repeat="row in $data">
+                            <td title="'业务名'">
+                                {{row.type_name}}
+                            </td>
+                            <td title="'申请人'">
+                                {{row.username}}
+                            </td>
+                            <td title="'申请对象名'">
+                                {{row.buss_name}}
+                            </td>
+                            <td title="'分配给'">
+                                {{row.alloc_name}}
+                            </td>
+                            <td title="'处理人'">
+                                {{row.opt_name}}
+                            </td>
+                            <td title="'状态'">
+                                {{row.statusDesc}}
+                            </td>
+                            <td title="'提交时间'">
+                                {{row.created_at}}
+                            </td>
+                            <td title="'附加信息'">
+                                {{row.attachment}}
+                            </td>
+                            <td title="'操作'">
+                                <div class="row">
+                                    <button type="button" ng-click="handler(row.id, 'pass', row.type, '')" ng-show="row.status=='1'"
+                                            class="btn btn-xs btn-default">
+                                        处理
+                                    </button>
+                                    <button type="button" ng-click="handler(row.id, 'done', row.type, '')" ng-show="row.status=='2'"
+                                            class="btn btn-xs btn-default">
+                                        完成
+                                    </button>
+                                    <button type="button" ng-click="handler(row.id, 'fail', row.type, '')" ng-show="row.status=='2'"
+                                            class="btn btn-xs btn-default">
+                                        失败
+                                    </button>
+                                    <button type="button" ng-click="handler(row.id, 'reback', row.type, '')" ng-show="row.status=='1'"
+                                            class="btn btn-xs btn-default">
+                                        打回
+                                    </button>
+                                    <button type="button" ng-click="handler(row.id, 'retry', row.type, '')" ng-show="row.status=='4'"
+                                            class="btn btn-xs btn-default">
+                                        重做
+                                    </button>
+                                    <button type="button" ng-click="handler(row.id, 'detail', row.type, row.attachmentFull)"
+                                            class="btn btn-xs btn-default">
+                                        详情
+                                    </button>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+    </div>
+</div>
+

@@ -1,0 +1,97 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="
+    app.settings.asideFolded = false;
+    app.settings.asideDock = false;
+  ">
+    <!-- main -->
+    <div class="col" ng-controller="ServiceAppCtrl as vm">
+        <!-- main header -->
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <h1 class="m-n font-thin h3 text-black">应用系统</h1>
+                </div>
+            </div>
+        </div>
+        <div class="container row">
+            <div class="text-left">
+                <div class="col-md-3" ng-repeat="row in vm.marketApps">
+                    <div class="panel panel-default item">
+                        <div class="panel-body ">
+                            <div class="col-md-2">
+                                <img class="m-l-xs m-t-xs m-b-xs" style="height: 20px; width: 20px;"
+                                     ng-src="{{row.icon}}"/>
+                            </div>
+                            <div class="col-md-8 text-center">
+                                <a  style="cursor:pointer" href="{{row.url}}" target="_blank" ng-if="row.urlDisabled">
+                                    <div class="h4 text-info font-thin h4">{{row.name}}</div>
+                                </a>
+                                <div class="h4 text-info font-thin h4" ng-if="!row.urlDisabled">{{row.name}}</div>
+                                <span class="text-muted text-xs ">{{row.desc}}</span>
+                            </div>
+
+                            <div ng-show="row.status == '未开'">
+                                <a class="bg-info item" ng-click="applyApp(row.id)" target="_blank">
+                                    申请
+                                </a>
+                            </div>
+                            <div ng-show="row.status != '未开'">
+                            <span class="color-grey">
+                                {{row.status}}
+                            </span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="panel panel-default item">
+                        <div class="panel-body ">
+                            <span class="color-grey">
+                                更多？敬请期待...欲集成请联系盖亚开发组。
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <h1 class="m-n font-thin h3 text-black">基础服务</h1>
+                </div>
+            </div>
+        </div>
+        <div class="container row">
+            <div class="text-left">
+                <div class="col-md-3">
+                    <div class="panel panel-default item">
+                        <div class="panel-body ">
+                            <div class="col-md-2">
+                                <img class="m-l-xs m-t-xs m-b-xs" style="height: 20px; width: 20px;"
+                                     ng-src="{{row.icon}}"/>
+                            </div>
+                            <div class="col-md-8 text-center">
+                                <div class="h4 text-info font-thin h4">QConf</div>
+                                <span class="text-muted text-xs ">集中配置管理</span>
+                            </div>
+
+                            <div ng-show="row.status == '未开通'">
+                                <a class="bg-info item" ng-click="applyApp(row.id)" target="_blank">
+                                    开通
+                                </a>
+                            </div>
+                            <div ng-show="row.status != '未开通'">
+                            <span class="color-grey">
+                                {{row.status}}
+                            </span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / right col -->
+</div>

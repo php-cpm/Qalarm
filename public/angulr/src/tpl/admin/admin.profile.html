@@ -1,0 +1,91 @@
+<div class="panel panel-default" ng-controller="AdminUserProfileCtrl">
+    <div class="modal-header">
+        <h4 class="modal-title">用户信息</h4>
+    </div>
+    <div class="modal-body text-center">
+
+        <div style="background:url(img/bg.jpg) center center; background-size:cover">
+            <div class="wrapper-lg bg-white-opacity">
+                <div class="row m-t">
+                    <div class="col-sm-7">
+                        <a href class="thumb-lg pull-left m-r" ng-click="updateHeadImg()">
+                            <img src="img/a0.jpg" class="img-circle" ng-show="userData.head_img==''">
+                            <img ng-src="{{userData.head_img}}" class="img-circle" ng-show="userData.head_img !=''">
+                            <small class="m-l">点击修改头像</small>
+                        </a>
+                        <div class="clear m-b">
+                            <div class="m-b m-t-sm">
+                                <span class="h3 text-black">{{userData.nickname}}</span>
+                                <small class="m-l">{{'北京'}} {{userData.username}}</small>
+                            </div>
+                            <!--<p class="m-b">-->
+                                <!--<a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon"><i class="fa fa-twitter"></i></a>-->
+                                <!--<a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon"><i class="fa fa-facebook"></i></a>-->
+                                <!--<a href class="btn btn-sm btn-bg btn-rounded btn-default btn-icon"><i class="fa fa-google-plus"></i></a>-->
+                            <!--</p>-->
+                            <a href class="btn btn-sm btn-success btn-rounded">{{userData.mobile}}</a>
+                        </div>
+                    </div>
+                    <!--<div class="col-sm-5">-->
+                        <!--<div class="pull-right pull-none-xs text-center">-->
+                            <!--<a href class="m-b-md inline m">-->
+                                <!--<span class="h3 block font-bold">2k</span>-->
+                                <!--<small>Followers</small>-->
+                            <!--</a>-->
+                            <!--<a href class="m-b-md inline m">-->
+                                <!--<span class="h3 block font-bold">250</span>-->
+                                <!--<small>Following</small>-->
+                            <!--</a>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="admin.headimg.html">
+        <div class="panel panel-default">
+            <div class="panel-heading font-bold">
+                头像
+                <a href ng-click="cancel()" class="pull-right m-l-md text-info font-bold">关闭</a>
+            </div>
+            <div class="modal-body  wrapper-lg">
+                <div class="wrapper-md" >
+                    <div class="m-b text-left">
+                        选择您的头像
+                        <input type="file"
+                               onchange="angular.element(this).scope().setFile(this)">
+                        {{theFile.name}}
+                    </div>
+                    <div class="hbox hbox-auto-xs">
+                        <div class="col">
+                            <div class="wrapper-sm b-a bg-white m-r-xs m-b-xs">
+                                <div class="bg-light" style="height:320px">
+                                    <img-crop image="myImage"
+                                              result-image="myCroppedImage"
+                                              result-image-size="160"
+                                              area-type="{{cropType}}"></img-crop>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col text-center">
+                            <div class="inline bg-white wrapper-sm">
+                                <span class="thumb-lg w-auto-folded avatar m-t-sm img-full">
+                                    <img alt="..." class="img-circle" ng-src="{{myCroppedImage}}" />
+                                </span>
+                                <div class="m-t-xl">
+                                    <button class="btn btn-info" ng-click="saveHeadImg()" ng-show="isSelect">保存</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="modal-footer">-->
+                <!--<button class="btn btn-default" ng-click="cancel()">取消</button>-->
+                <!--<button class="btn btn-primary" ng-click="ok()">保存</button>-->
+            <!--</div>-->
+        </div>
+    </script>
+
+</div>

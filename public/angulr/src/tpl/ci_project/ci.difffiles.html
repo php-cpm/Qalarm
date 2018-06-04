@@ -1,0 +1,212 @@
+<style type="text/css">
+.diff{
+    background-color: #fce6e6;
+}
+.diff-null{
+    background:url(/resources/img/diff-null-bg.png) repeat;
+}
+.diff-minus{
+    background: rgba(255,0,0,0.1);
+}
+.diff-add{
+    background: rgba(0,0,255,0.1);
+}
+.diff-add .highlight{
+    background: rgba(0,0,255,0.4);
+}
+.diff-minus .highlight{
+    background: rgba(255,0,0,0.4);
+}
+td.full-new{
+    background: rgba(0,0,255,0.3);
+}
+td.full-old{
+    background: rgba(255,0,0,0.3);
+}
+.diff-table{
+    table-layout: fixed;
+    border-collapse: separate;
+    font-family: "Lucida Console",Courier,"Courier New",Consolas,"Microsoft YaHei Mono","YaHei Consolas Hybrid",Monaco;
+    font-size:10px;
+}
+.diff-table tr:nth-child(odd){
+    background-color:#FAFAFA;
+}
+.diff-table tr:nth-child(even){
+    background-color:#fff;
+}
+.diff-table tr:hover{
+    background-color: #EFEFEF;
+}
+.diff-table tr:hover td{
+    border-top-color: #EFEFEF;
+    border-bottom-color: #EFEFEF;
+}
+.diff-table td{
+    border-style: solid;
+    border-color: #FAFAFA #EDEDED #EDEDED;
+    border-width: 1px 0;
+    white-space: pre-wrap;
+
+    border-right: 1px solid #d0d0d0;
+    padding: 2px 6px 3px;
+}
+.diff-table tr td:first-of-type{
+    width: 10px;
+}
+.diff-table tr td:nth-of-type(2){
+    width: 500px;
+}
+.diff-table tr td:nth-of-type(3){
+    width: 10px;
+}
+.diff-table tr td:nth-of-type(4){
+    width: 500px;
+}
+.diff-table .unvisible{
+    height: 30px;
+    background:#999;
+    line-height: 30px;
+    text-align: center;
+}
+
+.x-grid-cell-inner{
+    word-wrap: break-word;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+}
+
+.title{
+    font-weight: bold;
+}
+</style>
+<div class="wrapper-sm">
+    <tabset class="nav-tabs">
+        <tab>
+            <tab-heading>
+               变更文件 
+            </tab-heading>
+            <div class="panel panel-default" ng-controller="DiffFilesCtrl as vm">
+                    <!--self. = commits.project_name;-->
+                    <!--self.commitsInfo.update_id    = commits.checkout_sha;-->
+                    <!--self.  = commits.change_user_name;-->
+                    <!--self.commitsInfo.commit_title = commits[0].messag;-->
+                    <!--self.commitsInfo.commit_desc  = desc;-->
+
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-sm-2 text-right">项目名称</div>
+                        <div class="col-sm-10">{{vm.projectChange.project_name}} / {{vm.projectChange.branch}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2 text-right">提交版本号</div>
+                        <div class="col-sm-10">{{vm.paramsData.update_id}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2 text-right">提交人</div>
+                        <div class="col-sm-10">{{vm.projectChange.change_user_name}} / {{vm.projectChange.push_time}}</div>
+                    </div>
+                    <div class="row" ng-click="vm.showCommit()">
+                        <div class="col-sm-2 text-right" >提交内容</div>
+                        <div class="col-sm-10 text-info" ng-show='!vm.isShowCommit'>
+                            {{vm.commitsInfo.commit_title}}点击查看
+                        </div>
+                        <div class="col-sm-10" ng-show='vm.isShowCommit'>
+                            <p ng-repeat="item in vm.projectChange.commits">{{ item.message }}</p>
+                            <p class="text-info">点击关闭</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <a class='text-info' ui-sref="app.ci_project.buildproject"> 返回列表 </a>
+                    </div>
+                </div>
+
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-sm-2">
+
+                            <table class='table'>
+                                <!--<tr ng-repeat="row in vm.diffFilesList" ng-click="vm.getDiffFilesOne(row.project_id,row.gaea_build_id,row.data)" >-->
+                                <tr ng-repeat="row in vm.diffFilesList" ng-click="vm.getDiffFilesOne(row.project_id,row.gaea_build_id,row.data)" >
+                                    <td class="b-b text-info">{{row.data}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-sm-10">
+                            <div id='diff_content'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>
+
+<!--<div class="wrapper-sm">-->
+    <!--<tabset class="nav-tabs">-->
+        <!--<tab>-->
+            <!--<tab-heading>-->
+               <!--变更文件 -->
+            <!--</tab-heading>-->
+            <!--[><div ng-controller="FilesDiffCtrl as vm"><]-->
+            <!--<div class="app-content-body app-content-full fade-in-up ng-scope" ng-controller="DiffFilesCtrl as vm">-->
+                <!--[> hbox layout <]-->
+                <!--<div class="hbox hbox-auto-xs bg-light ">-->
+                  <!--[> column <]-->
+                  <!--<div class="col w-md lter b-l">-->
+                    <!--<div class="vbox">-->
+                      <!--<div class="wrapper b-b b-light">-->
+                        <!--<small class="text-muted">变更文件</small>-->
+                        <!--<a class='text-info' ui-sref="app.ci_project.buildproject"> 返回列表 </a>-->
+                        <!--[><div class="font-thin h4">变更文件</div><]-->
+
+                      <!--</div>-->
+                      <!--<div class="row-row">-->
+                        <!--<div class="cell">-->
+                          <!--<div class="cell-inner">-->
+                            <!--<div class="wrapper-md" style="font-size:12px">-->
+                              <!--<p ng-repeat="row in diffFilesList" ng-click="vm.getDiffFilesOne(row.project_id,row.gaea_build_id,row.data)" class="b-b text-info">{{row.data}}</p>-->
+                              <!--[>You got the bottom<]-->
+                            <!--</div>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                      <!--<div class="padder b-t b-light text-center">-->
+                        <!--[><div class="m-xs">Footer with fluid height</div><]-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--[> /column <]-->
+
+                  <!--[> column <]-->
+                  <!--<div class="col">-->
+                    <!--<div class="vbox">-->
+                      <!--<div class="row-row">-->
+                        <!--<div class="cell">-->
+                          <!--<div class="cell-inner">-->
+                            <!--<div class="wrapper-md">-->
+                                <!--<div>-->
+                                    <!--<a class='btn btn-default' ui-sref="app.ci_project.buildproject"> 取消发布 </a>-->
+                                    <!--<a class='btn btn-info'    ui-sref="app.ci_project.buildproject"> 确认发布 </a>-->
+                                <!--</div>-->
+                                <!--<div id='diff_content'></div>-->
+                              <!--[>This is the scrollable content<]-->
+                              <!--[>You got the bottom<]-->
+                            <!--</div>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--[> /column <]-->
+
+
+                <!--</div>-->
+                <!--[> /hbox layout <]-->
+            <!--</div>-->
+        <!--</tab>-->
+    <!--</tabset>-->
+<!--</div>-->
+
+

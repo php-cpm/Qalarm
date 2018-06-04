@@ -1,0 +1,57 @@
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">编辑脚本
+        <button class="btn btn-xs btn-danger pull-right" ng-click="cancel()">
+            <i class="glyphicon glyphicon-remove">关闭</i>
+        </button>
+    </div>
+    <div class="modal-body  wrapper-lg">
+        <form role="form" class="form-horizontal" novalidate="novalidate" name="add_script_form">
+            <div class="form-group">
+                <label class="control-label">脚本名称</label>
+                <input class="" ng-model="script.scriptName" ng-required="true" ng-disabled="script.isShow"/>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">脚本功能</label>
+                <input class="" ng-model="script.scriptFunction" ng-required="true"/>
+            </div>
+            <div class="form-group row">
+                <label class="control-label">参数列表</label>
+                <input class="" ng-model="script.scriptParams"/>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">脚本类别</label>
+                <select ng-model="script.scriptType"
+                        ng-options="value.id as value.name for value in script.scritpTypes" ng-disabled="script.isShow">
+                </select>
+            </div>
+            <div ng-show="true">
+                <div class="form-group">
+                    <label class="control-label">脚本拥有者</label>
+                    <select ng-model="script.scritpOwner"
+                            ng-options="value.id as value.name for value in script.scritpOwners"
+                            ng-disabled="script.isShow">
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label">脚本目录</label>
+                    <input class="" ng-model="script.scriptDir" placeholder="默认为脚本类别目录" ng-disabled="script.isShow"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label">脚本内容</label>
+                <section class="b-a">
+                    <textarea ui-codemirror="script.editorOptions" ng-model="script.scriptContent"></textarea>
+                    <!--<ui-codemirror ui-codemirror-opts="script.editorOptions" ng-model="script.scripts"></ui-codemirror>-->
+                </section>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+
+        <button ng-disabled="add_script_form.$invalid || script.btnDisabled" class="btn btn-primary" ng-click="ok()">
+            保存
+        </button>
+    </div>
+</div>

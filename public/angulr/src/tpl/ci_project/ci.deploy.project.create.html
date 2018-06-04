@@ -1,0 +1,88 @@
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">发布项目
+        <button class="btn btn-xs btn-danger pull-right" ng-click="cancel()">
+            <i class="glyphicon glyphicon-remove">关闭</i>
+        </button>
+    </div>
+    <div class="modal-body  wrapper-lg">
+
+        <form role="form" class="form-horizontal" novalidate="novalidate" name="admin_user_edit_form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">发布类型</label>
+                <div class="col-sm-10">
+                    <select ng-model="data.deployType" ng-change="deployTypeSelect()" ng-options="value.id as value.name for value in data.deployTypeList" class="form-control">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">发布目录</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="发布目录；没有特殊需求；不要修改"
+                           ng-model="data.deploy_dir"
+                           ng-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">发布内容概述</label>
+                <div class="col-sm-10" ng-class="">
+                    <input type="text" class="form-control" placeholder="发布内容概述"
+                           ng-model="data.title"
+                           ng-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">发布内容描述</label>
+                <div class="col-sm-10"
+                     ng-class="">
+                    <textarea rows="5" type="text" class="form-control" placeholder="请输入产品需求描述,最大长度为255个字符"
+                           ng-model="data.desc"
+                           ng-required="true">
+                   </textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">当前版本号</label>
+                <div class="col-sm-10">
+                    <p class="form-control">{{data.update_id}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">服务器信息</label>
+                <div class="col-sm-10">
+                    <!--<label class="checkbox-inline">-->
+                            <!--<input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()"/>全选-->
+                    <!--</label>-->
+                    <!--<label ng-repeat="host in ciHostList" class="checkbox-inline">-->
+                        <!--[><input type="checkbox" value="host.id" ng-true-value="true" ng-false-value="false">{{host.name}}<]-->
+                        <!--<input type="checkbox" name="selected" ng-checked="isSelected(host.id)" ng-click="updateSelection($event, host.id)"/> {{host.name}}-->
+                    <!--</label>-->
+                    
+                    <label class="radio-inline">
+                      <!--<input type="radio" name="deploy_type" value="test_env" ng-model="data.deployStep">-->
+                      <input type="radio" name="deploy_type" value="0" ng-model="data.deployStep" ng-disabled="!hostset.test">
+                       测试环境
+                    </label>
+                    <label class="radio-inline">
+                      <!--<input type="radio" name="deploy_type" value="online_env" ng-model="data.deployStep">-->
+                      <input type="radio" name="deploy_type" value="1" ng-model="data.deployStep" ng-disabled="!hostset.slave">
+                      <!--线上环境-->
+                      slave环境
+                    </label>
+
+                    <div ng-show="!hostset.test" class="text-danger">
+                       测试环境的机器尚未配置，不可发布, 测试环境 ！ 
+                    </div>
+
+                    <div ng-show="!hostset.slave" class="text-danger">
+                       回归机器尚未配置，不可发布, 回归环境 ！ 
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+                <button type="submit" class="btn btn-sm btn-default" ng-click="cancel()">关闭</button>
+                <button type="submit" class="btn btn-sm btn-info" ng-click="ok()">确认</button>
+    </div>
+</div>

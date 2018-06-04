@@ -1,0 +1,54 @@
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">用户信息编辑</div>
+    <div class="panel-body">
+
+        <form class="bs-example form-horizontal">
+            <div class="form-group">
+                <label class="col-lg-2 control-label">真实姓名</label>
+                <div class="col-lg-10">
+                    <input ng-model="data.auth.realname" type="text" class="form-control" placeholder="真实姓名">
+                    <span class="help-block m-b-none">用户真实姓名.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">身份证号</label>
+                <div class="col-lg-10">
+                    <input ng-model="data.auth.idcard" type="text" class="form-control" placeholder="身份证号">
+                </div>
+            </div>
+            <!--<div class="form-group">-->
+                <!--<label class="col-lg-2 control-label">手机号</label>-->
+                <!--<div class="col-lg-10">-->
+                    <!--<input ng-model="data.basic.mobile" type="text" class="form-control" placeholder="手机号">-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <div class="form-group">
+                <label class="col-lg-2 control-label">车牌号码</label>
+                <div class="col-lg-10">
+                    <select ng-model="data.car.number_prefix" ng-change="carNumberPrefixSelect()" ng-options="value.id as value.name for value in carNumberPrefixs" class="form-control"/>
+                    <input ng-model="data.car.number_suffix" type="text" class="form-control" placeholder="车牌号码">
+                </div>
+
+
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2 control-label">车型</label>
+                <div class="col-lg-10">
+                    <select ng-model="data.car.model_id" ng-change="carBrandSelect()" ng-options="value.id as value.name for value in carBrands" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-offset-2 col-lg-10">
+                    <button type="submit" class="btn btn-sm btn-info" ng-click="okAuthUpdate()" ng-show="permits.account_list.update">保存实名信息</button>
+                    <button type="submit" class="btn btn-sm btn-info" ng-click="okCarUpdate()" ng-show="permits.account_list.update">保存车辆信息</button>
+
+                    <button type="submit" class="btn btn-sm btn-info" ng-click="cancel()">关闭</button>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

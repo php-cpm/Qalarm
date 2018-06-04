@@ -1,0 +1,432 @@
+<div class="wrapper-sm">
+    <tabset class="nav-tabs">
+        <tab>
+            <tab-heading>
+                项目设置
+            </tab-heading>
+            <div ng-controller="CiProjectEditCtrl as vm">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+
+                    </div>
+
+                    <div class="modal-body">
+                        <form role="form" class="form-horizontal" novalidate="novalidate" name="admin_user_edit_form">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label text-left">项目名称</label>
+                                <label class="col-sm-9 control-label text-left">{{data.project_name}}</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label text-left">发布目录</label>
+                                <div class="col-sm-9"
+                                     ng-class="">
+                                    <input type="text" class="form-control" placeholder="/home/t/system/ttyc-gaea"
+                                           ng-model="data.deploy_dir"
+                                           ng-required="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label text-left">部署用户</label>
+                                <div class="col-sm-9"
+                                     ng-class="">
+                                    <input type="text" class="form-control" placeholder="ttyc"
+                                           ng-model="data.ssh_user"
+                                           ng-required="true">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label text-left">检测代码目录</label>
+                                <div class="col-sm-9"
+                                     ng-class="">
+                                    <input type="text" class="form-control" placeholder="app,public"
+                                           ng-model="data.checkcode_dir"
+                                           ng-required="true">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label text-left">部署文件</label>
+                                <div class="col-sm-9"
+                                     ng-class="">
+                                    <textarea type="text" class="form-control" placeholder="部署文件；例如*"
+                                           ng-model="data.deploy_files"
+                                           ng-required="true"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label text-left">部署文件黑命单</label>
+                                <div class="col-sm-9"
+                                     ng-class="">
+                                    <textarea type="text" class="form-control" placeholder="部署文件黑名单,每行填写一个文件或目录,例如.env"
+                                           ng-model="data.deploy_black_files"
+                                           ng-required="true"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label text-left">项目语言</label>
+                                <div class="col-sm-9"
+                                     ng-class="">
+                                    <select ng-model="data.language" ng-options="language for language in languages">
+                                        <option value=''>项目语言</option>
+                                    </select>
+
+                                    <select ng-disabled="!data.language" ng-model="data.language_version" ng-options="version for version in languageVersions">
+                                        <option value=''>语言版本</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label text-left">构建步骤</label>
+                                <div class="col-sm-9">
+                                    <!--{{data.jobsSelected}}-->
+                                    <!--<select ui-jq="chosen"-->
+                                            <!--ui-refresh="data.jobsSelected"-->
+                                            <!--data-placeholder="选择步骤"-->
+                                            <!--ng-model="data.jobsSelected"-->
+                                            <!--ng-options="value.id as value.sname for value in jobList"-->
+                                            <!--class="w-md form-control"-->
+                                            <!--multiple>-->
+                                    <!--</select>-->
+
+                                    <div class="checkbox-inline" ng-repeat="item in jobList">
+                                      <label>
+                                          <input type="checkbox" value="{{item.id}}" ng-checked="isSelected(item.id)" ng-click="updateSelection($event,item.id)">
+                                          {{item.sname}}
+                                      </label>
+                                    </div>
+
+                               </div>
+                            </div>
+
+                            <div class="form-group">
+                                <fieldset ui-fieldset="源码版本库 【仅支持git】" is-selected="{{data.is_scm_open}}">
+                                    <legend class="legend-border">
+                                    </legend>
+                                    <div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label text-left">git地址</label>
+                                            <label class="col-sm-9 control-label text-left">{{data.project_addr}}</label>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label text-left">项目分支</label>
+                                            <div class="col-sm-9"
+                                                 ng-class="">
+                                                <input type="text" class="form-control" placeholder="master"
+                                                       ng-model="data.listener_branchs"
+                                                       ng-required="true">
+                                                <!--<select ui-jq="chosen"-->
+                                                        <!--multiple-->
+                                                        <!--data-placeholder="监听分支"-->
+                                                        <!--ng-model="data.listener_branchs"-->
+                                                        <!--ng-options="value.id as value.name for value in data.project_branchs"-->
+                                                        <!--class="w-md form-control">-->
+                                                <!--</select>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+
+                            <div class="form-group">
+                                <fieldset ui-fieldset="发布执行脚本 【发布前和发布后脚本】" is-selected="{{data.is_shell_open}}">
+                                    <legend class="legend-border">
+                                    </legend>
+                                    <div>
+                                        <div class="form-group">
+                                            <label class="control-label text-left m-l-md">发布前执行脚本A【发布机上执行】</label>
+                                        </div>
+                                        <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <section class="b-a">
+                                                    <!--<textarea ui-codemirror="data.editorOptions" ng-model="data.build_before_sh" ng-required="true">-->
+                                                    <textarea style="height: 150px; width:100%" ng-model="data.build_before_sh" ng-required="true">
+                                                    </textarea>
+                                                    </section>
+                                                </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label text-left m-l-md">发布后执行脚本B【部署目标机上执行】</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <section class="b-a">
+                                                    <textarea style="height: 150px; width:100%" ng-model="data.deploy_after_sh" ng-required="true">
+                                                    </textarea>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="form-group">
+                                <fieldset ui-fieldset="黑名单 【通常logs、template_c、status.php等目录需要设置】" is-selected="{{data.is_blacklist_open}}">
+                                    <legend class="legend-border">
+                                    </legend>
+                                    <div>
+                                        <div class="form-group">
+                                            <label class="control-label text-left m-l-md text-danger">
+                                                注：填写基于{{data.deploy_dir}}的相对路径，每行一个文件或目录
+                                            </label>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <section class="b-a">
+                                                    <textarea style="height: 150px; width:100%" ng-model="data.black_list" ng-required="true">
+                                                    </textarea>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-default" ng-click="cancel()">取消</button>
+                        <button class="btn btn-primary" ng-click="ok()">保存</button>
+                    </div>
+                </div>
+            </div>
+        </tab>
+
+        <tab>
+            <tab-heading>
+                机器设置 
+            </tab-heading>
+            <div ng-controller="CiHostCtrl as vm">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+
+                    </div>
+
+                    <input ng-model="project.ProjectRow" ng-show="false">
+                    <div class="modal-body">
+                        <!--<div ng-controller="CiHostCtrl as vm">-->
+                        <div>
+                            <script type="text/ng-template" , id="ci.gitlab.edit.html">
+                                <div ng-include="'tpl/ci_project/ci.gitlab.edit.html'"></div>
+                            </script>
+                            <script type="text/ng-template" , id="ci.host.edit.html">
+                                <div ng-include="'tpl/ci_project/ci.host.edit.html'"></div>
+                            </script>
+                            <form class="form-inline" role="form">
+                                <!--<button type="button" ng-click="vm.addCiHost(project.ProjectRow, 'md')" class="btn btn-sm btn-success">-->
+                                <button type="button" ng-click="vm.addCiHost(vm.project, 'md')" class="btn btn-sm btn-success">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    添加
+                                </button>
+                            </form>
+
+                            <div class="panel panel-default">
+                                <table ng-table="vm.tableParams"
+                                       class="table table-condensed table-bordered table-striped text-center small">
+                                    <tr style="vertical-align: middle" ng-repeat="row in $data">
+                                        <td title="'集群名'">
+                                            {{row.host_tag}}
+                                        </td>
+                                        <td data-title="'主机类型'">
+                                            {{row.host_type_name}}
+                                        </td>
+
+                                        <td data-title="'主机IP'">
+                                            {{row.host_name}}
+                                        </td>
+
+                                        <td data-title="'回归机'">
+                                            {{row.host_is_slave}}
+                                        </td>
+
+                                        <td title="'状态'"  class="{{row.statusColor}}">
+                                            {{row.statusDesc}}
+                                        </td>
+
+                                        <td title="'操作'">
+                                            <button type="button" class="btn btn-xs btn-default b-info" ng-disabled="row.host_env_type=='1'" ng-show="row.host_is_slave=='否'" ng-hide="row.host_is_slave=='是'"
+                                                    ng-click="vm.handler(row, 'slave')">置为回归机</button>
+                                            <button type="button" class="btn btn-xs btn-default b-info"  ng-disabled="row.host_env_type=='1'" ng-show="row.host_is_slave=='是'" ng-hide="row.host_is_slave=='否'"
+                                                    ng-click="vm.handler(row, 'unslave')">取消回归机</button>
+                                            <button type="button" class="btn btn-xs btn-default b-success" ng-show="row.statusDesc=='停用'" ng-hide="row.statusDesc=='启用'"
+                                                    ng-click="vm.handler(row, 'enable')">启用</button>
+                                            <button type="button" class="btn btn-xs btn-default b-danger" ng-show="row.statusDesc=='启用'" ng-hide="row.statusDesc=='停用'"
+                                                    ng-click="vm.handler(row, 'disable')">停用</button>
+                                            <button type="button" class="btn btn-xs btn-default b-info"
+                                                    ng-click="vm.handler(row, 'delete')">删除</button>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                    </div>
+
+                </div>
+            </div>
+        </tab>
+
+        <tab>
+            <tab-heading>
+                域名设置 
+            </tab-heading>
+            <div ng-controller="CiDnsCtrl as vm">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+
+                    </div>
+
+                    <div class="modal-body">
+                        <div>
+                            <script type="text/ng-template" , id="ci.dns.add.html">
+                                <div ng-include="'tpl/ci_project/ci.dns.add.html'"></div>
+                            </script>
+                            <script type="text/ng-template" , id="ci.dns.edit.html">
+                                <div ng-include="'tpl/ci_project/ci.dns.edit.html'"></div>
+                            </script>
+                            <form class="form-inline" role="form">
+                                <button type="button" ng-click="vm.AddOrUpdateProjectDns('md', 'add', '')" class="btn btn-sm btn-success">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    添加
+                                </button>
+                            </form>
+
+                            <td class="panel panel-default">
+                                <table ng-table="vm.tableParams"
+                                       class="table table-condensed table-bordered table-striped text-center small">
+                                    <tr style="vertical-align: middle" ng-repeat="row in $data">
+                                        <td title="'域名'">
+                                            {{row.name}}
+                                        </td>
+
+                                        <td data-title="'端口号'">
+                                            {{row.port}}
+                                        </td>
+
+                                        <td data-title="'实时状态'">
+                                            <div class="form-group text-left small" ng-repeat="host in row.hostinfo">
+                                                <div class="col-md-5">{{host.host}}</div>
+                                                <div class="col-md-3"><span class="{{host.statusColor}}"><b>{{host.status}}</b></span></div>
+                                                <div class="col-md-4">
+                                                    <div  ng-show="host.status == 'down'" ng-hide="host.status == 'up'">
+                                                        <button type="button" class="btn btn-xs btn-success"  ng-click="vm.handler.online(row.name, host.host)">
+                                                            上线
+                                                        </button>
+                                                    </div>
+                                                    <div ng-show="host.status == 'up'" ng-hide="host.status == 'down'">
+                                                        <button type="button" class="btn btn-xs btn-danger" ng-click="vm.handler.offline(row.name, host.host)">
+                                                            下线
+                                                        </button>
+                                                        <div/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td data-title="'操作'">
+                                            <button type="button" class="btn btn-xs btn-default b-success" ng-click="vm.AddOrUpdateProjectDns('md', 'edit', row)">编辑</button>
+                                            <button type="button" class="btn btn-xs btn-default b-danger" ng-click="vm.handler.delete(row.name)">删除</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                    </div>
+
+                </div>
+            </div>
+        </tab>
+
+        <tab>
+            <tab-heading>
+                人员设置 
+            </tab-heading>
+            <div ng-controller="CiMemberCtrl as vm">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+
+                    </div>
+
+                    <input ng-model="project.ProjectRow" ng-show="false">
+                    <div class="modal-body">
+                        <div>
+                            <script type="text/ng-template" , id="ci.member.edit.html">
+                                <div ng-include="'tpl/ci_project/ci.member.edit.html'"></div>
+                            </script>
+                            <form class="form-inline" role="form">
+                                <!--<button type="button" ng-click="vm.addProjectMember(project.ProjectRow, 'md')" class="btn btn-sm btn-success">-->
+                                <button type="button" ng-click="vm.addProjectMember(vm.project, 'md')" class="btn btn-sm btn-success">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    添加
+                                </button>
+                            </form>
+
+                            <div class="panel panel-default">
+                                <table ng-table="vm.tableParams"
+                                       class="table table-condensed table-bordered table-striped text-center small">
+                                    <tr style="vertical-align: middle" ng-repeat="row in $data">
+                                        <td title="'用户名'">
+                                            {{row.user_name}}
+                                        </td>
+                                        <td data-title="'手机'">
+                                            {{row.mobile}}
+                                        </td>
+
+                                        <td data-title="'姓名'">
+                                            {{row.nick_name}}
+                                        </td>
+
+                                        <td data-title="'类型'">
+                                            <!--{{row.member_type}}-->
+                                            {{row.member_type_desc}}
+                                        </td>
+
+                                        <td title="'状态'"  class="{{row.status_color}}">
+                                            {{row.status_desc}}
+                                        </td>
+
+                                        <td title="'操作'">
+
+                                            <button type="button" class="btn btn-xs btn-default b-success" ng-show="row.status_desc=='禁用'" 
+                                                ng-hide="row.status_desc=='正常'" ng-click="vm.handler.updateState(row.id, 'enable')">启用</button>
+
+                                            <button type="button" class="btn btn-xs btn-default b-success" ng-show="row.status_desc=='正常'" 
+                                                ng-hide="row.status_desc=='禁用'" ng-click="vm.handler.updateState(row.id, 'disable')">禁用</button>
+
+                                            <button type="button" class="btn btn-xs btn-default b-danger" ng-click="vm.handler.delete(row.id)">删除</button>
+                                        </td>
+
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                    </div>
+
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>
+
+<!--<div class="panel panel-default">-->
+    <!--<div class="panel-heading font-bold">项目编辑-->
+        <!--<button class="btn btn-xs btn-danger pull-right" ng-click="cancel()">-->
+            <!--<i class="glyphicon glyphicon-remove">关闭</i>-->
+        <!--</button>-->
+    <!--</div>-->
+    <!--<div class="modal-body  wrapper-lg">-->
+
+    <!--</div>-->
+
+<!--</div>-->

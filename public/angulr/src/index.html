@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="cn" data-ng-app="app">
+<head>
+  <meta charset="utf-8" />
+  <title>飞凡| Qalarm</title>
+  <meta name="description" content="Angularjs, Html5, Music, Landing, 4 in 1 ui kits package" />
+  <meta name="keywords" content="AngularJS, angular, bootstrap, admin, dashboard, panel, app, charts, components,flat, responsive, layout, kit, ui, route, web, app, widgets" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <!--<link rel="icon" href="img/logo.ico" type="image/x-icon">-->
+  <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="../bower_components/animate.css/animate.css" type="text/css" />
+  <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css" type="text/css" />
+  <link rel="stylesheet" href="../bower_components/simple-line-icons/css/simple-line-icons.css" type="text/css" />
+  <link rel="stylesheet" href="../bower_components/ng-table/dist/ng-table.min.css" />
+  <link rel="stylesheet" href="../bower_components/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+  <link rel="stylesheet" href="../bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+  <link rel="stylesheet" href="../bower_components/chosen/chosen.css" />
+  <link rel="stylesheet" href="../bower_components/angularjs-toaster/toaster.css" />
+  <link rel="stylesheet" href="../bower_components/jsoneditor/dist/jsoneditor.min.css" />
+  <link rel="stylesheet" href="../bower_components/ngImgCrop/compile/minified/ng-img-crop.css" />
+  <link rel="stylesheet" href="../bower_components/codemirror/lib/codemirror.css" />
+  <link rel="stylesheet" href="../bower_components/codemirror/theme/monokai.css" />
+
+  <link rel="stylesheet" href="css/font.css" type="text/css" />
+  <link rel="stylesheet" href="css/app.css" type="text/css" />
+<body ng-controller="AppCtrl">
+  <div class="app" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}" ui-view></div>
+
+  <!-- jQuery -->
+  <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+
+  <!-- Angular -->
+  <script src="../bower_components/angular/angular.js"></script>
+  
+  <script src="../bower_components/angular-animate/angular-animate.js"></script>
+  <script src="../bower_components/angular-cookies/angular-cookies.js"></script>
+  <script src="../bower_components/angular-resource/angular-resource.js"></script>
+  <script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
+  <script src="../bower_components/angular-touch/angular-touch.js"></script>
+  <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="../bower_components/ngstorage/ngStorage.js"></script>
+  <script src="../bower_components/angular-ui-utils/ui-utils.js"></script>
+
+  <!-- bootstrap -->
+  <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <!-- lazyload -->
+  <script src="../bower_components/oclazyload/dist/ocLazyLoad.js"></script>
+  <!-- translate -->
+  <script src="../bower_components/angular-translate/angular-translate.js"></script>
+  <script src="../bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+  <script src="../bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
+  <script src="../bower_components/angular-translate-storage-local/angular-translate-storage-local.js"></script>
+
+  <!--table-->
+  <script src="../bower_components/ng-table/dist/ng-table.js"></script>
+
+  <!--daterangepicker-->
+  <script src="../bower_components/moment/moment.js"></script>
+  <script src="../bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+  <script src="../bower_components/angular-daterangepicker/js/angular-daterangepicker.js"></script>
+  <script src="../bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+  <script src="../bower_components/angular-bootstrap-datetimepicker-directive/angular-bootstrap-datetimepicker-directive.js"></script>
+
+  <!--chosen-->
+  <script src="../bower_components/chosen/chosen.jquery.js"></script>
+  <!--socket.io-->
+  <script src="http://qalarm.long.intra.ffan.com/socket.io/socket.io.js"></script>
+
+  <!--toaster-->
+  <script src="../bower_components/angularjs-toaster/toaster.js"></script>
+
+  <!--ueditor-->
+  <script src="../bower_components/angular-ueditor/dist/angular-ueditor.min.js"></script>
+
+  <!--jsoneditor-->
+  <script src="../bower_components/jsoneditor/dist/jsoneditor.min.js"></script>
+  <script src="../bower_components/ng-jsoneditor/ng-jsoneditor.js"></script>
+
+  <!--ng-img-crop-->
+  <script src="../bower_components/ngImgCrop/compile/minified/ng-img-crop.js"></script>
+
+   <!--ui-codemirror-->
+  <!--https://github.com/angular-ui/ui-codemirror-->
+  <script src="../bower_components/codemirror/lib/codemirror.js"></script>
+  <script src="../bower_components/angular-ui-codemirror/ui-codemirror.js"></script>
+  <script src="../bower_components/codemirror/keymap/vim.js"></script>
+  <script src="../bower_components/codemirror/mode/shell/shell.js"></script>
+
+
+  <!--angular-confirm-->
+  <script src="../bower_components/angular-confirm-modal/angular-confirm.min.js"></script>
+
+  <!--highcharts -->
+  <script src="../bower_components/highcharts/highcharts.js"></script>
+  <!--<script src="../bower_components/highcharts/modules/exporting.js"></script>-->
+  <script src="../bower_components/highcharts/modules/heatmap.js"></script>
+  <script src="../bower_components/highcharts/modules/treemap.js"></script>
+  <script src="../bower_components/highcharts/themes/dark-blue.js"></script>
+  <script src="../bower_components/highcharts-ng/dist/highcharts-ng.min.js"></script>
+
+
+  <!-- App -->
+  <script src="js/app.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/config.lazyload.js"></script>
+  <script src="js/config.router.js"></script>
+  <script src="js/config.interceptor.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/services/encrypt.js"></script>
+  <script src="js/services/admin-model.js"></script>
+  <script src="js/services/ui-load.js"></script>
+  <script src="js/services/socketio.client.js"></script>
+  <script src="js/filters/fromNow.js"></script>
+  <script src="js/directives/setnganimate.js"></script>
+  <script src="js/directives/ui-butterbar.js"></script>
+  <script src="js/directives/ui-focus.js"></script>
+  <script src="js/directives/ui-fullscreen.js"></script>
+  <script src="js/directives/ui-jq.js"></script>
+  <script src="js/directives/ui-module.js"></script>
+  <script src="js/directives/ui-nav.js"></script>
+  <script src="js/directives/ui-scroll.js"></script>
+  <script src="js/directives/ui-shift.js"></script>
+  <script src="js/directives/ui-toggleclass.js"></script>
+  <script src="js/controllers/bootstrap.js"></script>
+  <!-- Lazy loading -->
+
+  <script src="js/app/account/img.qiniu.js"></script>
+</body>
+</html>

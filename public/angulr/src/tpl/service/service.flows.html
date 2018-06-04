@@ -1,0 +1,105 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="
+    app.settings.asideFolded = false;
+    app.settings.asideDock = false;
+  ">
+    <!-- main -->
+    <div class="col" ng-controller="ServiceFlowCtrl as vm">
+        <!-- main header -->
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <h1 class="m-n font-thin h3 text-black">通用流程</h1>
+                </div>
+            </div>
+        </div>
+        <div class="container row">
+            <div class="text-left">
+                <div class="col-md-3">
+                    <script type="text/ng-template" , id="service.flows.common.vpn.html">
+                        <div ng-include="'tpl/service/common/service.flows.common.vpn.html'"></div>
+                    </script>
+                    <div class="panel panel-default item">
+                        <div class="panel-body ">
+                            <div class="col-md-2">
+
+                            </div>
+                            <div class="col-md-8 text-center">
+                                <a ng-click="applyVPN('md')"><div class="h5 text-info font-thin h5">申请VPN</div></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <script type="text/ng-template" , id="service.flows.common.recoverPerm.html">
+                        <div ng-include="'tpl/service/common/service.flows.common.recoverPerm.html'"></div>
+                    </script>
+                    <div class="panel panel-default item">
+                        <div class="panel-body ">
+                            <div class="col-md-2">
+
+                            </div>
+                            <div class="col-md-8 text-center">
+                                <a ng-click="recoverPermission('md')"><div class="h5 text-info font-thin h5">回收公司权限</div></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <h1 class="m-n font-thin h3 text-black">运维流程</h1>
+                </div>
+            </div>
+        </div>
+        <div class="container row">
+            <div class="text-left">
+                <div class="col-md-3">
+                    <script type="text/ng-template" , id="service.flows.ops.serverperm.html">
+                        <div ng-include="'tpl/service/ops/service.flows.ops.serverperm.html'"></div>
+                    </script>
+                    <div class="panel panel-default item">
+                        <div class="panel-body ">
+                            <div class="col-md-2">
+
+                            </div>
+                            <div class="col-md-8 text-center">
+                                <a ng-click="applyServerPerm('md')"><div class="h5 text-info font-thin h5">申请服务器权限</div></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <script type="text/ng-template" , id="service.flows.ops.serverchangepassword.html">
+                        <div ng-include="'tpl/service/ops/service.flows.ops.serverchangepassword.html'"></div>
+                    </script>
+                    <div class="panel panel-default item">
+                        <div class="panel-body ">
+                            <div class="col-md-2">
+
+                            </div>
+                            <div class="col-md-8 text-center">
+                                <a ng-click="applyServerChangePassword('md')"><div class="h5 text-info font-thin h5">修改服务器密码</div></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div class="col-md-3">-->
+                    <!--<div class="panel panel-default item">-->
+                        <!--<div class="panel-body ">-->
+                            <!--<span class="color-grey">-->
+                                <!--更多？敬请期待...-->
+                            <!--</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / right col -->
+</div>

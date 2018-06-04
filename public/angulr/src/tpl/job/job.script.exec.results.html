@@ -1,0 +1,24 @@
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">执行结果
+        <button class="btn btn-xs btn-danger pull-right" ng-click="cancel()">
+            <i class="glyphicon glyphicon-remove">关闭</i>
+        </button>
+    </div>
+    <div class="modal-body  wrapper-lg">
+        <div class="table-responsive small">
+            <table ng-table="execResult.tableParams" class="table table-condensed table-bordered table-striped">
+                <tr ng-repeat="row in $data">
+                    <td style="width:20%;word-wrap:break-word;text-align: center; vertical-align: middle" title="'状态'">
+                        {{row.desc}}
+                    </td>
+                    <td style="width:30%;word-wrap:break-word;text-align: center; vertical-align: middle" title="'主机名'">
+                        {{row.display_hosts}}
+                    </td>
+                    <td style="width:50%;word-wrap:break-word;text-align: left; vertical-align: middle" title="'执行输出'">
+                        {{row.output}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">手发代金券
+        <button class="btn btn-xs btn-danger pull-right" ng-click="cancel()">
+            <i class="glyphicon glyphicon-remove">关闭</i>
+        </button>
+    </div>
+    <div class="modal-body  wrapper-lg">
+        <form role="form" class="form-horizontal" novalidate="novalidate" name="manual_coupon_add_form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">优惠金额</label>
+
+                <div class="col-sm-6"
+                     ng-class="{ 'has-error': manual_coupon_add_form.money.$invalid && manual_coupon_add_form.money.$dirty }">
+                    <input name="money" type="number" class="form-control" placeholder="优惠金额"
+                           ng-model="manual.money"
+                           ng-maxlength=10
+                           ng-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">有效期</label>
+
+                <div class="col-sm-6">
+                    <input date-range-picker
+                           class="form-control date-picker"
+                           type="text"
+                           options="manual.validTimeOptions"
+                           ng-model="manual.validTimeRange"
+                    />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">业务类型</label>
+
+                <div class="col-sm-6">
+                    <select ng-model="manual.bussType"
+                            ng-options="value.id as value.name for value in manual.bussTypes" class="form-control">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">发放类型</label>
+
+                <div class="col-sm-6">
+                    <select ng-model="manual.couponType"
+                            ng-options="value.id as value.name for value in manual.couponTypes" class="form-control">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">短信通知</label>
+
+                <div class="col-sm-6">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios1" ng-model="manual.noticeSms" value="1" checked>
+                        是
+                    </label>
+                    <label>
+                        <input type="radio"  name="optionsRadios" id="optionsRadios2" ng-model="manual.noticeSms" value="0">
+                        否
+                    </label>
+                </div>
+            </div>
+            <div class="form-group"
+                 ng-class="{ 'has-error': manual_coupon_add_form.reason.$invalid && manual_coupon_add_form.reason.$dirty }">
+                <label class="col-sm-2 control-label">补偿原因</label>
+
+                <div class="col-sm-6">
+                    <input name="reason" type="text" class="form-control" placeholder="请填写发放优惠券的原因"
+                           ng-model="manual.reason"
+                           ng-required="true">
+                </div>
+            </div>
+            <div class="form-group"
+                 ng-class="{ 'has-error': manual_coupon_add_form.mobile.$invalid && manual_coupon_add_form.mobile.$dirty }">
+                <label class="col-sm-2 control-label">用户手机</label>
+
+                <div class="col-sm-6">
+                    <textarea rows="5" name="mobile" type="text" class="form-control" placeholder="输入用户手机号,每行一个手机号"
+                              ng-model="manual.mobile"
+                              ng-minlength=11
+                              ng-required="true">
+                    </textarea>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button ng-disabled="manual_coupon_add_form.$invalid" class="btn btn-primary" ng-click="ok()">发放</button>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+<div class="wrapper-sm">
+    <tabset class="nav-tabs">
+        <tab>
+            <tab-heading>
+               部署项目
+            </tab-heading>
+            <div ng-controller="DeployDetailCtrl as vm">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                    <script type="text/ng-template", id="ci.deploylog.show.html">
+                        <div ng-include="'tpl/ci_project/ci.deploylog.show.html'"></div>
+                    </script>
+                    <!--<div class="row">-->
+                        <table ng-table="vm.tableParamsHostLogs"
+                               class="table table-condensed table-bordered table-striped text-center small">
+                            <tr style="vertical-align: middle" ng-repeat="row in $data">
+                                <!--<span ng-click="vm.showDeployLog(log)" ></span>-->
+                                <td data-title="'编号'">{{row.id}} </td>
+                                <td data-title="'部署Id'">{{row.deploy_id}} </td>
+                                <!--<td data-title="'构建Id'">{{row.gaea_build_id}} </td>-->
+                                <td data-title="'jid'"><a hrepf="" title="" ng-click="vm.showDeployLog(row)" class="text-info">{{row.jid}}</a> </td>
+                                <td data-title="'项目'">{{row.project_name}}/{{row.project_id}} </td>
+                                <td data-title="'集群'"> 未知 </td>
+                                <!--<td data-title="'服务器'"> {{row.host_name}}{{row.host_ip}}</td>-->
+                                <td data-title="'服务器'"> {{row.host_name}}</td>
+                                <td data-title="'状态'">
+                                    <a hrepf="" title="" ng-click="vm.showDeployLog(row)" class="text-info">
+                                        <!--{{row.status}}-->
+                                        {{row.status_desc}}
+                                    </a>
+                                        <!--[>{{row.status}}<]-->
+                                    <!--<a hrepf="" title="" ng-click="vm.showDeployLog(row)" class="text-info">-->
+                                    <!--<span ng-if="vm.formatDeployStatus.success(row.status)" class="btn btn-xs text-success b-success">-->
+                                        <!--<i class="glyphicon glyphicon-ok icon text-success"></i> -->
+                                        <!--{{row.status}}-->
+                                    <!--</span>-->
+                                    <!--<span ng-if="vm.formatDeployStatus.fail(row.status)" class="btn btn-xs text-danger b-danger">-->
+                                        <!--<i class="glyphicon glyphicon-remove icon text-danger"></i> -->
+                                        <!--{{row.status}}-->
+                                    <!--</span>-->
+                                    <!--<span ng-if="vm.formatDeployStatus.running(row.status)" class="btn btn-xs text-primary b-primary">-->
+                                        <!--[><i class="glyphicon glyphicon-time icon text-warning"></i> <]-->
+                                        <!--<i class="fa fa-spin fa-refresh show inline"></i>-->
+                                        <!--{{row.status}}-->
+                                    <!--</span>-->
+                                    <!--[><span ng-if="vm.formatDeployStatus.waiting(row.status)" class="btn btn-xs text-info b-info"><]-->
+                                        <!--[><i class="fa fa-spin fa-spinner show inline"></i><]-->
+                                        <!--[>{{row.status}}<]-->
+                                    <!--[></span><]-->
+                                    <!--<span ng-if="vm.formatDeployStatus.cancel(row.status)" class="btn btn-xs text-danger b-info">-->
+                                        <!--<i class="glyphicon glyphicon-remove-circle icon text-danger"></i> -->
+                                        <!--{{row.status}}-->
+                                    <!--</span>-->
+                                    <!--</a>-->
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="panel-heading">
+                    <!--<div class="row">-->
+                        <!--操作状态；发布完成；回滚完成-->
+                        <!--{{vm.operateData }} -->
+
+                        <a class='text-info' ui-sref="app.ci_project.deployproject">发布历史页</a>
+                        <!--<a ng-if="vm.operateData.status==0" class='text-info' ui-sref="app.ci_project.deployproject">发布历史页</a>-->
+                        <!--<a ng-if="vm.operateData.status!=0" class='text-info' ui-sref="app.ci_project.buildproject">发布历史页</a>-->
+                        <!--<a ng-if="vm.operateData.status==22" class='text-info' ui-sref="app.ci_project.buildproject">发布历史页333</a>-->
+                        <!--<a class='text-info button'>取消发布</a>-->
+                    </div>
+
+                    <div class="panel-heading">
+                        <table ng-table="vm.tableParamsHostLogs"
+                               class="table table-condensed table-bordered table-striped text-center small">
+                            <tr style="vertical-align: middle" ng-repeat="row in $data">
+                                <td data-title="'时间'">{{row.id}} </td>
+                                <!--<td data-title="'项目'">{{row.project_name}}/{{row.project_id}} </td>-->
+                                <td data-title="'项目'"> {{row.project_name}} </td>
+                                <!--<td data-title="'集群'"> 未知 </td>-->
+                                <td data-title="'服务器'"> {{row.host_name}}</td>
+                                <td data-title="'内容'">{{row.step_log}} </td>
+                                <!--<td data-title="'内容'"><span ng-repeat='item in row.step_log'>{{item}}  </span></td>-->
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>
+
+

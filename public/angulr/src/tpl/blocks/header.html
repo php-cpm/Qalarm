@@ -1,0 +1,149 @@
+      <!-- navbar header -->
+      <div class="navbar-header {{app.settings.navbarHeaderColor}}">
+        <button class="pull-right visible-xs dk" ui-toggle-class="show" data-target=".navbar-collapse">
+          <i class="glyphicon glyphicon-cog"></i>
+        </button>
+        <button class="pull-right visible-xs" ui-toggle-class="off-screen" data-target=".app-aside" ui-scroll-to="app">
+          <i class="glyphicon glyphicon-align-justify"></i>
+        </button>
+        <!-- brand -->
+        <a href="#/" class="navbar-brand text-lt" style="font-size: 16px">
+          <!--<i class="fa fa-btc"></i>-->
+          <!--<img src="img/logo.ico" alt=".">-->
+          <span class="hidden-folded">{{app.name}}</span>
+        </a>
+        <!-- / brand -->
+      </div>
+      <!-- / navbar header -->
+
+      <!-- navbar collapse -->
+      <div class="collapse pos-rlt navbar-collapse box-shadow {{app.settings.navbarCollapseColor}}">
+        <!-- buttons -->
+        <div class="nav navbar-nav hidden-xs">
+          <a href class="btn no-shadow navbar-btn" ng-click="app.settings.asideFolded = !app.settings.asideFolded">
+            <i class="fa {{app.settings.asideFolded ? 'fa-indent' : 'fa-dedent'}} fa-fw"></i>
+          </a>
+          <a href class="btn no-shadow navbar-btn" ui-toggle-class="show" target="#aside-user">
+            <i class="icon-user fa-fw"></i>
+          </a>
+        </div>
+        <!-- / buttons -->
+
+        <!-- link and dropdown -->
+        <ul class="nav navbar-nav hidden-sm">
+        <li class="dropdown" dropdown>
+          <!--<a href class="dropdown-toggle" dropdown-toggle>-->
+            <!--<i class="fa fa-fw fa-plus visible-xs-inline-block"></i>-->
+            <!--<span> 我的应用</span> <span class="caret"></span>-->
+          <!--</a>-->
+          <!--<ul class="dropdown-menu" role="menu">-->
+            <!--<li ng-repeat="row in myapps">-->
+              <!--<a href="{{row.url}}" target="_blank">-->
+                <!--<img class="" style="height: 10px; width: 10px;" ng-src="{{row.icon}}"/>-->
+                <!--<span class="m-l-md">{{row.name}}</span>-->
+                <!--</a>-->
+            <!--</li>-->
+          <!--</ul>-->
+        </li>
+        </ul>
+        <!-- search form -->
+        <!--<form class="navbar-form navbar-form-sm navbar-left shift" ui-shift="prependTo" target=".navbar-collapse" role="search" ng-controller="TypeaheadDemoCtrl">-->
+          <!--<div class="form-group">-->
+            <!--<div class="input-group">-->
+              <!--<input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control input-sm bg-light no-border rounded padder" placeholder="Search projects...">-->
+              <!--<span class="input-group-btn">-->
+                <!--<button type="submit" class="btn btn-sm bg-light rounded"><i class="fa fa-search"></i></button>-->
+              <!--</span>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</form>-->
+        <!-- / search form -->
+
+        <!-- nabar right -->
+        <ul class="nav navbar-nav navbar-right">
+          <!--<li class="dropdown hidden-sm" is-open="lang.isopen" dropdown>-->
+            <!--<a href class="dropdown-toggle" dropdown-toggle>-->
+              <!--{{selectLang}} <b class="caret"></b>-->
+            <!--</a>-->
+            <!--&lt;!&ndash; dropdown &ndash;&gt;-->
+            <!--<ul class="dropdown-menu animated fadeInRight w">-->
+              <!--<li ng-repeat="(langKey, label) in langs">-->
+                <!--<a ng-click="setLang(langKey, $event)" href>{{label}}</a>-->
+              <!--</li>-->
+            <!--</ul>-->
+            <!--&lt;!&ndash; / dropdown &ndash;&gt;-->
+          <!--</li>-->
+          <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+          <li class="hidden-xs">
+            <a ui-fullscreen></a>
+          </li>
+          <!--<li class="dropdown" dropdown>-->
+            <!--<a href class="dropdown-toggle" dropdown-toggle ng-click="clickMe()">-->
+              <!--<i class="icon-bell fa-fw"></i>-->
+              <!--<span class="visible-xs-inline">通知</span>-->
+              <!--&lt;!&ndash;<span class="badge badge-sm up bg-danger pull-right-xs">2</span>&ndash;&gt;-->
+            <!--</a>-->
+            <!--&lt;!&ndash; dropdown &ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="dropdown-menu w-xl animated fadeInUp">&ndash;&gt;-->
+              <!--&lt;!&ndash;<div class="panel bg-white">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="panel-heading b-light bg-light">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<strong>You have <span>2</span> notifications</strong>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="list-group">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<a href class="media list-group-item">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<span class="pull-left thumb-sm">&ndash;&gt;-->
+                      <!--&lt;!&ndash;<img src="img/a0.jpg" alt="..." class="img-circle">&ndash;&gt;-->
+                    <!--&lt;!&ndash;</span>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<span class="media-body block m-b-none">&ndash;&gt;-->
+                      <!--&lt;!&ndash;Use awesome animate.css<br>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<small class="text-muted">10 minutes ago</small>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</span>&ndash;&gt;-->
+                  <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<a href class="media list-group-item">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<span class="media-body block m-b-none">&ndash;&gt;-->
+                      <!--&lt;!&ndash;1.0 initial released<br>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<small class="text-muted">1 hour ago</small>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</span>&ndash;&gt;-->
+                  <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="panel-footer text-sm">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<a href class="pull-right"><i class="fa fa-cog"></i></a>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<a href="#notes" data-toggle="class:show animated fadeInRight">See all the notifications</a>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+              <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash; / dropdown &ndash;&gt;-->
+          <!--</li>-->
+          <li class="dropdown" dropdown>
+            <a href class="dropdown-toggle clear" dropdown-toggle>
+              <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
+                <!--<img src="img/a0.jpg" alt="...">-->
+                <img ng-src="{{$root.user.head_img}}" class="img-full" alt="...">
+                <i class="on md b-white bottom"></i>
+              </span>
+              <!--<span class="hidden-sm hidden-md">{{app.user.admin_name}}</span> <b class="caret"></b>-->
+              <span class="hidden-sm hidden-md">{{$root.user.admin_name}}</span> <b class="caret"></b>
+            </a>
+            <!-- dropdown -->
+            <!--<ul class="dropdown-menu animated fadeInRight w">-->
+              <!--<li>-->
+                <!--<a ui-sref="app.admin.profile">个人信息</a>-->
+              <!--</li>-->
+              <!--<li>-->
+                <!--<a ui-sref="app.service.docs">-->
+                  <!--帮助-->
+                <!--</a>-->
+              <!--</li>-->
+              <!--<li class="divider"></li>-->
+              <!--<li>-->
+                <!--<a ng-click="logout()">退出登录</a>-->
+                <!--&lt;!&ndash;<a ui-sref="access.signin" ng-click="LogoutController()">退出登录</a>&ndash;&gt;-->
+              <!--</li>-->
+            <!--</ul>-->
+            <!-- / dropdown -->
+          </li>
+        </ul>
+        <!-- / navbar right -->
+
+      </div>
+      <!-- / navbar collapse -->

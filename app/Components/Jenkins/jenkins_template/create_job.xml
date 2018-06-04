@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>项目描述</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>ext</name>
+          <description>传递给shell 脚本的变量值
+{\&quot;gaea_build_id\&quot;:16,\&quot;git_commit_id\&quot;:\&quot;0afe2f9236127b1ea88250110211a172b7a9e48c\&quot;}</description>
+          <defaultValue></defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.4.1">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>http://172.16.10.196:8360/root/test_demo.git</url>
+        <credentialsId>29257ecb-3d0f-4d7e-aa5e-107c795fc2bb</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>*/master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash
+call_data=&quot;{&quot;
+call_data+=&quot; \&quot;build_number\&quot;:\&quot;${BUILD_NUMBER}\&quot;&quot;
+call_data+=&quot;,\&quot;build_id\&quot;:\&quot;${BUILD_ID}\&quot;&quot;
+call_data+=&quot;,\&quot;build_display_name\&quot;:\&quot;${BUILD_DISPLAY_NAME}\&quot;&quot;
+call_data+=&quot;,\&quot;job_name\&quot;:\&quot;${JOB_NAME}\&quot;&quot;
+call_data+=&quot;,\&quot;build_tag\&quot;:\&quot;${BUILD_TAG}\&quot;&quot;
+call_data+=&quot;,\&quot;executor_number\&quot;:\&quot;${EXECUTOR_NUMBER}\&quot;&quot;
+call_data+=&quot;,\&quot;node_name\&quot;:\&quot;${NODE_NAME}\&quot;&quot;
+call_data+=&quot;,\&quot;node_labels\&quot;:\&quot;${NODE_LABELS}\&quot;&quot;
+call_data+=&quot;,\&quot;workspace\&quot;:\&quot;${WORKSPACE}\&quot;&quot;
+call_data+=&quot;,\&quot;jenkins_home\&quot;:\&quot;${JENKINS_HOME}\&quot;&quot;
+call_data+=&quot;,\&quot;jenkins_url\&quot;:\&quot;${JENKINS_URL}\&quot;&quot;
+call_data+=&quot;,\&quot;build_url\&quot;:\&quot;${BUILD_URL}\&quot;&quot;
+call_data+=&quot;,\&quot;job_url\&quot;:\&quot;${JOB_URL}\&quot;&quot;
+call_data+=&quot;,\&quot;svn_revision\&quot;:\&quot;${SVN_REVISION}\&quot;&quot;
+call_data+=&quot;,\&quot;svn_url\&quot;:\&quot;${SVN_URL}\&quot;&quot;
+call_data+=&quot;,\&quot;git_revision\&quot;:\&quot;${GIT_REVISION}\&quot;&quot;
+call_data+=&quot;,\&quot;git_commit\&quot;:\&quot;${GIT_COMMIT}\&quot;&quot;
+call_data+=&quot;,\&quot;ext\&quot;:${ext}&quot;
+call_data+=&quot;}&quot;
+curl -d &quot;data=${call_data}&quot; http://172.16.10.30:12815/jenkinscallback/</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>*.*</artifacts>
+      <allowEmptyArchive>false</allowEmptyArchive>
+      <onlyIfSuccessful>false</onlyIfSuccessful>
+      <fingerprint>false</fingerprint>
+      <defaultExcludes>true</defaultExcludes>
+      <caseSensitive>true</caseSensitive>
+    </hudson.tasks.ArtifactArchiver>
+    <jenkins.plugins.publish__over__ssh.BapSshPublisherPlugin plugin="publish-over-ssh@1.13">
+      <consolePrefix>SSH: </consolePrefix>
+      <delegate>
+        <publishers>
+          <jenkins.plugins.publish__over__ssh.BapSshPublisher>
+            <configName>10.10.42.226_ceshiji</configName>
+            <verbose>false</verbose>
+            <transfers>
+              <jenkins.plugins.publish__over__ssh.BapSshTransfer>
+                <remoteDirectory>/home/t/system/download/fisher/test/${JOB_NAME}/last_build</remoteDirectory>
+                <sourceFiles>*.*</sourceFiles>
+                <excludes></excludes>
+                <removePrefix></removePrefix>
+                <remoteDirectorySDF>false</remoteDirectorySDF>
+                <flatten>false</flatten>
+                <cleanRemote>false</cleanRemote>
+                <noDefaultExcludes>false</noDefaultExcludes>
+                <makeEmptyDirs>false</makeEmptyDirs>
+                <patternSeparator>[, ]+</patternSeparator>
+                <execCommand>
+                    #默认执行路径为 /home/liuliwei及 用户目录
+                    #--坑--;如果直接写在此写脚本；变量需要加双引号 &quot;${变量名}&quot;；
+                    remote_path=&quot;/home/t/system/download/fisher/test/${JOB_NAME}&quot;
+                    cd &quot;${remote_path}&quot;
+                    tar -zcvf &quot;${JOB_NAME}.tar.gz&quot; last_build/*
+                    build_history_path=&quot;${remote_path}/build_history/${BUILD_ID}&quot;
+                    mkdir -p &quot;${build_history_path}&quot;
+                    cp &quot;${JOB_NAME}.tar.gz&quot; &quot;${build_history_path}&quot;
+                    rm &quot;${JOB_NAME}.tar.gz&quot;
+                </execCommand>
+                <execTimeout>120000</execTimeout>
+                <usePty>false</usePty>
+              </jenkins.plugins.publish__over__ssh.BapSshTransfer>
+            </transfers>
+            <useWorkspaceInPromotion>false</useWorkspaceInPromotion>
+            <usePromotionTimestamp>false</usePromotionTimestamp>
+          </jenkins.plugins.publish__over__ssh.BapSshPublisher>
+        </publishers>
+        <continueOnError>false</continueOnError>
+        <failOnError>false</failOnError>
+        <alwaysPublishFromMaster>false</alwaysPublishFromMaster>
+        <hostConfigurationAccess class="jenkins.plugins.publish_over_ssh.BapSshPublisherPlugin" reference="../.."/>
+      </delegate>
+    </jenkins.plugins.publish__over__ssh.BapSshPublisherPlugin>
+  </publishers>
+  <buildWrappers/>
+</project>

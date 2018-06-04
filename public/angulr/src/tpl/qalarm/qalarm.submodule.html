@@ -1,0 +1,65 @@
+<div class="wrapper-sm small">
+    <tabset class="nav-tabs">
+        <tab>
+            <div ng-controller="QalarmSubmoduleCtrl as vm">
+                <script type="text/ng-template" , id="qalarm.submodule.edit.html">
+                    <div ng-include="'tpl/qalarm/qalarm.submodule.edit.html'"></div>
+                </script>
+                <!--<script type="text/ng-template" , id="qalarm.messagehistory.html">-->
+                <!--<div ng-include="'tpl/qalarm/qalarm.messagehistory.html'"></div>-->
+                <!--</script>-->
+                <script type="text/ng-template" , id="qalarm.alarmhistory.html">
+                    <div ng-include="'tpl/qalarm/qalarm.alarmhistory.html'"></div>
+                </script>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <form class="form-inline" role="form">
+                            <!--<button type="button" ng-click="vm.editProject('md', '', '')" class="btn btn-sm btn-success">-->
+                            <!--<i class="glyphicon glyphicon-plus"></i>-->
+                            <!--添加注册模块-->
+                            <!--</button>-->
+                            <button type="button" ng-click="vm.reback()" class="btn btn-sm btn-primary">
+                                <i class="glyphicon glyphicon-chevron-left"></i>
+                                返回
+                            </button>
+                        </form>
+                    </div>
+
+                    <table ng-table="vm.tableParams"
+                           class="table table-condensed table-bordered table-striped text-center small">
+                        <tr style="vertical-align: middle" ng-repeat="row in $data">
+                            <td data-title="'项目名称'">
+                                {{vm.project_name}}
+                            </td>
+                            <td data-title="'模块名称'">
+                                {{row.module}}
+                            </td>
+
+                            <td data-title="'接收报警人'" width="20%" style="word-wrap:break-word;word-break:break-all;">
+                                {{row.monitors}}
+                            </td>
+
+                            <td title="'报警策略'" >
+                                {{row.strategyDesc}}
+                            </td>
+
+                            <td title="'是否开启报警'">
+                                {{row.statusDesc}}
+                            </td>
+
+                            <td title="'操作'"  class="text-left">
+                                <!--<button type="button" class="btn btn-xs btn-default b-info" ng-click="vm.showSubModule(row)">子模块</button>-->
+                                <button type="button" class="btn btn-xs btn-default b-info" ng-click="vm.messageHistory(vm.project_name, row)">错误信息</button>
+                                <button type="button" class="btn btn-xs btn-default b-info" ng-click="vm.alarmHistory(vm.project_name, row)">历史告警</button>
+                                <button type="button" class="btn btn-xs btn-default b-info" ng-click="vm.editProject('md', 'edit', row)">编辑</button>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>
+
+

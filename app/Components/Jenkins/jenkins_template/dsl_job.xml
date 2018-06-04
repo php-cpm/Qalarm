@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+      <hudson.model.ParametersDefinitionProperty>
+          <parameterDefinitions>
+              <hudson.model.StringParameterDefinition>
+                  <!--<name>ext</name>-->
+                  <name>gaea_build_id</name>
+                  <defaultValue/>
+              </hudson.model.StringParameterDefinition>
+          </parameterDefinitions>
+      </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+      <hudson.tasks.Shell>
+          <command></command>
+      </hudson.tasks.Shell>
+      <javaposse.jobdsl.plugin.ExecuteDslScripts plugin="job-dsl@1.42">
+      <scriptText>
+      </scriptText>
+      <usingScriptText>true</usingScriptText>
+      <ignoreExisting>false</ignoreExisting>
+      <removedJobAction>IGNORE</removedJobAction>
+      <removedViewAction>IGNORE</removedViewAction>
+      <lookupStrategy>JENKINS_ROOT</lookupStrategy>
+      <additionalClasspath></additionalClasspath>
+    </javaposse.jobdsl.plugin.ExecuteDslScripts>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

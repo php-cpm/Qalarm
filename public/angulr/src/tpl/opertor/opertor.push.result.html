@@ -1,0 +1,16 @@
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">通知详细结果</div>
+    <div class="modal-body  wrapper-lg">
+        <div class="table-responsive small">
+            <table ng-table="pushCtrl.tableParams"
+                   class="table table-condensed table-bordered table-hover">
+                <tr ng-repeat="item in result.contents">
+                    <td ng-bind="item.content">郑州网建</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">关闭</button>
+    </div>
+</div>

@@ -1,0 +1,162 @@
+<div class="wrapper-sm">
+    <tabset class="nav-tabs">
+        <tab>
+            <tab-heading>
+                活动卡券
+            </tab-heading>
+            <div ng-controller="CouponCtrl as couponCtrl">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <form class="form-inline" role="form">
+                            <div class="form-group">
+                                <label>优惠类型</label>
+                                <select ng-model="couponType" ng-change="couponTypeSelect()"
+                                        ng-options="value.id as value.name for value in couponTypes"
+                                        class="form-control">
+                                </select>
+                            </div>
+                            <div class="form-group m-l-md">
+                                <label>业务类型</label>
+                                <select ng-model="bussType" ng-change="bussTypeSelect()"
+                                        ng-options="value.id as value.name for value in bussTypes" class="form-control">
+                                </select>
+                            </div>
+                            <div class="form-group m-l-md">
+                                <label>城市</label>
+                                <select ng-model="city" ng-change="citySelect()"
+                                        ng-options="value.id as value.name for value in citys" class="form-control">
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-sm btn-info m-l-md" ng-click="searchCoupon()">
+                                <i class="glyphicon glyphicon-search"></i>
+                                <stong>搜索</stong>
+                            </button>
+
+                            <script type="text/ng-template" , id="opertor.coupon.edit.html">
+                                <div ng-include="'tpl/opertor/opertor.coupon.edit.html'"></div>
+                            </script>
+                            <button type="button" ng-click="openCoupon('lg')" class="btn btn-sm btn-success m-l-md">
+                                <i class="glyphicon glyphicon-plus "></i>
+                                添加
+                            </button>
+                        </form>
+                    </div>
+                    <div class="table-responsive">
+                        <table ng-table="couponCtrl.tableParams"
+                               class="table table-condensed table-bordered table-striped">
+                            <tr ng-repeat="row in $data">
+                                <td data-title="'id'">
+                                    {{row.id}}
+                                </td>
+                                <td title="'名称'" filter="{ coupon_name: 'text'}" sortable="'coupon_name'">
+                                    {{row.coupon_name}}
+                                </td>
+                                <td title="'绑定码'" filter="{ coupon_bind_code: 'text'}" sortable="'coupon_bind_code'">
+                                    {{row.coupon_bind_code}}
+                                </td>
+                                <td title="'优惠券类型'" filter="{ coupon_type_name: 'text'}" sortable="'coupon_type_name'">
+                                    {{row.coupon_type_namel}}
+                                </td>
+                                <td title="'业务类型'" filter="{ buss_type_name: 'text'}" sortable="'auth_url'">
+                                    {{row.buss_type_name}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </tab>
+        <tab>
+            <tab-heading>
+                手工发放
+            </tab-heading>
+            <div ng-controller="CouponCtrl as couponCtrl">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <form class="form-inline" role="form">
+                            <div class="form-group">
+                                <label>手发类型</label>
+                                <select ng-model="manualCouponType" ng-change="manualCouponSelect()"
+                                        ng-options="value.id as value.name for value in manualCouponTypes"
+                                        class="form-control">
+                                </select>
+                            </div>
+                            <div class="form-group m-l-md">
+                                <label>业务类型</label>
+                                <select ng-model="manualBussType" ng-change="bussTypeSelect()"
+                                        ng-options="value.id as value.name for value in bussTypes" class="form-control">
+                                </select>
+                            </div>
+                            <div class="form-group m-l-md">
+                                <label>城市</label>
+                                <select ng-model="manualCity" ng-change="citySelect()"
+                                        ng-options="value.id as value.name for value in citys" class="form-control">
+                                </select>
+                            </div>
+                            <div class="form-group m-l-md">
+                                <label>发放对象</label>
+                                <input type="number" ng-model="mobile" class="form-control" placeholder="电话号码[支持前缀查询]">
+                            </div>
+                            <!--<div class="form-group m-l-md">-->
+                                <!--<label>发放时间</label>-->
+                                <!--<input name="daterange" ui-jq="daterangepicker" ui-options="{-->
+                        <!--format: 'YYYY/MM/DD' }" ng-model="coupontSendTime" class="w-md"/>-->
+                            <!--</div>-->
+
+                            <button type="submit" class="btn btn-sm btn-info m-l-md" ng-click="searchManualCoupon()">
+                                <i class="glyphicon glyphicon-search"></i>
+                                <stong>搜索</stong>
+                            </button>
+
+                            <script type="text/ng-template" , id="opertor.coupon.manual.edit.html">
+                                <div ng-include="'tpl/opertor/opertor.coupon.manual.edit.html'"></div>
+                            </script>
+                            <button type="button" ng-click="openManualCoupon('md')" class="btn btn-sm btn-success m-l-md">
+                                <i class="glyphicon glyphicon-plus "></i>
+                                发放
+                            </button>
+                        </form>
+                    </div>
+                    <div class="table-responsive">
+                        <table ng-table="couponCtrl.tableParams"
+                               class="table table-condensed table-bordered table-striped">
+                            <tr ng-repeat="row in $data">
+                                <!--<td data-title="'id'">-->
+                                    <!--{{row.id}}-->
+                                <!--</td>-->
+                                <td title="'发放人'" filter="{ admin_name: 'text'}" >
+                                    {{row.admin_name}}
+                                </td>
+                                <td title="'使用场景'" filter="{ buss_name: 'text'}">
+                                    {{row.buss_name}}
+                                </td>
+                                <td title="'发放金额'" filter="{ argv1: 'text'}" >
+                                    {{row.argv1}}
+                                </td>
+                                <td title="'发放对象'" filter="{ user_info: 'text'}" >
+                                    {{row.user_info}}
+                                </td>
+                                <td title="'发放时间'" filter="{ send_time: 'text'}" >
+                                    {{row.send_time}}
+                                </td>
+                                <td title="'失效时间'" filter="{ valid_time: 'text'}" >
+                                    {{row.valid_time}}
+                                </td>
+                                <td title="'发放原因'" filter="{ send_reason: 'text'}" >
+                                    {{row.send_reason}}
+                                </td>
+                                <td title="'使用状态'" filter="{ status: 'text'}" >
+                                    {{row.status}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>
+

@@ -1,0 +1,238 @@
+<div class="wrapper-sm">
+    <div ng-controller="PushCtrl as pushCtrl">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <form class="form-inline" role="form" name='searchUserForm'>
+                    <div class="form-group ">
+                        <label>用户属性:</label>
+                    </div>
+                    <div class="form-group ">
+                        <label>身份</label>
+                        <select ng-model="identity" ng-options="value.id as value.name for value in identitys"
+                                class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group ">
+                        <label>性别</label>
+                        <select ng-model="sex" ng-options="value.id as value.name for value in sexs"
+                                class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>头像认证</label>
+                        <select ng-model="headAuth" ng-options="value.id as value.name for value in authStatus"
+                                class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>车照认证</label>
+                        <select ng-model="carAuth" ng-options="value.id as value.name for value in authStatus"
+                                class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group ">
+                        <label>年龄段：</label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="90">90后
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="80">80后
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="70">70后
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="60">70前
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">城市：</label>
+                        <select ui-jq="chosen"
+                                multiple
+                                data-placeholder="选择城市"
+                                ng-model="city"
+                                ng-options="value.id as value.name for value in citys"
+                                class="w-md">
+                        </select>
+                    </div>
+                    <div class="form-group ">
+                        <label class="control-label">汽车品牌：</label>
+                        <select ui-jq="chosen"
+                                multiple
+                                data-placeholder="选择汽车品牌"
+                                ng-model="car"
+                                ng-options="value.id as value.name for value in cars"
+                                class="w-md">
+                        </select>
+                    </div>
+                    <br/><br/>
+
+                    <div class="form-group ">
+                        <label>用户属性:  时间段</label>
+                    </div>
+                    <div class="form-group">
+
+                        <input date-range-picker
+                               class="form-control date-picker"
+                               type="text"
+                               options="validTimeOptions"
+                               ng-model="validTimeRange"
+                               />
+                    </div>
+                    <div class="form-group m-l-md">
+                        <label>是否打开过APP</label>
+                        <select ng-model="isUseApp"
+                                ng-options="value.id as value.name for value in useStatus"
+                                class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group m-l-md">
+                        <label>是否接单</label>
+                        <select ng-model="isTakeOrder"
+                                ng-options="value.id as value.name for value in useStatus"
+                                class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group m-l-md">
+                        <label>是否叫车</label>
+                        <select ng-model="isCallCar"
+                                ng-options="value.id as value.name for value in useStatus"
+                                class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group m-l-md">
+                        <label>是否被接</label>
+                        <select ng-model="isBeenTake"
+                                ng-options="value.id as value.name for value in useStatus"
+                                class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group ">
+                        <button type="submit" class="btn btn-sm btn-info m-l-md" ng-click="searchUsers()"
+                                ng-disabled="searchBtnDisabled" ng-model="searchBtnDisabled">
+                            <i class="glyphicon glyphicon-search"></i>
+                            <stong>搜索</stong>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="table-responsive panel-body">
+                <div class="table table-condensed table-bordered table-striped">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-sm-1">
+                                <label class="control-label">待推送的用户手机号：</label>
+                            </div>
+
+                            <div class="col-sm-2">
+                            <textarea rows="5" name="mobiles" type="text" class="form-control" placeholder="最大推送量为2000"
+                                      ng-model="mobiles">
+                            </textarea>
+                            </div>
+                            <div class="col-sm-1">
+                                <label class="control-label">待推送用户ID：</label>
+                            </div>
+
+                            <div class="col-sm-2">
+                            <textarea rows="5" name="userids" type="text" class="form-control" placeholder=""
+                                      ng-model="userids" ng-disabled="true">
+                            </textarea>
+                            </div>
+                            <!--<div class="col-sm-1">-->
+                                <!--<label class="control-label">非法的电话号码：</label>-->
+                            <!--</div>-->
+
+                            <!--<div class="col-sm-2">-->
+                            <!--<textarea rows="5" name="invalidMobiles" type="text" class="form-control" placeholder=""-->
+                                      <!--ng-model="invalidMobiles">-->
+                            <!--</textarea>-->
+                            <!--</div>-->
+
+                            <br class="col-sm-2">
+                            <label class="control-label"> 总数：{{mobilesCount}} </label></br>
+                            <!--<script type="text/ng-template" , id="opertor.push.importuser.html">-->
+                                <!--<div ng-include="'tpl/opertor/opertor.push.importuser.html'"></div>-->
+                            <!--</script>-->
+                            <!--<button type="button" class="btn btn-sm btn-info " ng-click="importUsers('')">-->
+                                <!--<i class="glyphicon glyphicon-search"></i>-->
+                                <!--<stong>导入用户</stong>-->
+                            <!--</button>-->
+                            </br>
+                            <script type="text/ng-template" , id="opertor.push.go.html">
+                            <div ng-include="'tpl/opertor/opertor.push.go.html'"></div>
+                            </script>
+                            <button type="button" ng-click="openPushDo('md')" class="btn btn-sm btn-success ">
+                                <i class="glyphicon glyphicon-plus "></i>
+                                推送
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="table-responsive small">
+                <table ng-table="pushCtrl.tableParams"
+                       class="table table-condensed table-bordered table-hover">
+                    <!--<colgroup>-->
+                        <!--<col width="5%" />-->
+                        <!--<col width="5%" />-->
+                        <!--<col width="10%" />-->
+                        <!--<col width="20%" />-->
+                        <!--<col width="10%" />-->
+                        <!--<col width="20%" />-->
+                        <!--<col width="15%" />-->
+                        <!--<col width="10%" />-->
+                        <!--<col width="15%" />-->
+                    <!--</colgroup>-->
+                    <script type="text/ng-template" id="headerCheckbox.html">
+                        <input type="checkbox" ng-model="pushCtrl.checkboxes.checked" class="select-all" value="" />
+                    </script>
+                    <script type="text/ng-template" , id="opertor.push.result.html">
+                        <div ng-include="'tpl/opertor/opertor.push.result.html'"></div>
+                    </script>
+                    <tr ng-repeat="row in $data">
+                        <!--<td  header="'headerCheckbox.html'">-->
+                            <!--<input type="checkbox" ng-model="pushCtrl.checkboxes.items[row.id]" />-->
+                            <!--&lt;!&ndash;{{row.id}}&ndash;&gt;-->
+                        <!--</td>-->
+                        <td title="'通知类型'"  >
+                            {{row.notice_type}}
+                        </td>
+                        <td title="'通知方式'">
+                            {{row.notice_way}}
+                        </td>
+                        <td title="'通知时间'">
+                            {{row.notice_time|date: "yyyy-mm-dd HH:mm:ss"}}
+                        </td>
+                        <td title="'通知内容'">
+                            {{row.notice_content}}
+                        </td>
+                        <td title="'发送结果'">
+                           <span class="text-info" > {{row.notice_count}} </span>
+                        </td>
+                        <!--<td title="'详细结果'">-->
+                            <!--<a class='text-info' ng-click="getPushResult(row.msgid, 'md')" href="">-->
+                                <!--结果-->
+                            <!--</a>-->
+
+                        <!--</td>-->
+                        <td title="'被通知人'">
+                            {{row.notice_mobile}}
+                        </td>
+                        <!--<td title="'活动名称'">-->
+                            <!--{{row.active_id}}-->
+                        <!--</td>-->
+                        <td title="'备注'">
+                            {{row.notice_remark}}
+                        </td>
+                        <td title="'操作人'" >
+                            {{row.admin_name}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+

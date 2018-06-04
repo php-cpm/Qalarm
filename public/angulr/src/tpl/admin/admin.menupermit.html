@@ -1,0 +1,130 @@
+<div class="wrapper-sm">
+    <tabset class="nav-tabs">
+        <tab>
+            <tab-heading>
+                页面权限管理
+            </tab-heading>
+            <div ng-controller="AdminMenuPermitCtrl as vm">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <button type="button" ng-click="vm.addData()" class="btn btn-sm btn-success">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            添加
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table ng-table="vm.tableParams"
+                               class="table table-condensed table-bordered table-striped">
+                            <tr ng-repeat="row in $data">
+                                <td title="'id'">
+                                    {{row.id}}
+                                </td>
+                                <td title="'菜单ID'">
+                                    {{row.menu_id}}
+                                </td>
+                                <td title="'tab代码'">
+                                    {{row.sub_page_code}}
+                                </td>
+                                <td title="'tab名称'">
+                                    {{row.sub_page_name}}
+                                </td>
+                                <td title="'权限代码'">
+                                    {{row.permit_code}}
+                                </td>
+                                <td title="'权限名称'">
+                                    {{row.permit_name}}
+                                </td>
+                                <td title="'是否公开'">
+                                    <span ng-show="row.public_permit ==1" class="label bg-success" title="公开">公开</span>
+                                    <span ng-show="row.public_permit !=1" class="label bg-danger" title="未公开">未公开</span>
+                                </td>
+
+                                <td title="'操作'">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-info" ng-click="vm.editData(row)">编辑</button>
+                                        <button type="button" class="btn btn-info" ng-click="vm.deleteData(row.id)">删除</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                    <script type="text/ng-template" id="admin.menupermit.edit.html">
+                        <div class="panel panel-default">
+                            <div class="panel-heading font-bold">页面权限管理</div>
+                            <div class="modal-body  wrapper-lg">
+                                <form role="form" class="form-horizontal" novalidate="novalidate" name="admin_user_edit_form">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">页面ID</label>
+
+                                        <div class="col-sm-6" ng-class="">
+                                            <input type="text" class="form-control" placeholder="页面ID"
+                                                   ng-model="data.menu_id"
+                                                   ng-required="true">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">TAB页Code</label>
+
+                                        <div class="col-sm-6" ng-class="">
+                                            <input type="text" class="form-control" placeholder="TAB页Code"
+                                                   ng-model="data.sub_page_code"
+                                                   ng-required="true">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">TAB页名称</label>
+
+                                        <div class="col-sm-6"
+                                             ng-class="">
+                                            <input type="text" class="form-control" placeholder="TAB页名称"
+                                                   ng-model="data.sub_page_name"
+                                                   ng-required="true">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">权限code</label>
+
+                                        <div class="col-sm-6"
+                                             ng-class="">
+                                            <input type="text" class="form-control" placeholder="权限code"
+                                                   ng-model="data.permit_code"
+                                                   ng-required="true">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">权限名称</label>
+
+                                        <div class="col-sm-6"
+                                             ng-class="">
+                                            <input type="text" class="form-control" placeholder="permit_name"
+                                                   ng-model="data.permit_name"
+                                                   ng-required="true">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">是否公开:1公开</label>
+
+                                        <div class="col-sm-6"
+                                             ng-class="">
+                                            <input type="text" class="form-control" placeholder="是否公开"
+                                                   ng-model="data.public_permit"
+                                                   ng-required="true">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-default" ng-click="cancel()">取消</button>
+                                <button class="btn btn-primary" ng-click="ok()">保存</button>
+                            </div>
+                        </div>
+
+                    </script>
+
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>

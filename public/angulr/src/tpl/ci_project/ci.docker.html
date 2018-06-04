@@ -1,0 +1,74 @@
+<div class="wrapper-sm">
+    <tabset class="nav-tabs">
+        <tab>
+            <tab-heading>
+               Docker镜像
+            </tab-heading>
+            <div ng-controller="CiDockerCtrl as vm">
+                <script type="text/ng-template" , id="ci.docker.edit.html">
+                    <div ng-include="'tpl/ci_project/ci.docker.edit.html'"></div>
+                </script>
+                <script type="text/ng-template" , id="ci.dockerbuild.show.html">
+                    <div ng-include="'tpl/ci_project/ci.dockerbuild.show.html'"></div>
+                </script>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <form class="form-inline" role="form">
+                            <button type="button" ng-click="vm.addDocker('md')" class="btn btn-sm btn-success">
+                                <i class="glyphicon glyphicon-plus"></i>
+                                添加
+                            </button>
+                        </form>
+                    </div>
+
+                        <table ng-table="vm.tableParams"
+                               class="table table-condensed table-bordered table-striped text-center small">
+                            <tr style="vertical-align: middle" ng-repeat="row in $data">
+                                
+                                <td data-title="'id'">
+                                    {{row.id}}
+                                </td>
+
+                                <td data-title="'名称'">
+                                   {{row.name}}
+                                </td>
+
+                                <td data-title="'仓库地址'">
+                                    {{row.registry}}
+                                </td>
+
+                                <td data-title="'端口'">
+                                    {{row.ports}}
+                                </td>
+
+                                <td title="'定制组件'">
+                                    {{row.segments}}
+                                </td>
+
+                                <td title="'最近构建时间'">
+                                    {{row.last_build_time}}
+                                </td>
+
+                                <td title="'消耗时间'">
+                                    {{row.use_time}} 秒
+                                </td>
+
+                                <td title="'状态'" class="{{row.statusColor}}">
+                                    {{row.status}}
+                                </td>
+
+                                <td title="'操作'">
+                                    <button type="button" class="btn btn-xs btn-default b-info" ng-click="vm.showLog(row, 'lg')">log</button>
+                                    <button type="button" class="btn btn-xs btn-default b-info" ng-click="vm.reAssemble(row)">手动构建</button>
+                                    <button type="button" class="btn btn-xs btn-default b-info" ng-click="vm.deleteImage(row)">删除</button>
+                                </td>
+                            </tr>
+                        </table>
+
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>
+
+

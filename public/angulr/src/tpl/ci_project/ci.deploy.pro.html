@@ -1,0 +1,238 @@
+<style type="text/css">
+.diff{
+    background-color: #fce6e6;
+}
+.diff-null{
+    background:url(/resources/img/diff-null-bg.png) repeat;
+}
+.diff-minus{
+    background: rgba(255,0,0,0.1);
+}
+.diff-add{
+    background: rgba(0,0,255,0.1);
+}
+.diff-add .highlight{
+    background: rgba(0,0,255,0.4);
+}
+.diff-minus .highlight{
+    background: rgba(255,0,0,0.4);
+}
+td.full-new{
+    background: rgba(0,0,255,0.3);
+}
+td.full-old{
+    background: rgba(255,0,0,0.3);
+}
+.diff-table{
+    table-layout: fixed;
+    border-collapse: separate;
+    font-family: "Lucida Console",Courier,"Courier New",Consolas,"Microsoft YaHei Mono","YaHei Consolas Hybrid",Monaco;
+    font-size:12px;
+}
+.diff-table tr:nth-child(odd){
+    background-color:#FAFAFA;
+}
+.diff-table tr:nth-child(even){
+    background-color:#fff;
+}
+.diff-table tr:hover{
+    background-color: #EFEFEF;
+}
+.diff-table tr:hover td{
+    border-top-color: #EFEFEF;
+    border-bottom-color: #EFEFEF;
+}
+.diff-table td{
+    border-style: solid;
+    border-color: #FAFAFA #EDEDED #EDEDED;
+    border-width: 1px 0;
+    white-space: pre-wrap;
+
+    border-right: 1px solid #d0d0d0;
+    padding: 2px 6px 3px;
+}
+.diff-table tr td:first-of-type{
+    width: 10px;
+}
+.diff-table tr td:nth-of-type(2){
+    width: 500px;
+}
+.diff-table tr td:nth-of-type(3){
+    width: 10px;
+}
+.diff-table tr td:nth-of-type(4){
+    width: 500px;
+}
+.diff-table .unvisible{
+    height: 30px;
+    background:#999;
+    line-height: 30px;
+    text-align: center;
+}
+
+.x-grid-cell-inner{
+    word-wrap: break-word;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+}
+
+.title{
+    font-weight: bold;
+}
+</style>
+
+<div class="wrapper-sm">
+    <tabset class="nav-tabs">
+        <tab>
+            <tab-heading>
+               发布项目 
+            </tab-heading>
+            <div class="panel panel-default" ng-controller="DeployProCtrl as vm">
+                <div class="panel-heading">
+
+                    <form role="form" class="form-horizontal" novalidate="novalidate" name="admin_user_edit_form">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">项目名称</label>
+                            <div class="col-sm-10">
+                                <p>{{data.project_name}} <!--/ master {{data.branch}}--></p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">发布类型</label>
+                            <div class="col-sm-10">
+                                <select ng-model="data.deployType" ng-change="deployTypeSelect()" ng-options="value.id as value.name for value in data.deployTypeList" class="form-control">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">发布目录</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" placeholder="发布目录；没有特殊需求；不要修改"
+                                       ng-model="data.deploy_dir"
+                                       ng-required="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">发布内容概述</label>
+                            <div class="col-sm-10" ng-class="">
+                                <input type="text" class="form-control" placeholder="发布内容概述"
+                                       ng-model="data.title"
+                                       ng-required="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">发布内容描述</label>
+                            <div class="col-sm-10"
+                                 ng-class="">
+                                <textarea rows="5" type="text" class="form-control" placeholder="请输入产品需求描述,最大长度为255个字符"
+                                       ng-model="data.desc"
+                                       ng-required="true">
+                               </textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">当前版本号</label>
+                            <div class="col-sm-10">
+                                <p class="form-control">{{data.update_id}}</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">服务器信息</label>
+                            <div class="col-sm-10">
+                                <!--<label class="checkbox-inline">-->
+                                        <!--<input type="checkbox" ng-click="selectAll($event)" ng-checked="isSelectedAll()"/>全选-->
+                                <!--</label>-->
+                                <!--<label ng-repeat="host in ciHostList" class="checkbox-inline">-->
+                                    <!--[><input type="checkbox" value="host.id" ng-true-value="true" ng-false-value="false">{{host.name}}<]-->
+                                    <!--<input type="checkbox" name="selected" ng-checked="isSelected(host.id)" ng-click="updateSelection($event, host.id)"/> {{host.name}}-->
+                                <!--</label>-->
+                                
+                                <label class="radio-inline">
+                                  <!--<input type="radio" name="deploy_type" value="test_env" ng-model="data.deployStep">-->
+                                  <!--<input type="radio" name="deploy_type" value="beta" ng-model="data.deploy_step" ng-disabled="!hostset.test">-->
+                                  <input type="radio" name="deploy_type" value="sandbox" ng-model="data.deploy_step" ng-disabled="!hostset.test">
+                                   测试环境
+                                </label>
+                                <label class="radio-inline">
+                                  <!--<input type="radio" name="deploy_type" value="online_env" ng-model="data.deploy_step">-->
+                                  <input type="radio" name="deploy_type" value="stage" ng-model="data.deploy_step" ng-disabled="!hostset.slave">
+                                  <!--线上环境-->
+                                  slave环境
+                                </label>
+
+                                <div ng-show="!hostset.test" class="text-danger">
+                                   测试环境的机器尚未配置，不可发布, 测试环境 ！ 
+                                </div>
+
+                                <div ng-show="!hostset.slave" class="text-danger">
+                                   回归机器尚未配置，不可发布, 回归环境 ！ 
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group text-right">
+                            <div class="col-sm-12 float-right">
+                                <!--<button type="submit" class="btn btn-sm btn-default" ng-click="cancel()">关闭</button>-->
+                                <button type="submit" class="btn btn-sm btn-info" ng-click="ok()">确认发布</button>
+
+                                <!--<a class='btn btn-sm btn-info' -->
+                                    <!--ui-sref="app.ci_project.difffiles({gaea_build_id: '{{vm.paramsData.gaea_build_id}}'})">下一步</a>-->
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </tab>
+
+        <tab>
+            <tab-heading>
+               变更文件 
+            </tab-heading>
+            <div class="panel panel-default" ng-controller="DeployProCtrl as vm">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <table class='table'>
+                                <tr ng-repeat="row in vm.diffFilesList" ng-click="vm.getDiffFilesOne(row.project_id,row.gaea_build_id,row.data)" >
+                                    <td class="b-b text-info">{{row.data}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-sm-10" style="font-size:12px">
+                            <div id='diff_content'></div>
+                        </div>
+
+                        <!--<div class="col-sm-2 text-right">-->
+                            <!--变更文件-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-10" style="font-size:12px">-->
+                            <!--<table class='table'>-->
+                                <!--<tr ng-repeat="row in vm.diffFilesList" >-->
+                                    <!--<td class="b-b text-info">{{row.data}}</td>-->
+                                <!--</tr>-->
+                            <!--</table>-->
+                        <!--</div>-->
+
+                        <!--<div class="row text-left wrapper-sm col-md-offset-2" style="font-size:12px">-->
+                            <!--变更文件-->
+                        <!--</div>-->
+                        <!--<div class="row text-left wrapper-sm col-md-offset-2" style="font-size:12px">-->
+                            <!--<table class='table'>-->
+                                <!--<tr ng-repeat="row in vm.diffFilesList" >-->
+                                    <!--<td class="b-b text-info">{{row.data}}</td>-->
+                                <!--</tr>-->
+                            <!--</table>-->
+                          <!--[><p ng-repeat="row in vm.diffFilesList" class="b-b text-info">{{row.data}}</p><]-->
+                        <!--</div>-->
+                    </div>
+                </div>
+            </div>
+        </tab>
+
+    </tabset>
+</div>

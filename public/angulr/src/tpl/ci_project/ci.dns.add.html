@@ -1,0 +1,54 @@
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">域名添加
+        <button class="btn btn-xs btn-danger pull-right" ng-click="cancel()">
+            <i class="glyphicon glyphicon-remove">关闭</i>
+        </button>
+    </div>
+    <div class="modal-body  wrapper-lg">
+        <form role="form" class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-3 control-label text-left">域名种类</label>
+                <div class="col-sm-9" ng-class="">
+                    <select class="form-control" ng-change="dnsTypeSelect(data.dnsType)" ng-model="data.dnsType" ng-options="value.id as value.name for value in data.dnsTypes">
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label text-left">域名</label>
+                <div class="col-sm-9" ng-class="">
+                    <input type="text" class="form-control" placeholder="输入自定义域名"
+                           ng-model="data.dnsName"
+                           ng-required="true">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label text-left">开放端口</label>
+                <div class="col-sm-9" ng-class="">
+                    <input type="text" class="form-control" placeholder="服务的开放端口"
+                           ng-model="data.dnsPort"
+                           ng-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <fieldset class="beautiful-fieldset">
+                    <legend class="legend-border">
+                        <div style="display:inline;"><span style="padding: 1px 0; margin-left:2px; font: 14px bold tahoma,arial,verdana,sans-serif ;color: #15428b;">可选的后端机器</span></div>
+                    </legend>
+                    <div class="form-group">
+                        <div class="text-left">
+                            <div class="col-md-4"  ng-repeat="row in data.dnsBackupHosts">
+                                <input type="checkbox"  ng-checked="existHost(row, data.dnsBackupHostSelected)" ng-click="selectHost(row, data.dnsBackupHostSelected)">
+                                {{row}}
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">保存</button>
+    </div>
+</div>

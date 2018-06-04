@@ -1,0 +1,88 @@
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">添加主机
+        <button class="btn btn-xs btn-danger pull-right" ng-click="cancel()">
+            <i class="glyphicon glyphicon-remove">关闭</i>
+        </button>
+    </div>
+    <div class="modal-body  wrapper-lg">
+        <form role="form" class="form-horizontal" novalidate="novalidate" name="ci_docker_edit_form">
+            <fieldset class="beautiful-fieldset">
+                <legend class="legend-border">
+                    <div style="display:inline;"><span style="padding: 1px 0; margin-left:2px; font: 14px bold tahoma,arial,verdana,sans-serif ;color: #15428b;">一般配置</span></div>
+                </legend>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label text-left">镜像名称</label>
+                    <div class="col-sm-9" ng-class="">
+                        <input type="text" class="form-control" placeholder="建议使用:项目名_组件名"
+                               ng-model="docker.imageName"
+                                ng-required="true">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label text-left">开放端口</label>
+                    <div class="col-sm-9" ng-class="">
+                        <input type="text" class="form-control" placeholder="服务端口，多个用|分隔，默认为80"
+                               ng-model="docker.imagePorts">
+                    </div>
+                </div>
+            </fieldset>
+            <br/>
+            <fieldset class="beautiful-fieldset">
+                <legend class="legend-border">
+                    <div style="display:inline;"><span style="padding: 1px 0; margin-left:2px; font: 14px bold tahoma,arial,verdana,sans-serif ;color: #15428b;">定制组件</span></div>
+                </legend>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label text-left">已定制组件</label>
+                    <div class="col-sm-9" ng-class="">
+                        <label class="control-label text-left text-info">{{docker.imageSegments}}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <fieldset class="beautiful-fieldset">
+                        <legend class="legend-border">
+                            <div style="display:inline;"><span style="padding: 1px 0; margin-left:2px; font: 14px bold tahoma,arial,verdana,sans-serif ;color: #15428b;">语言环境</span></div>
+                        </legend>
+                        <div class="form-group">
+                            <div class="text-left">
+                                <div class="col-md-2"  ng-repeat="row in docker.languagesImages">
+                                    <div class="btn-group dropdown" dropdown>
+                                        <button class="btn btn-default" dropdown-toggle>{{row.name}} <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li ng-repeat="version in row.versions">
+                                                <a class="small" href="" title='' ng-click="selectSegment(row.name, version.version)">{{version.version}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="form-group">
+                    <fieldset class="beautiful-fieldset">
+                        <legend class="legend-border">
+                            <div style="display:inline;"><span style="padding: 1px 0; margin-left:2px; font: 14px bold tahoma,arial,verdana,sans-serif ;color: #15428b;">软件服务</span></div>
+                        </legend>
+                        <div class="form-group">
+                            <div class="text-left">
+                                <div class="col-md-2"  ng-repeat="row in docker.softwaresImages">
+                                    <div class="btn-group dropdown" dropdown>
+                                        <button class="btn btn-default" dropdown-toggle>{{row.name}} <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+                                            <li ng-repeat="version in row.versions">
+                                                <a class="small" href="" title='' ng-click="selectSegment(row.name, version.version)">{{version.version}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button ng-disabled="ci_docker_edit_form.$invalid" class="btn btn-primary" ng-click="ok()">生成镜像</button>
+    </div>
+</div>

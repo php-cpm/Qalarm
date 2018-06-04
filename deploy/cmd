@@ -1,0 +1,7 @@
+redis-cli -h 10.209.226.18 -p 10604
+redis-cli -h 10.213.33.156  -p 10604
+redis-cli -h 127.0.0.1  -p 6379
+
+nohup php artisan alarm:merge &  
+nohup php artisan alarm:manual &  
+nohup php artisan alarm:file &  

@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">jenkins Job 信息
+        <button class="btn btn-xs btn-danger pull-right" ng-click="cancel()">
+            <i class="glyphicon glyphicon-remove">关闭</i>
+        </button>
+    </div>
+    <div class="modal-body  wrapper-lg">
+        <form role="form" class="form-horizontal" novalidate="novalidate" name="admin_user_edit_form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">日志</label>
+                <div class="col-sm-10">
+                    <pre id="build-trace" class="trace">
+                    <code class="bash">{{build.buildlog}} </code>
+                    </pre>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+    </div>
+</div>

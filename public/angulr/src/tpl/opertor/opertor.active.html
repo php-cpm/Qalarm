@@ -1,0 +1,55 @@
+<div class="wrapper-sm">
+    <tabset class="nav-tabs">
+        <tab>
+            <tab-heading>
+                活动
+            </tab-heading>
+            <div ng-controller="ActiveCtrl as activeCtrl">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <button type="button" ng-click="addRandomItem(row)" class="btn btn-sm btn-success">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            添加
+                        </button>
+                    </div>
+                    <table ng-table="activeCtrl.tableParams" class="table table-condensed table-bordered table-striped">
+                        <tr ng-repeat="row in $data">
+                            <td title="'Name'" filter="{ name: 'text'}" sortable="'name'">
+                                {{row.name}}
+                            </td>
+                            <td title="'Age'" filter="{ age: 'number'}" sortable="'age'">
+                                {{row.age}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </tab>
+        <tab>
+            <tab-heading>
+                手工发放
+            </tab-heading>
+            <div ng-controller="ActiveCtrl as activeCtrl">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <button type="button" ng-click="addRandomItem(row)" class="btn btn-sm btn-success">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            添加
+                        </button>
+                    </div>
+                    <table ng-table="activeCtrl.tableParams" class="table table-condensed table-bordered table-striped">
+                        <tr ng-repeat="row in $data">
+                            <td title="'Name'" filter="{ name: 'text'}" sortable="'name'">
+                                {{row.name}}
+                            </td>
+                            <td title="'Age'" filter="{ age: 'number'}" sortable="'age'">
+                                {{row.age}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+</div>
+</tab>
+</tabset>
+</div>

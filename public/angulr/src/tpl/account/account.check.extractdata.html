@@ -1,0 +1,74 @@
+<div class="panel panel-default">
+    <div class="modal-header">
+        <h4 class="modal-title">照片</h4>
+    </div>
+    <div class="modal-body">
+        <form role="form" class="form-horizontal" novalidate="novalidate" name="car_numbers_form">
+
+            <div class="form-group">
+                <div class="col-lg-6">
+                    <img ng-src="{{imgUrl1}}" style="width: 400px; height: 400px;">
+                </div>
+                <div class="col-lg-6">
+                    <img ng-src="{{imgUrl2}}" style="width: 400px; height: 400px;">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">车牌号</label>
+
+                <div class="col-lg-10">
+                    <input ng-model="vm.carNumber"
+                           type="text"
+                           class="form-control"
+                           placeholder="车牌号"
+                           ng-required="true">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-lg-2 control-label">车辆识别代号</label>
+
+                    <div class="col-lg-10">
+                        <input ng-model="vm.carIdentityNumber"
+                               type="text"
+                               class="form-control"
+                               placeholder="车辆识别代号"
+
+                               ng-required="true">
+                    </div>
+                    <div class="col-lg-1 thumbnail-box">
+                            <em>{{vm.carIdentityNumberLength}}/17</em>
+                    </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">发动机号</label>
+
+                <div class="col-lg-10">
+                    <input ng-model="vm.engine_number"
+                           type="number"
+                           class="form-control"
+                           placeholder="发动机号"
+                           ng-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-lg-2 control-label">注册时间</label>
+
+                <div class="col-lg-10">
+                    <input ng-model="vm.registered_at"
+                           type="text"
+                           class="form-control"
+                           datetimepicker
+                           datetimepicker-options="{format:'YYYY-MM-DD', icons:{next:'glyphicon glyphicon-arrow-right',previous:'glyphicon glyphicon-arrow-left',up:'glyphicon glyphicon-arrow-up',down:'glyphicon glyphicon-arrow-down'}}"
+                           placeholder="注册时间"
+                           ng-required="true">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="cancel()">取消</button>
+        <button ng-disabled="car_numbers_form.$invalid" class="btn btn-primary" ng-click="ok()">更改</button>
+    </div>
+</div>
+

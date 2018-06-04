@@ -1,0 +1,96 @@
+<div class="wrapper-sm">
+    <tabset class="nav-tabs">
+        <tab>
+            <tab-heading>
+                实名认证
+            </tab-heading>
+            <div ng-controller="RealNameCheckCtrl as realNameCheckCtrl">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <form class="form-inline" role="form">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label>手机号码</label>
+                                    <input ng-model="mobile" placeholer="手机号码" class="form-control">
+                                </div>
+                                <div class="form-group m-l-md">
+                                    <label>姓名</label>
+                                    <input ng-model="name" placeholer="姓名" class="form-control">
+                                </div>
+                                <div class="form-group m-l-md">
+                                    <label>身份证</label>
+                                    <input ng-model="idcard" placeholer="身份证" class="form-control">
+                                </div>
+                                <div class="form-group m-l-md">
+                                    <label>认证状态</label>
+                                    <select ng-model="checkStateType" ng-change="checkStateSelect()" ng-options="value.id as value.name for value in checkStateTypes" class="form-control">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group m-l-md">
+                                    <label>用户环境(正式|测试)</label>
+                                    <select ng-model="userType" ng-change="userTypeSelect()" ng-options="value.id as value.name for value in userTypes" class="form-control">
+                                    </select>
+                                </div>
+
+                                <button type="submit" class="btn btn-sm btn-info m-l-md" ng-click="search()">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                    <stong>搜索</stong>
+                                </button>
+
+                                <button type="button" ng-click="" class="btn btn-sm btn-success m-l-md">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                    添加
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <!--<div class="table-responsive">-->
+                        <!--<table ng-table="realNameCheckCtrl.tableParams"-->
+                               <!--class="table table-condensed table-bordered table-striped">-->
+                            <!--<tr ng-repeat="row in $data">-->
+                                <!--<td data-title="'id'">-->
+                                    <!--{{row.id}}-->
+                                <!--</td>-->
+                                <!--<td title="'车主信息'" filter="{ id: 'text'}" sortable="'id'">-->
+                                    <!--{{row.id}}-->
+                                <!--</td>-->
+                                <!--<td title="'验证信息'" filter="{ mobile: 'text'}" sortable="'mobile'">-->
+                                    <!--{{row.mobile}}-->
+                                <!--</td>-->
+                                <!--<td title="'认证状态'" filter="{ name: 'text'}" sortable="'name'">-->
+                                    <!--{{row.id}}-->
+                                <!--</td>-->
+                                <!--<td title="'认证时间'" filter="{ id: 'text'}" sortable="'id'">-->
+                                    <!--{{row.id}}-->
+                                <!--</td>-->
+                                <!--<td title="'返回码'" filter="{ id: 'text'}" sortable="'id'">-->
+                                    <!--{{row.id}}-->
+                                <!--</td>-->
+                                <!--<td title="'返回文本'" filter="{ id: 'text'}" sortable="'id'">-->
+                                    <!--{{row.id}}-->
+                                <!--</td>-->
+
+                            <!--</tr>-->
+                        <!--</table>-->
+                    <!--</div>-->
+
+                    <div class="table-responsive">
+                        <table ng-table-dynamic="realNameCheckCtrl.tableParams2 with realNameCheckCtrl.cols" class="table table-condensed table-bordered table-striped">
+                            <tr ng-repeat="row in $data">
+                                <td ng-repeat="col in $columns" ng-bind-html="col.getValue(this, row)"></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>
+
+

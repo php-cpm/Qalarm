@@ -1,0 +1,70 @@
+<div class="wrapper-sm small" ng-controller="QalarmGraphDetail as vm">
+    <div id="chart_container">
+        <highchart id="chart1" style="width:100%; " config="chartConfig"></highchart>
+    </div>
+    <!--<div style="display:none;" >-->
+    <div style="width:100%;  word-wrap: break-word; word-break: normal; word-break:break-all; ">
+        <table ng-table="vm.tableParams"
+               class="table table-bordered table-striped  small">
+            <tr  ng-repeat-start="row in $data">
+                <td data-title="'时间'" style="white-space:nowrap;">
+                    {{row.time}}
+                </td>
+                <td data-title="'类型'">
+                    {{row.module}}
+                </td>
+
+                <td data-title="'错误号'">
+                    {{row.code}}
+                </td>
+
+                <td title="'环境'">
+                    {{row.env}}
+                </td>
+                <td title="'服务器ip'">
+                    {{row.server_ip}}
+                </td>
+                <td title="'客户端ip'">
+                    {{row.client_ip}}
+                </td>
+                <td title="'脚本'">
+                    {{row.script}}
+                </td>
+            </tr>
+
+            <tr ng-repeat-end>
+                <td>详细错误：</td>
+                <td colspan="7" class="text-left">{{ row.message }}</td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div class="operate-desc">
+        <dl>
+            <dt>说明：</dt>
+            <dd>1、点击错误曲线 或 双击图下方的错误标题 查看详细错误列表</dd>
+            <dd>2、单击图下方的错误标题可 隐藏/显示 错误曲线</dd>
+            <dd>3、每个点代表3秒钟内的错误次数</dd>
+            <dd>4、详细错误信息为抽样</dd>
+        </dl>
+    </div>
+    <!--form start-->
+    <div id="module_set_dialog" style="display:none;" title="设置">
+        <form class="ui-form" action="" method="post">
+            <table align="center" width="100%">
+                <tbody>
+                <tr class="field-group"><td class="field-header">名称：</td><td class="field-content"><input type="text" class="ui-text-dialog" name="name" value="" /></td></tr>
+                <tr class="field-group"><td class="field-header">报警级别：</td><td class="field-content"><input type="text" class="ui-text-dialog" name="level" value="" /></td></tr>
+                <tr class="field-group"><td class="field-header">短信阀值：</td><td class="field-content"><input type="text" class="ui-text-dialog" name="sms_limit" value="" /></td></tr>
+                <tr class="field-group" style="border-bottom:0px;padding-bottom:0px;">
+                    <td class="field-header"></td>
+                    <td class="field-content" style="text-align: center; display: block;">
+                        <input type="submit" class="ui-button-submit" id="submit" value="提交">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>

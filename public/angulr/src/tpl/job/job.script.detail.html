@@ -1,0 +1,15 @@
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">脚本详情</div>
+    <div class="modal-body  wrapper-lg">
+        <form role="form" class="form-horizontal" novalidate="novalidate" name="detail_script_form">
+            <div class="form-group">
+                <section class="b-a">
+                    <textarea ui-codemirror="detail.editorOptions" ng-model="detail.scripts"></textarea>
+                    <!--<ui-codemirror ui-codemirror-opts="script.editorOptions" ng-model="script.scripts"></ui-codemirror>-->
+                </section>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="cancel()">ok</button>
+</div>

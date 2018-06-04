@@ -1,0 +1,77 @@
+<div class="wrapper-sm">
+    <tabset class="nav-tabs">
+        <tab>
+            <tab-heading>
+                流程人员管理
+            </tab-heading>
+            <div ng-controller="WfParticipatorCtrl as vm">
+                <div class="panel panel-default">
+                    <div class="table-responsive">
+                        <table ng-table="vm.tableParams"
+                               class="table table-condensed table-bordered table-striped">
+                            <tr ng-repeat="row in $data">
+                                <td title="'类别'">
+                                    {{row.workflow_name}}
+                                </td>
+                                <td title="'处理器'">
+                                    {{row.workflow_handler}}
+                                </td>
+                                <td title="'子类别'">
+                                    {{row.buss_name}}
+                                </td>
+                                <td title="'处理人员'">
+                                    {{row.participator}}
+                                </td>
+                                <td title="'最近更新时间'">
+                                    {{row.updated_at}}
+                                </td>
+                                <td title="'操作'">
+                                    <div class="row">
+                                        <button type="button" ng-click="edit('md', row)"
+                                                class="btn btn-xs btn-default b-info">
+                                            编辑
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <script type="text/ng-template" id="admin.wfparticipator.edit.html">
+                    <div class="panel panel-default">
+                        <div class="panel-heading font-bold">编辑
+                            <button class="btn btn-xs btn-danger pull-right" ng-click="cancel()">
+                                <i class="glyphicon glyphicon-remove">关闭</i>
+                            </button>
+                        </div>
+                        <div class="modal-body  wrapper-lg">
+                            <form role="form" class="form-horizontal" novalidate="novalidate" name="edit_participator_form">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">人员名单</label>
+
+                                    <div class="col-sm-6" ng-class="">
+                                        <select ui-jq="chosen"
+                                                multiple
+                                                ng-model="wfp.usernameSelected"
+                                                ng-options="value.id as value.name for value in wfp.usernames"
+                                                class="form-control"
+                                                ng-required="true">
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" ng-disabled="edit_participator_form.$invalid" ng-click="ok()">
+                                保存
+                            </button>
+                        </div>
+                    </div>
+
+                </script>
+            </div>
+        </tab>
+    </tabset>
+</div>

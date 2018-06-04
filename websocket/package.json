@@ -1,0 +1,27 @@
+{
+  "name": "node",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.15.1",
+    "bootstrap": "^3.3.6",
+    "bootstrap-paginator": "^1.0.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.2.0",
+    "ejs": "^2.4.2",
+    "express": "~4.13.4",
+    "express-partials": "^0.3.0",
+    "file-stream-rotator": "0.0.6",
+    "jade": "~1.11.0",
+    "moment": "^2.14.1",
+    "morgan": "~1.7.0",
+    "php-unserialize": "0.0.1",
+    "redis": "^2.6.2",
+    "serve-favicon": "~2.3.0",
+    "socket.io": "^1.4.8",
+    "underscore": "^1.8.3"
+  }
+}

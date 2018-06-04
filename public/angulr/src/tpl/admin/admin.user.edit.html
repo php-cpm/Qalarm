@@ -1,0 +1,78 @@
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">编辑用户</div>
+    <div class="modal-body  wrapper-lg">
+        <form role="form" class="form-horizontal" novalidate="novalidate" name="admin_user_edit_form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">登陆名</label>
+
+                <div class="col-sm-6"
+                     ng-class="">
+                    <input type="text" class="form-control" placeholder="登陆名"
+                           ng-model="data.username"
+                           ng-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">姓名</label>
+
+                <div class="col-sm-6" ng-class="">
+                    <input type="text" class="form-control" placeholder="姓名"
+                           ng-model="data.nickname"
+                           ng-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">电话号</label>
+
+                <div class="col-sm-6"
+                     ng-class="">
+                    <input type="text" class="form-control" placeholder="电话号"
+                           ng-model="data.mobile"
+                           ng-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">角色：</label>
+                <div class="col-sm-6" ng-class="">
+                <select ui-jq="chosen"
+                        multiple
+                        data-placeholder="选择用户角色"
+                        ng-model="data.roleSelected"
+                        ng-options="value.id as value.role_name for value in roles"
+                        class="w-md form-control">
+                </select>
+                    </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">所在城市</label>
+
+                <div class="col-sm-6">
+                    <select ui-jq="chosen"
+                            data-placeholder="选择城市"
+                            ng-model="data.cityid"
+                            ng-options="value.id as value.name for value in citys"
+                            class="w-md form-control">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">管理城市：</label>
+                <div class="col-sm-6" ng-class="">
+
+                    <select ui-jq="chosen"
+                            multiple
+                            data-placeholder="选择城市"
+                            ng-model="data.cityidSelected"
+                            ng-options="value.id as value.name for value in citys"
+                            class="w-md form-control">
+                    </select>
+
+                    </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="cancel()">取消</button>
+        <button class="btn btn-primary" ng-click="ok()">保存</button>
+    </div>
+</div>

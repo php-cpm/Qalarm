@@ -1,0 +1,109 @@
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">编辑项目</div>
+    <div class="modal-body  wrapper-lg">
+        <form role="form" class="form-horizontal" novalidate="novalidate" name="edit_form">
+            <div class="form-group">
+                <label class="col-sm-3 control-label text-left">项目名称</label>
+
+                <div class="col-sm-9"
+                     ng-class="">
+                    <input type="text" class="form-control" placeholder="项目名称"
+                           ng-model="data.name"
+                           ng-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label text-left">项目负责人</label>
+
+                <div class="col-sm-9">
+                    <select ui-jq="chosen"
+                            data-placeholder="项目负责人"
+                            ng-model="data.manager"
+                            ng-options="value.username as value.username for value in data.monitors"
+                            class="form-control"
+                    >
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label text-left">报警接收人</label>
+                <div class="col-sm-9" ng-class="">
+                    <select ui-jq="chosen"
+                            multiple
+                            data-placeholder="报警接收人"
+                            ng-model="data.monitor"
+                            ng-options="value.username as value.username for value in data.monitors"
+                            class="form-control"
+                    >
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label text-left">报警策略</label>
+
+                <div class="col-sm-9">
+                    <select ui-jq="chosen"
+                            data-placeholder="报警策略"
+                            ng-model="data.strategy"
+                            ng-options="value.id as value.desc for value in data.strategys"
+                            class="form-control">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label text-left">是否告警</label>
+
+                <div class="col-sm-9">
+                    <label>
+                        <input type="radio" name="optionsRadios" id="optionsRadios1" ng-model="data.status" value="1" checked="checked">
+                        是
+                    </label>
+                    <label>
+                        <input type="radio"  name="optionsRadios" id="optionsRadios2" ng-model="data.status" value="0">
+                        否
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <fieldset class="beautiful-fieldset">
+                    <legend class="legend-border">
+                        <div style="display:inline;"><span style="padding: 1px 0; margin-left:2px; font: 14px bold tahoma,arial,verdana,sans-serif ;color: #15428b;">测试环境配置</span></div>
+                    </legend>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-left">是否告警</label>
+                        <div class="col-sm-9">
+                            <label>
+                                <input type="radio" name="optionsAlarmRadios" id="optionsRadios5" ng-model="data.testAlarmStatus" value="1" ng-checked="true">
+                                是
+                            </label>
+                            <label>
+                                <input type="radio"  name="optionsAlarmRadios" id="optionsRadios6" ng-model="data.testAlarmStatus" value="0" >
+                                否
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label text-left">是否显示图表</label>
+                        <div class="col-sm-9">
+                            <label>
+                                <input type="radio" name="optionsGraphRadios" id="optionsRadios3" ng-model="data.testGraphStatus" value="1" ng-checked="true" >
+                                是
+                            </label>
+                            <label>
+                                <input type="radio"  name="optionsGraphRadios" id="optionsRadios4" ng-model="data.testGraphStatus" value="0" >
+                                否
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="cancel()">取消</button>
+        <button ng-disabled="edit_form.$invalid" class="btn btn-primary" ng-click="ok()">保存</button>
+    </div>
+</div>
+
+
+

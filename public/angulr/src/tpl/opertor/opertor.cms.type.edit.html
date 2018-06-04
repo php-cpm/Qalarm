@@ -1,0 +1,33 @@
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">类型编辑</div>
+    <div class="modal-body  wrapper-lg">
+        <form role="form" class="form-horizontal" novalidate="novalidate" name="cms_type_edit_form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">父类型</label>
+
+                <div class="col-sm-6"
+                     ng-class="">
+                    <input type="text"
+                           class="form-control"
+                           ng-model="vm.contentTypeName"
+                           ng-disabled="true"
+                           ng-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">标题</label>
+
+                <div class="col-sm-6"
+                     ng-class="">
+                    <input type="text" class="form-control" placeholder="名称"
+                           ng-model="vm.name"
+                           ng-required="true">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" ng-click="cancel()">取消</button>
+        <button ng-disabled="cms_type_edit_form.$invalid" class="btn btn-primary" ng-click="ok()">保存</button>
+    </div>
+</div>

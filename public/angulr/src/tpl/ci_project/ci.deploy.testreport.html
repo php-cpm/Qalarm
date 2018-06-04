@@ -1,0 +1,105 @@
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">测试申请
+        <button class="btn btn-xs btn-danger pull-right" ng-click="cancel()">
+            <i class="glyphicon glyphicon-remove">关闭</i>
+        </button>
+    </div>
+    <div class="modal-body  wrapper-lg">
+
+        <form role="form" class="form-horizontal" novalidate="novalidate" name="admin_user_edit_form">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">功能类型</label>
+                <div class="col-sm-10">
+                    <select ng-model="data.deployType" ng-change="deployTypeSelect()" ng-options="value.id as value.name for value in data.deployTypeList" class="form-control">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">提测内容概述</label>
+                <div class="col-sm-10" ng-class="">
+                    <input type="text" class="form-control" placeholder="提测内容概述"
+                           ng-model="data.title"
+                           ng-required="true">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">提测内容描述</label>
+                <div class="col-sm-10"
+                     ng-class="">
+                    <textarea rows="5" type="text" class="form-control" placeholder="请输入描述,最大长度为255个字符"
+                           ng-model="data.desc"
+                           ng-required="true">
+                   </textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">当前版本号</label>
+                <div class="col-sm-10">
+                    <p class="form-control">{{data.update_id}}</p>
+                </div>
+            </div>
+
+            <!--<div class="form-group">-->
+                <!--<label class="col-sm-2 control-label">选择测试人员</label>-->
+                <!--<div class="col-sm-10">-->
+                    <!--<input type="text" class="form-control" placeholder="测试人员"-->
+                           <!--ng-model="data.test_user"-->
+                           <!--ng-required="true">-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">选择测试人员</label>
+                <div class="col-sm-10">
+                    <select ui-jq="chosen"
+                            data-placeholder="选择测试人员"
+                            ng-change="testMemberSelect()"
+                            ng-model="data.test_member"
+                            ng-options="value.id as value.name for value in ciTestMemberList"
+                            class="w-md form-control">
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group" ng-if="inputStatus.is_show_content==1">
+                <label class="col-sm-2 control-label">测试结果</label>
+                <div class="col-sm-10">
+                    <!--<input type="text" class="form-control" placeholder="测试结果"-->
+                           <!--ng-model="data.test_result"-->
+                           <!--ng-required="true">-->
+
+                    <label class="radio-inline">
+                      <input type="radio" name="test_result_status" value="1" ng-model="data.test_result_status" checked>
+                      测试通过 
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="test_result_status" value="2" ng-model="data.test_result_stauts">
+                      测试未通过 
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="test_result_status" value="3" ng-model="data.test_result_status">
+                      测试通过(含有部分bug)
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="test_result_status" value="4" ng-model="data.test_result_status">
+                      忽略 
+                    </label>
+                </div>
+            </div>
+            <div class="form-group" ng-if="inputStatus.is_show_content==1">
+                <label class="col-sm-2 control-label">测试结果描述</label>
+                <div class="col-sm-10">
+                    <textarea rows="5" type="text" class="form-control" placeholder="请输入描述,最大长度为255个字符"
+                           ng-model="data.test_content"
+                           ng-required="true">
+                   </textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+                    <button type="submit" class="btn btn-sm btn-default" ng-click="cancel()">关闭</button>
+                    <button ng-if="inputStatus.is_show_testreport_btn==1" type="submit" class="btn btn-sm btn-info" ng-click="ok()">确认</button>
+                    <button ng-if="inputStatus.is_show_set_result_btn==1" type="submit" class="btn btn-sm btn-info" ng-click="setTestResult()">提交测试结果</button>
+    </div>
+</div>

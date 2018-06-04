@@ -1,0 +1,82 @@
+<div class="wrapper-sm">
+    <div ng-controller="OpsHostCtrl as vm">
+        <tabset class="nav-tabs">
+            <tab heading="{{vm.tabs['host'].title}}" active="vm.tabs['host'].active">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <form class="form-inline" role="form">
+                            <span class="m-r-md">
+                                <label >总记录数：</label>
+                                {{vm.tableParams.total()}}
+                            </span>
+
+                            <input ng-model="vm.keyword" placeholder="按主机或ip搜索"/>
+                            <button type="button" class="btn btn-sm  m-l-xs" ng-click="search()">
+                                <i class="glyphicon glyphicon-search"></i>
+                                <stong>搜索</stong>
+                            </button>
+
+                            <script type="text/ng-template" , id="job.script.exec.hostnames.html">
+                                <div ng-include="'tpl/job/job.script.exec.hostnames.html'"></div>
+                            </script>
+                            <script type="text/ng-template" , id="job.script.exec.results.html">
+                                <div ng-include="'tpl/job/job.script.exec.results.html'"></div>
+                            </script>
+                        </form>
+                    </div>
+                    <!--</div>-->
+                    <div class="table-responsive small">
+                        <table ng-table="vm.tableParams"
+                               class="table table-condensed table-bordered table-striped">
+                            <tr ng-repeat="row in $data">
+                                <td title="'主机名'">
+                                    {{row.server_name}}
+                                </td>
+                                <td title="'IP'">
+                                    {{row.ip}}
+                                </td>
+                                <td title="'CPU核数'">
+                                    {{row.cpu_num}}
+                                </td>
+                                <td title="'内存大小'">
+                                    {{row.memory}}
+                                </td>
+                                <td title="'磁盘空间'">
+                                    {{row.disk}}
+                                </td>
+                                <td title="'操作系统'">
+                                    {{row.version}}
+                                </td>
+                                <td title="'启动时长'">
+                                    {{row.uptime}}
+                                </td>
+                                <td title="'状态'" class="{{row.statusColor}}">
+                                    {{row.statusDesc}}
+                                </td>
+                                <td title="'操作'">
+                                    <div class="row">
+                                        <button type="button" ng-click="doActions(row.id, 'up')"
+                                                class="btn btn-xs btn-default b-info" ng-disabled="!row.can_up">
+                                            上线
+                                        </button>
+                                        <button type="button" ng-click="doActions(row.id, 'down')"
+                                                class="btn btn-xs btn-default b-success" ng-disabled="!row.can_down">
+                                            下线
+                                        </button>
+                                        <button type="button" ng-click="doActions(row.id, 'destory')"
+                                                class="btn btn-xs btn-default b-primary" ng-disabled="!row.can_destory">
+                                            销毁
+                                        </button>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </tab>
+
+        </tabset>
+    </div>
+</div>
+

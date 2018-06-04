@@ -1,0 +1,205 @@
+<div class="wrapper-sm">
+    <tabset class="nav-tabs">
+        <tab>
+            <tab-heading>
+                APP客户端配置
+            </tab-heading>
+            <div ng-controller="AppClientConfCtrl as vm">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <form class="form-inline" role="form">
+                            <div class="form-group">
+                                <label>APP名称</label>
+                                <select ng-model="vm.filterParams.apps.currentVal" ng-change="vm.appsSelect()" ng-options="value.id as value.name for value in vm.apps" class="form-control">
+                                </select>
+                            </div>
+                            <div class="form-group m-l-md">
+                                <label>客户端OS</label>
+                                <select ng-model="vm.filterParams.clientOs.currentVal" ng-change="vm.clientOsSelect()" ng-options="value.id as value.name for value in vm.clientOs" class="form-control">
+                                </select>
+                            </div>
+                            <div class="form-group m-l-md">
+                                <label>版本状态</label>
+                                <select ng-model="vm.filterParams.clientVerType.currentVal" ng-change="vm.clientVerTypeSelect()" ng-options="value.id as value.name for value in vm.clientVerType" class="form-control">
+                                </select>
+                            </div>
+                            <div class="form-group m-l-md">
+                                <label>功能</label>
+                                <select ng-model="vm.filterParams.functionType.currentVal" ng-change="vm.functionTypeSelect()" ng-options="value.id as value.name for value in vm.functionType" class="form-control">
+                                </select>
+                            </div>
+                            <div class="form-group m-l-md">
+                                <label>版本号</label>
+                                <input type="text" ng-model="vm.filterParams.clientVersion.currentVal" class="form-control" placeholder="版本号">
+                            </div>
+                            <div class="form-group m-l-md">
+                                <label>(注:默认显示前100条数据)</label>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="table-responsive">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <table ng-table="vm.tableParams"
+                                       class="table table-condensed table-bordered text-center">
+                                    <tr ng-repeat="row in $data
+                                        | filter: {app_id   : vm.filterParams.apps.currentVal}
+                                        | filter: {app_os   : vm.filterParams.clientOs.currentVal}
+                                        | filter: {version  : vm.filterParams.clientVersion.currentVal}
+                                        | filter: {app_type : vm.filterParams.clientVerType.currentVal}
+                                        | filter: {function_type : vm.filterParams.functionType.currentVal}" ng-class="vm.bg[row.id]">
+                                        <td data-title="'ID'" style="width: 20px">
+                                            {{row.id}}
+                                        </td>
+                                        <!--<td data-title="'APPS应用'" ng-click="vm.setJsonData(row.id,row)">-->
+                                            <!--<a class="text-info ng-binding" href="javascript:void(0);" >{{row.app_name}}({{row.app_id}})</a>-->
+                                        <!--</td>-->
+                                        <td data-title="'版本'" ng-click="vm.setJsonData(row.id,row)" class="text-info ng-binding">
+                                            <!--<a class="text-info ng-binding" href="javascript:void(0);" >-->
+                                            <span>{{row.app_name}}({{row.app_id}}) / {{row.app_os}} / {{row.version}} / {{row.app_type_name}} / {{row.function_type_name}}</span>
+                                            <br/>
+                                            <span>redisKey: {{row.conf_key}}</span>
+                                            <!--</a>-->
+                                            <span ng-show="row.conf_state==0" class="label bg-light m-l-sm ng-binding">未发布</span>
+                                            <span ng-show="row.conf_state==1" class="label bg-success m-l-sm ng-binding">发布</span>
+                                        </td>
+                                        <td data-title="'操作'" style="width:150px">
+                                            <button type="button" class="btn btn-default" ng-click="vm.copyData(row)">复制</button>
+                                            <button type="button" class="btn btn-info" ng-click="vm.releaseData(row.id)">发布</button>
+                                        </td>
+
+                                        <!--<td data-title="'数据'">-->
+                                            <!--<div class="clear">-->
+                                                <!--<div class="text-left">-->
+                                                    <!--<a class="text-info ng-binding" href="javascript:void(0);" >-->
+                                                        <!--{{row.app_name}}({{row.app_id}}) / {{row.app_os}} / {{row.version}} / {{row.app_type_name}}-->
+                                                    <!--</a>-->
+                                                <!--</div>-->
+                                                <!--<div class="text-left">-->
+                                                    <!--<a class="text-info ng-binding" href="javascript:void(0);" >-->
+                                                        <!--{{row.create_time}}-->
+                                                    <!--</a>-->
+                                                    <!--<span class="label bg-light m-l-sm ng-binding">work</span>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</td>-->
+                                    </tr>
+
+                                </table>
+                            </div>
+                            <div class="col-lg-6">
+
+                                <form class="form-horizontal">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="col-lg-4 control-label">APP名称</label>
+                                                <div class="col-lg-8">
+                                                    <select ng-model="vm.selectRow.app_id" ng-change="vm.appsEditSelect()" ng-options="value.id as value.name for value in vm.apps" class="form-control">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="col-lg-4 control-label">客户端OS</label>
+                                                <div class="col-lg-8">
+                                                    <select ng-model="vm.selectRow.app_os" ng-change="vm.clientOsEditSelect()" ng-options="value.id as value.name for value in vm.clientOs" class="form-control">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="col-lg-4 control-label">版本状态</label>
+                                                <div class="col-lg-8">
+                                                    <select ng-model="vm.selectRow.app_type" ng-change="vm.clientVerTypeEditSelect()" ng-options="value.id as value.name for value in vm.clientVerType" class="form-control">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="col-lg-4 control-label">功能</label>
+                                                <div class="col-lg-8">
+                                                    <select ng-model="vm.selectRow.function_type" ng-change="vm.functionTypeEditSelect()" ng-options="value.id as value.name for value in vm.functionType" class="form-control">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="col-lg-4 control-label">版本号</label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" ng-model="vm.selectRow.version" ng-change="versionEdit(vm.selectRow.version)" class="form-control" placeholder="版本号">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <label class="control-label">Redis Keys</label>
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <input type="text" ng-model="vm.selectRow.conf_key" class="form-control" placeholder="Redis Keys">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <!--<div class="col-lg-6">-->
+                                            <!--<div class="form-group">-->
+                                                <!--<label class="col-lg-4 control-label">Redis Keys</label>-->
+                                                <!--<div class="col-lg-8">-->
+                                                    <!--<input type="text" ng-model="vm.selectRow.conf_key" class="form-control" placeholder="Redis Keys">-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <div class="col-lg-4">
+                                            <button type="button" class="btn btn-info" ng-click="vm.update()" ng-show="vm.isEdit"><i class="fa fa-check-circle"></i>保存数据</button>
+                                            <button type="button" class="btn btn-default" ng-click="vm.update()" ng-show="!vm.isEdit" disabled><i class="fa fa-check-circle"></i>保存数据</button>
+                                        </div>
+                                        <div class="col-lg-8">
+
+                                            <div>(注:处于<i class="label bg-success m-l-sm ng-binding">发布</i>状态的数据;不可修改,需<i class="label bg-light m-l-sm ng-binding">复制</i>数据在进行编辑,发布!)<div/>
+                                        </div>
+                                    </div>
+
+                                </form>
+
+                                <div ng-jsoneditor="vm.onLoad" ng-model="vm.obj.data" options="vm.obj.options" style="height: 800px;"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--<script type="text/ng-template" id="show.redis.html">-->
+                    <!--<div class="panel panel-default">-->
+                        <!--<div class="panel-heading font-bold">Redis 当前值</div>-->
+                        <!--<div class="panel-body">-->
+                            <!--<div>-->
+                                <!--<label>redis key</label> {{data.redis_key}}-->
+                            <!--</div>-->
+                            <!--<div>-->
+                                <!--<label>Redis当前值</label>-->
+                                <!--&lt;!&ndash;<div ng-jsoneditor="open_onLoad" ng-model="open_data" options="open_options" style="height: 800px;"></div>&ndash;&gt;-->
+                                <!--{{data.redis_val}}-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</script>-->
+
+            </div>
+        </tab>
+    </tabset>
+</div>
+
+

@@ -1,0 +1,205 @@
+<div class="wrapper-sm">
+    <tabset class="nav-tabs">
+        <tab>
+            <tab-heading>
+                用户详情
+            </tab-heading>
+
+            <div ng-controller="UserDetailCtrl as userDetailCtrl">
+                <div class="row" style="padding-top:10px;">
+
+                    <div class="col-lg-4">
+                        <div div class="panel panel-default">
+                            <div class="panel-heading font-bold"> 基本信息 </div>
+
+                            <div class="panel-body text-left">
+
+                                <input type="hidden" name="{{data.basic.user_type}}">
+                                <p>用户ID:<strong>{{data.basic.id}}</strong> 用户类型:<strong>{{data.basic.user_type_desc}}</strong></p>
+                                <input type="hidden" name="{{data.basic.sex}}">
+                                <p>称呼:<strong>{{data.basic.name}}</strong> 性别:<strong>{{data.basic.sex_desc}}</strong></p>
+
+                                <p>手机:<strong>{{data.basic.mobile}}</strong></p>
+
+                                <!-- 基本信息 -->
+                                <p>邀请码:<strong>{{data.basic.invite_code}}</strong></p>
+                                <p>城市id:<strong>{{data.basic.city_id}}</strong></p>
+
+                                <p>家庭地址:<strong>{{data.basic.home_location.district + data.basic.home_location.area + data.basic.home_location.name}}</strong></p>
+                                <p><strong style="padding-left: 60px;">{{data.basic.home_location.address}}</strong></p>
+                                <p>公司地址:<strong>{{data.basic.company_location.district + data.basic.company_location.area + data.basic.company_location.name}}</strong></p>
+                                <p><strong style="padding-left: 60px;">{{data.basic.company_location.address}}</strong></p>
+
+                                <!-- 车辆部分信息 -->
+                                <p>车辆信息:<strong>{{data.car.color}} {{data.car.model  + '-' + data.car.model_id}}</strong></p>
+                                <p>车牌号:<strong>{{data.car.number_prefix}}{{data.car.number_suffix}}</strong></p>
+
+                            </div>
+
+                            <!--<div class="panel-footer">-->
+                            <!--<small>90%</small>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div div class="panel panel-default">
+                            <div class="panel-heading font-bold"> 个人资料 </div>
+
+                            <div class="panel-body text-left">
+
+                                <!--实名信息-->
+                                <p>真实姓名:<strong>{{data.auth.realname}}</strong></p>
+                                <p>身份证号:<strong>{{data.auth.idcard}}</strong></p>
+                                <input type="hidden" name = "{{data.auth.state}}"/>
+                                <p>实名认证状态:<strong>{{data.auth.state_desc}}</strong></p>
+                                <p>审核失败原因:<strong>{{data.auth.reason}}</strong></p>
+
+                                <!-- 匹配信息-->
+                                <input type="hidden" name = "{{data.match.enable}}"/>
+                                <input type="hidden" name = "{{data.match.time_type}}"/>
+                                <p>是否开启推送:<strong>{{data.match.enable_desc}}</strong></p>
+                                <p>路线匹配时间类型:<strong>{{data.match.time_type_desc}}</strong></p>
+                                <p>上班出发时间:<strong>{{data.match.up_time.start/60/60}}~{{data.match.up_time.end/60/60}}</strong></p>
+                                <p>下班出发时间:<strong>{{data.match.down_time.start/60/60}}~{{data.match.down_time.end/60/60}}</strong></p>
+                                <p>&nbsp;</p>
+                                <p>&nbsp;</p>
+                                <p>&nbsp;</p>
+
+                            </div>
+
+                            <!--<div class="panel-footer">-->
+                            <!--<small>% 80</small>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading font-bold"> 个人附加信息 </div>
+
+                            <div class="panel-body text-left">
+
+                                <!-- 扩展信息-->
+                                <p>标签:<strong>{{data.basic.tags}}</strong></p>
+                                <p>生日时间戳:<strong>{{data.basic.birthday}}</strong></p>
+                                <p>行业:<strong>{{data.basic.trade_name}}</strong></p>
+                                <p>职位:<strong>{{data.basic.position}}</strong></p>
+                                <p>公司:<strong>{{data.basic.companys}}</strong></p>
+                                <p>学校名称:<strong>{{data.basic.school_name}}</strong></p>
+                                <p>家乡:<strong>{{data.basic.hometown.province_name}}-{{data.basic.hometown.city_name}}-{{data.basic.hometown.district_name}}</strong></p>
+                                <p>爱好:<strong>{{data.basic.hobby}}</strong></p>
+                                <p>一句话介绍:<strong>{{data.basic.intro}}</strong></p>
+
+                                <p>机型(版本):<strong>todo:未提供</strong></p>
+                                <p>ticket:<strong>todo:未提供</strong></p>
+
+                            </div>
+
+                            <!--<div class="panel-footer">-->
+                            <!--<small>% 100</small>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading font-blod">照片信息<span class="text-danger">（上面最新审核通过的头像，可能与最新上传的头像不同）</span></div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <span>最新审核通过照片:</span>
+                                        <div class="text-center"><img style="height: 100px; width: 100px;" ng-src="{{data.basic.headimg}}"/></div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <span>最新上传照片:</span>
+                                        <div class="text-center"><img style="height: 120px; width: 120px;" ng-src="{{data.basic.headimg_checking}}"/></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <input type="hidden" name="{{data.basic.headimg_state}}"/>
+                                <p>头像审核状态:<strong>{{data.basic.headimg_state_desc}}</strong>
+                                  原因:<strong>{{data.basic.headimg_reason}}</strong></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading font-blod">车辆信息</div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <span>车辆45度照片</span>
+                                        <div class="text-center"><img style="height: 120px; width: 120px;" ng-src="{{data.car.image}}"/></div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <span>车辆正面照片</span>
+                                        <div class="text-center"><img style="height: 120px; width: 120px;" ng-src="{{data.car.image}}"/></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                <input type="hidden" name="{{data.car.image_state}}"/>
+                                <p>车照审核状态:<strong>{{data.car.image_state_desc}}</strong>
+                                    原因:<strong>{{data.car.image_reason}}</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading font-blod">证件信息 -- 车主审核状态:<strong>{{data.driver.state_desc}}</strong> </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <span><h4>驾驶证</h4></span>
+
+                                        <div class="text-center"><img style="height: 120px; width: 120px;" ng-src="{{data.driver.license}}"/></div>
+
+
+                                        <div class="row">
+                                            <input type="hidden" name="{{data.driver.state}}"/>
+                                            <input type="hidden" name="{{data.driver.license_state}}"/>
+                                            <p>证件审核状态:<strong>{{data.driver.license_state_desc}}</strong>
+                                               原因:<strong>{{data.driver.license_reason}}</strong></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <span><h4>驾驶本</h4></span>
+                                        <div class="text-center"><img style="height: 120px; width: 120px;" ng-src="{{data.car.license}}"/></div>
+
+                                        <div class="row">
+                                            <input type="hidden" name="{{data.car.license_state}}"/>
+                                            <p>证件审核状态:<strong>{{data.car.license_state_desc}}</strong>
+                                               原因:<strong>{{data.car.license_reason}}</strong></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="panel-footer">-->
+                                <!--<small>% 10</small>-->
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                </div>
+
+                <div class="row text-center">
+                    <a class="btn btn-primary" ui-sref="app.user.list">返回列表</a>
+                </div>
+            </div>
+
+        </tab>
+    </tabset>
+</div>
+
+

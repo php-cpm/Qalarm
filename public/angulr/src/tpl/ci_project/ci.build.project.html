@@ -1,0 +1,167 @@
+<div class="wrapper-sm">
+    <tabset class="nav-tabs">
+        <tab>
+            <tab-heading>
+               构建项目 
+            </tab-heading>
+            <div ng-controller="BuildProjectCtrl as vm">
+                <script type="text/ng-template", id="ci.buildlog.show.html">
+                    <div ng-include="'tpl/ci_project/ci.buildlog.show.html'"></div>
+                </script>
+                <script type="text/ng-template", id="ci.projectchange.show.html">
+                    <div ng-include="'tpl/ci_project/ci.projectchange.show.html'"></div>
+                </script>
+                <script type="text/ng-template", id="ci.deploy.project.create.html">
+                    <div ng-include="'tpl/ci_project/ci.deploy.project.create.html'"></div>
+                </script>
+
+                <script type="text/ng-template", id="ci.deploy.testreport.html">
+                    <div ng-include="'tpl/ci_project/ci.deploy.testreport.html'"></div>
+                </script>
+
+                <script type="text/ng-template", id="ci.stepstatelog.html">
+                    <div ng-include="'tpl/ci_project/ci.stepstatelog.html'"></div>
+                </script>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <form class="form-inline" role="form">
+                            <div class="form-group">
+                                <label>项目名称</label>
+                                <select ng-model="vm.searchParams.projectId.currentVal" ng-change="vm.ciProjectSelect()" ng-options="value.id as value.name for value in vm.ciProjectList" class="form-control">
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>构建状态</label>
+                                <select ng-model="vm.searchParams.buildStatus.currentVal" ng-change="vm.ciBuildStatusSelect()" ng-options="value.id as value.name for value in vm.ciBuildStatusList" class="form-control">
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-sm btn-info m-l-md" ng-click="vm.search()">
+                                <i class="glyphicon glyphicon-search"></i>
+                                <stong>搜索</stong>
+                            </button>
+
+                        </form>
+                    </div>
+
+                        <table ng-table="vm.tableParams"
+                               class="table table-condensed table-bordered table-striped text-center small">
+                            <tr style="vertical-align: middle" ng-repeat="row in $data">
+                                <td data-title="'项目名称'">
+                                    <!--<a class=''> {{row.project_id}} / {{row.project_name}}</a>-->
+                                    <span class=''> {{row.project_name}} / {{row.branch}}</span>
+                                </td>
+                                <td data-title="'构建Id'">
+                                    {{row.gaea_build_id}}
+                                </td>
+                                <!--<td data-title="'状态'">-->
+                                    <!--<span ng-if="vm.formatBuildStatus.success(row.status)" class="btn btn-xs text-success b-success">-->
+                                        <!--<i class="glyphicon glyphicon-ok icon text-success"></i> -->
+                                        <!--{{row.status}}-->
+                                    <!--</span>-->
+                                    <!--<span ng-if="vm.formatBuildStatus.fail(row.status)" class="btn btn-xs text-danger b-danger">-->
+                                        <!--<i class="glyphicon glyphicon-remove icon text-danger"></i> -->
+                                        <!--{{row.status}}-->
+                                    <!--</span>-->
+                                    <!--<span ng-if="vm.formatBuildStatus.running(row.status)" class="btn btn-xs text-primary b-primary">-->
+                                        <!--[><i class="glyphicon glyphicon-time icon text-warning"></i> <]-->
+                                        <!--<i class="fa fa-spin fa-refresh show inline"></i>-->
+                                        <!--{{row.status}}-->
+                                    <!--</span>-->
+                                    <!--<span ng-if="vm.formatBuildStatus.waiting(row.status)" class="btn btn-xs text-info b-info">-->
+                                        <!--[><i class="glyphicon glyphicon-cog icon text-info"></i> <]-->
+                                        <!--<i class="fa fa-spin fa-spinner show inline"></i>-->
+                                        <!--{{row.status}}-->
+                                    <!--</span>-->
+                                <!--</td>-->
+
+
+
+                                <td data-title="'构建步骤'">
+                                    <div >
+                                        <span ng-click="vm.showBuildLog(log,row.sonar_url)" ng-repeat="log in row.ci_build_project_logs" class="pull-left">
+                                            <a ng-if="vm.formatBuildStatus.success(log.status)" class="btn btn-xs text-success b-success">
+                                                <i class="glyphicon glyphicon-ok icon text-success"></i> 
+                                                {{log.jenkins_job_name}} {{log.status}}
+                                            </a>
+                                            <a ng-if="vm.formatBuildStatus.fail(log.status)" class="btn btn-xs text-danger b-danger">
+                                                <i class="glyphicon glyphicon-remove icon text-danger"></i> 
+                                                {{log.jenkins_job_name}} {{log.status}}
+                                            </a>
+                                            <a ng-if="vm.formatBuildStatus.running(log.status)" class="btn btn-xs text-primary b-primary">
+                                                <!--[><i class="glyphicon glyphicon-time icon text-warning"></i> <]-->
+                                                <i class="fa fa-spin fa-refresh show inline"></i>
+                                                {{log.jenkins_job_name}} {{log.status}}
+                                            </a>
+                                            <a ng-if="vm.formatBuildStatus.waiting(log.status)" class="btn btn-xs text-info b-info">
+                                                <!--[><i class="glyphicon glyphicon-cog icon text-info"></i> <]-->
+                                                <i class="fa fa-spin fa-spinner show inline"></i>
+                                                {{log.jenkins_job_name}} {{log.status}}
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <!--<span>{{row.build_logs[0].jenkins_build_name}} </span>-->
+                                    <!--<span>{{row.build_logs[0].jenkins_job_name}} </span>-->
+                                </td>
+
+                                <td data-title="'代码版本'">
+                                    <!--<a class='text-info'> {{row.update_id}}</a>-->
+                                    <!--<a href="" ng-click="vm.showProjectChange(row)" class="text-info" >{{row.update_id | limitTo:8 }}</a> -->
+                                    <!--<a href="" ng-click="vm.showProjectChange(row.update_id)" class="text-info" >{{row.update_id | limitTo:8 }}</a> -->
+                                    <a class='text-info' ui-sref="app.ci_project.difffiles({gaea_build_id: '{{row.gaea_build_id}}', project_id: '{{row.project_id}}', update_id: '{{row.update_id}}' })">{{row.update_id | limitTo:8 }}</a>
+                                </td>
+
+                                <!--<td title="'文件变更'">-->
+                                    <!--<a class='text-info' ui-sref="app.ci_project.difffiles({gaea_build_id: '{{row.gaea_build_id}}', project_id: '{{row.project_id}}', update_id: '{{row.update_id}}' })">文件变更</a>-->
+<!--[><a class="btn btn-xs btn-default b-success" title="" href=""<]-->
+                                <!--</td>-->
+                                </td>
+
+                                <td title="'开始时间'">
+                                    {{row.createtime}}
+                                </td>
+
+                                <!--<td title="'耗时'">-->
+                                    <!--{{row.run_time}}-->
+                                <!--</td>-->
+
+                                <td title="'任务详情'">
+                                    <!--<a href='' class="text-info" ng-click='vm.showStepStateLog(vm.paramsData.gaea_build_id)'>任务详情</a>-->
+                                    <a href='' title='' class="text-info" ng-click='vm.showStepStateLog(row.gaea_build_id)'>任务详情</a>
+                                </td>
+
+                                <!--<td title="'是否有发布'">-->
+                                    <!--{{row.deploy_status}}-->
+                                <!--</td>-->
+                                
+                                <td title="'测试状态'">
+
+                                    <p ng-if="!row.test_report.is_test" class="text-info">未提测</p>
+                                    <!--<a ng-if="!row.test_report.is_test" class="btn btn-xs btn-default b-success" title="" href=""ng-click="vm.deployTestReport(row,0,1,0)">立即提测</a>-->
+                                    <a ng-if="row.test_report.is_test" class="text-info" title="" href="" ng-click="vm.deployTestReport(row,1,0,0)">{{row.test_report.test_result_status_desc}}</a>
+                                </td>
+
+                                <td title="'操作'" class="text-left">
+
+                                    <a class="btn btn-xs btn-default b-success" title="" href="" ng-click="vm.deployTestReport(row,0,1,0)"
+                                        ng-disabled="row.test_report.is_test" ng-show="row.member_permits.can_apply_test==1">提测</a>
+
+                                    <!--<a class="btn btn-xs btn-default b-success" title="" href="" ng-click="vm.deployProject(row)"-->
+                                        <!--ng-disabled="!row.can_deploy" ng-show="row.member_permits.can_deploy_project==1">发布</a>-->
+
+                                    <a class="btn btn-xs btn-default b-success" title="" href="" ng-click="vm.deployTestReport(row,1,0,1)"
+                                        ng-disabled="!row.can_write_test_report" ng-show="row.member_permits.can_edit_test_result==1">测试报告</a>
+
+                                    <a class="btn btn-xs btn-default b-success" title="" href=""
+                                        ui-sref="app.ci_project.deploypro({gaea_build_id: '{{row.gaea_build_id}}', project_id: '{{row.project_id}}', update_id: '{{row.update_id}}' })" ng-disabled="!row.can_deploy" ng-show="row.member_permits.can_deploy_project==1">发布</a>
+                                </td>
+                            </tr>
+                        </table>
+
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>
+
+

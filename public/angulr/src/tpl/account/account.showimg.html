@@ -1,0 +1,23 @@
+<div class="panel panel-default">
+    <div class="modal-header">
+        <h4 class="modal-title">照片</h4>
+    </div>
+    <div class="modal-body text-center">
+        <div class="row">
+            <img  id='sample_pictureq' ng-src="{{imageUrl}}" style="width: 500px; height: 500px;">
+        </div>
+    </div>
+    <div class="modal-footer">
+
+        <div class="btn-group">
+            <button class="btn btn-default" ng-click="imgeAction.rotate('sample_pictureq',90)">顺时针90转</button>
+            <button class="btn btn-default" ng-click="imgeAction.reset('sample_pictureq')">重置图片</button>
+            <button class="btn btn-default" ng-click="imgeAction.rotate('sample_pictureq',-90)">逆时针90转</button>
+            <!--<button ng-click="imgeAction.rotate('sample_pictureq', 5,{{imageOldAngle}})">向右5转</button>-->
+            <!--<button ng-click="imgeAction.rotate('sample_pictureq',-5,{{imageOldAngle}})">向左5转</button>-->
+            <button class="btn btn-info"    ng-click="imgeAction.save('sample_pictureq',{{typeId}})">保存图片</button>
+        </div>
+
+        <button class="btn btn-warning" ng-click="close()">关闭</button>
+    </div>
+</div>

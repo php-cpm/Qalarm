@@ -1,0 +1,167 @@
+<div class="wrapper-sm">
+    <div ng-controller="JobScriptCtrl as vm">
+        <tabset class="nav-tabs">
+            <tab heading="{{vm.tabs['history'].title}}" active="vm.tabs['history'].active">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <form class="form-inline" role="form">
+                            <input style="color: #999;" ng-model="vm.execUsername"/>
+                            <button type="button" class="btn btn-sm  m-l-xs" ng-click="execSearch()">
+                                <i class="glyphicon glyphicon-search"></i>
+                                <stong>搜索</stong>
+                            </button>
+
+                            <script type="text/ng-template" , id="job.script.exec.hostnames.html">
+                                <div ng-include="'tpl/job/job.script.exec.hostnames.html'"></div>
+                            </script>
+                            <script type="text/ng-template" , id="job.script.exec.results.html">
+                                <div ng-include="'tpl/job/job.script.exec.results.html'"></div>
+                            </script>
+                        </form>
+                    </div>
+                    <!--</div>-->
+                    <div class="table-responsive small">
+                        <table ng-table="vm.execTableParams"
+                               class="table table-condensed table-bordered table-striped">
+                            <tr ng-repeat="row in $data">
+                                <td title="'执行人'" width="5%">
+                                    {{row.adminname}}
+                                </td>
+                                <td title="'创建时间'" width="15%">
+                                    {{row.created_at}}
+                                </td>
+                                <td title="'脚本名'" width="10%">
+                                    {{row.scriptname}}
+                                </td>
+                                <td title="'脚本参数'" width="15%">
+                                    {{row.params}}
+                                </td>
+                                <!--<td title="'任务ID'">-->
+                                    <!--{{row.jid}}-->
+                                <!--</td>-->
+                                <td title="'执行结果'" width="35%">
+                                    所有:
+                                    <a class='text-info' ng-click="showExecResult('lg', row.id, 'all')">
+                                        <b>{{row.host_number}}</b>
+                                    </a> &nbsp;&nbsp; (
+                                    成功:
+                                    <a class='text-success' ng-click="showExecResult('lg', row.id, 'succ')">
+                                        <b>{{row.success}}</b>
+                                    </a> /
+                                    失败:
+                                    <a class='text-danger' ng-click="showExecResult('lg', row.id, 'fail')">
+                                        <b>{{row.failed}}</b>
+                                    </a> )
+                                    &nbsp;&nbsp;
+                                    任务状态:{{row.statusDesc}}
+                                </td>
+                                <td title="'操作'" width="20%">
+                                    <div class="row">
+                                        <button type="button" ng-click="doActions(row.id, 'exec')"
+                                                class="btn btn-xs btn-default b-info" ng-disabled="!row.can_exec">
+                                            执行
+                                        </button>
+                                        <!--<button type="button" ng-click="addScript('md', row.id)"-->
+                                                <!--class="btn btn-xs btn-default b-danger">-->
+                                            <!--取消-->
+                                        <!--</button>-->
+                                        <button type="button" ng-click="doActions(row.id, 'redo')"
+                                                class="btn btn-xs btn-default b-success" ng-disabled="!row.can_redo">
+                                            重做
+                                        </button>
+                                        <button type="button" ng-click="showExecHostnames('md', row.hostnames)"
+                                                class="btn btn-xs btn-default b-primary">
+                                            机器列表
+                                        </button>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </tab>
+
+            <tab heading="{{vm.tabs['manager'].title}}" active="vm.tabs['manager'].active">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <form class="form-inline" role="form">
+                            <input ng-model="vm.scriptName"/>
+                            <button ng-repeat="row in vm.scritpTypes" type="button" ng-click="filter(row.id)"
+                                    class="btn btn-sm  m-l-xs">
+                                {{row.name}}
+                            </button>
+                            <button type="button" class="btn btn-sm  m-l-xs" ng-click="search()">
+                                <i class="glyphicon glyphicon-search"></i>
+                                <stong>全部</stong>
+                            </button>
+
+                            <script type="text/ng-template" , id="job.script.edit.html">
+                                <div ng-include="'tpl/job/job.script.edit.html'"></div>
+                            </script>
+                            <script type="text/ng-template" , id="job.script.exec.html">
+                                <div ng-include="'tpl/job/job.script.exec.html'"></div>
+                            </script>
+                            <button type="button" ng-click="addScript('md', '')" class="btn btn-sm btn-success">
+                                <i class="glyphicon glyphicon-plus "></i>
+                                添加
+                            </button>
+                        </form>
+                    </div>
+                    <!--</div>-->
+                    <div class="table-responsive small">
+                        <table ng-table="vm.tableParams"
+                               class="table table-condensed table-bordered table-striped">
+                            <tr ng-repeat="row in $data">
+                                <td title="'所属'" >
+                                    {{row.ownername}}
+                                </td>
+                                <td title="'类别'" >
+                                    {{row.typename}}
+                                </td>
+                                <td title="'目录'" >
+                                    {{row.scriptdir}}
+                                </td>
+                                <td title="'名称'" >
+                                    {{row.scriptname}}
+                                </td>
+                                <td title="'参数列表'" width="5%" word-break="break-all">
+                                    {{row.params}}
+                                </td>
+                                <td title="'功能'" >
+                                    {{row.remark}}
+                                </td>
+                                <td title="'指定执行机器'" >
+                                    {{row.targethost}}
+                                </td>
+                                <td title="'创建用户'" >
+                                    {{row.adminname}}
+                                </td>
+                                <td title="'操作'" >
+                                    <div class="row">
+                                        <button type="button" ng-click="execute('md', row.id, row)"
+                                                class="btn btn-xs btn-default b-info">
+                                            执行
+                                        </button>
+                                        <button type="button" ng-click="addScript('md', row.id)"
+                                                class="btn btn-xs btn-default b-success">
+                                            编辑
+                                        </button>
+                                        <button type="button" ng-click="delete(row.id)"
+                                                class="btn btn-xs btn-default b-danger">
+                                            删除
+                                        </button>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </tab>
+
+        </tabset>
+    </div>
+</div>
+

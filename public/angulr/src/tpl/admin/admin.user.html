@@ -1,0 +1,65 @@
+<div class="wrapper-sm">
+    <tabset class="nav-tabs">
+        <tab>
+            <tab-heading>
+                用户管理
+            </tab-heading>
+            <div ng-controller="AdminUserCtrl as vm">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <script type="text/ng-template" , id="admin.user.edit.html">
+                            <div ng-include="'tpl/admin/admin.user.edit.html'"></div>
+                        </script>
+                        <button type="button" ng-click="vm.addData('md')" class="btn btn-sm btn-success">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            添加
+                        </button>
+                    </div>
+                    <div class="table-responsive">
+                        <table ng-table="vm.tableParams"
+                               class="table table-condensed table-bordered table-striped">
+                            <tr ng-repeat="row in $data">
+                                <td title="'id'" filter="{ id: 'text'}" sortable="'id'">
+                                    {{row.id}}
+                                </td>
+                                <td title="'登录名'" filter="{ username: 'text'}" sortable="'username'">
+                                    {{row.username}}
+                                </td>
+                                <td title="'姓名'" filter="{ nickname: 'text'}" sortable="'nickname'">
+                                    {{row.nickname}}
+                                </td>
+                                <td title="'拥有角色'" filter="{ roleid_set: 'text'}" sortable="'roleid_set'">
+                                    <!--{{row.roleid_set}}-->
+                                    {{row.role_ids}}
+                                    {{row.role_names}}
+                                </td>
+                                <td title="'电话'" filter="{ mobile: 'text'}" sortable="'mobile'">
+                                    {{row.mobile}}
+                                </td>
+                                <td title="'所在城市'" filter="{ cityid: 'text'}" sortable="'cityid'">
+                                    {{row.cityid}}
+                                    {{row.city_name}}
+                                </td>
+                                <td title="'可管理城市'" filter="{ cityids: 'text'}" sortable="'cityids'">
+                                    {{row.cityids}}
+                                </td>
+
+
+                                <!--<td title="'角色'">-->
+                                    <!---->
+                                <!--</td>-->
+
+                                <td title="'操作'">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-info" ng-click="vm.editData(row)">编辑</button>
+                                        <button type="button" class="btn btn-info" ng-click="vm.deleteData(row.id)">删除</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>

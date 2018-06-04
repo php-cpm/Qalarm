@@ -1,0 +1,123 @@
+<style type="text/css">
+#fullscreenchart_container:-webkit-full-screen{
+  width: 100%;
+  height: 100%;
+}
+</style>
+<div id="fullscreenchart_container"></div>
+<div id="chart_container"></div>
+<script>
+    var pageData = {
+        points : <%- points %>,
+        pname : "<%- pname %>"
+    }; 
+</script>
+
+<link rel="stylesheet" type="text/css" href="/css/style.css" />
+
+<script type="text/javascript" src="/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/js/jquery-ui-1.10.1.custom.js"></script>
+<script type="text/javascript" src="/js/jqueryPlugins.js"></script>
+<script type="text/javascript" src="/js/gsps.js"></script>
+
+<script type="text/javascript" src="/js/highcharts/highcharts.js"></script>
+<script type="text/javascript" src="/js/highcharts/modules/exporting.js"></script>
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="/js/v3202.js"></script>
+<script type="text/javascript" src="/js/graphDetail-theme.js"></script>
+<script type="text/javascript" src="/js/graphDetail.js"></script>
+
+<script type="text/javascript" src="/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/bootstrap-paginator/bootstrap-paginator.js"></script>
+
+
+<div id="searchContainer" style="margin-top:5px;"></div>
+<div class="operate-desc">
+    <dl>
+        <dt>说明：</dt>
+        <dd>1、点击错误曲线 或 双击图下方的错误标题 查看详细错误列表</dd>
+        <dd>2、单击图下方的错误标题可 隐藏/显示 错误曲线</dd>
+        <dd>3、每个点代表3秒钟内的错误次数</dd>
+        <dd>4、详细错误信息为抽样</dd>
+    </dl>
+</div>
+<!--form start-->
+<div id="alarm_close_update_dialog" style="display:none;" title="临时关闭">
+    <form class="ui-form" action="" method="post">
+        <table align="center" width="100%">
+            <tbody>
+            <!--
+                            {=html_checkboxes name="project_id" options=$projectFkArr label_ids=true=}
+                            {=html_checkboxes name="cluster" options=$clusterDictFkArr label_ids=true=}
+                            {=html_checkboxes name="sys_mid" options=$sysmoduleFkArr label_ids=true=}
+                            -->
+                <tr class="field-group">
+                    <td class="field-header">关闭时间：</td>
+                    <td class="field-content">
+                        <div class="ui-checkboxes ui-buttonset">
+                            {=html_radios name="close_time" options=$tempTimeDictFkArr label_ids=true selected=1800=}
+                        </div>
+                    </td>
+                </tr>
+                <tr class="field-group">
+                    <td class="field-header">关闭机房：</td>
+                    <td class="field-content">
+                        <div class="ui-checkboxes ui-buttonset" id="close_cluster">
+                        </div>
+                    </td>
+                </tr>
+                <tr class="field-group">
+                    <td class="field-header">发送通知：</td>
+                    <td class="field-content">
+                        <div class="ui-checkboxes ui-buttonset" id="close_cluster">
+                            <input type="checkbox" name="send_notice" value="1" id="send_notice" checked /><label for="send_notice">发送</label> （默认勾选、会对能收到这类报警工程师发送一条通知）
+                        </div>
+                    </td>
+                </tr>
+                </tr>
+                <tr class="field-group" style="border-bottom:0px;padding-bottom:0px;">
+                    <td class="field-header"></td>
+                    <td class="field-content" style="text-align: center; display: block;">
+                        <input type="submit" class="ui-button-submit" id="submit" value="提交">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<!--form end-->
+<!--form start-->
+<div id="module_set_dialog" style="display:none;" title="设置">
+    <form class="ui-form" action="" method="post">
+        <table align="center" width="100%">
+            <tbody>
+            <tr class="field-group"><td class="field-header">名称：</td><td class="field-content"><input type="text" class="ui-text-dialog" name="name" value="" /></td></tr>
+            <tr class="field-group"><td class="field-header">报警级别：</td><td class="field-content"><input type="text" class="ui-text-dialog" name="level" value="" /></td></tr>
+            <tr class="field-group"><td class="field-header">短信阀值：</td><td class="field-content"><input type="text" class="ui-text-dialog" name="sms_limit" value="" /></td></tr>
+                <tr class="field-group" style="border-bottom:0px;padding-bottom:0px;">
+                    <td class="field-header"></td>
+                    <td class="field-content" style="text-align: center; display: block;">
+                        <input type="submit" class="ui-button-submit" id="submit" value="提交">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<!--form end-->
+<script type="text/javascript">
+    function beginOpt(obj) {
+	switch (obj.data("opt_id")) {
+	    case "alarm_close_update_dialog":
+            var clusterArr = new Array();
+            var clusterStr = obj.data("cluster");
+            clusterArr = clusterStr.split(",");
+            $("#close_cluster").html('');
+            for (i=0; i < clusterArr.length; i++) {
+                $("#close_cluster").append('<input type="checkbox" name="cluster[]" checked value="'+clusterArr[i]+'" id="close_cluster_'+clusterArr[i]+'" /><label for="close_cluster_'+clusterArr[i]+'">'+clusterArr[i]+'</label>');
+            }
+        break;
+	}
+	return true;
+    }
+</script>

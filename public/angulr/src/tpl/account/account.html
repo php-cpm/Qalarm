@@ -1,0 +1,180 @@
+<div class="wrapper-sm">
+    <tabset class="nav-tabs">
+        <tab>
+            <tab-heading>
+                用户列表
+            </tab-heading>
+            <div ng-controller="AccountCtrl as accountCtrl">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <form class="form-inline" role="form">
+                            <div class="form-group">
+                                <label>手机号码</label>
+                                <input ng-model="searchParams.accountMobile.currentVal" placeholder="手机号码" class="form-control">
+                            </div>
+                            <div class="form-group m-l-md">
+                                <label>姓名</label>
+                                <input ng-model="searchParams.accountName.currentVal" placeholder="姓名" class="form-control">
+                            </div>
+                            <div class="form-group m-l-md">
+                                <label>身份证</label>
+                                <input ng-model="searchParams.idCard.currentVal" placeholder="身份证" class="form-control">
+                            </div>
+                            <div class="form-group m-l-md">
+                                <label>车牌号</label>
+                                <input ng-model="searchParams.carNumber.currentVal" placeholder="车牌号" class="form-control">
+                            </div>
+
+                            <!--<div class="form-group m-l-md">-->
+                                <!--<label>用户类型</label>-->
+                                <!--<select ng-model="searchParams.accountType" ng-change="accountTypeSelect()" ng-options="value.id as value.name for value in accountTypes" class="form-control">-->
+                                <!--</select>-->
+                            <!--</div>-->
+
+                            <button type="submit" class="btn btn-sm btn-info m-l-md" ng-click="search()" ng-show="permits.account_list.query">
+                                <i class="glyphicon glyphicon-search"></i>
+                                <stong>搜索</stong>
+                            </button>
+
+                        </form>
+                    </div>
+
+                    <div class="panel-body" ng-show="!permits.account_list.query">
+                        您没有权限查看!
+                    </div>
+
+                    <div class="table-responsive" ng-show="permits.account_list.query">
+                        <table ng-table="accountCtrl.tableParams"
+                               class="table table-condensed table-bordered table-striped text-center">
+                            <tr style="vertical-align: middle" ng-repeat="row in $data">
+                                <td data-title="'用户ID'">
+                                    {{row.basic.id}}
+                                </td>
+                                <td data-title="'用户信息'">
+                                    <!--{{row.basic.id}}-->
+                                        <a class='text-info' ui-sref="app.account.detail({user_id: '{{row.basic.id}}'})">
+                                            {{row.basic.name}}
+                                            ({{row.basic.sex_desc}})
+                                        </a>
+
+                                        <span class="{{formatRowData.accountAuthState(row.auth.state)}}" title='{{row.auth.state_desc}}'>
+                                            {{row.auth.state_desc}}
+                                        </span>
+                                </td>
+                                <td title="'手机'">
+                                    {{row.basic.mobile}}
+                                </td>
+
+                                <td title="'车辆信息'">
+
+                                    <span>{{row.car.color}}{{row.car.model}}</span>
+                                    <span>({{row.car.number_prefix}}{{row.car.number_suffix}})</span>
+                                    <span class="{{formatRowData.carCheckState(row.car.image_state)}}">车照{{row.car.image_state_desc}}</span>
+
+                                </td>
+
+                                <td title="'证件状态'">
+
+                                    <span class="{{formatRowData.driverLicenseState(row.driver.license_state)}}">驾驶证{{row.driver.license_state_desc}}</span>
+                                    <span class="{{formatRowData.carLicenseState(row.car.license_state)}}">行驶本{{row.car.license_state_desc}}</span>
+                                </td>
+
+                                <td title="'路线(家->公司)'">
+                                    <!--{{row.id}}-->
+                                    <span>{{row.basic.home_location.address}}
+                                        </br>{{row.basic.company_location.address}}</span>
+                                </td>
+
+                                <td title="'注册时间'">
+                                    {{row.basic.register_time}}
+                                </td>
+
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </tab>
+        <tab>
+            <tab-heading>
+                <a href="" title="">
+                    <span>实名认证</span>
+                    <span class="badge badge-sm up bg-warning pull-right-xs">10</span>
+                </a>
+            </tab-heading>
+            <div ng-controller="AccountAuthCtrl as accountAuthCtrl">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <form class="form-inline" role="form">
+                            <div class="form-group">
+                                <label>手机号码</label>
+                                <input ng-model="searchParams.accountMobile.currentVal" placeholder="手机号码" class="form-control">
+                            </div>
+                            <div class="form-group m-l-md">
+                                <label>姓名</label>
+                                <input ng-model="searchParams.accountName.currentVal" placeholder="姓名" class="form-control">
+                            </div>
+                            <div class="form-group m-l-md">
+                                <label>身份证</label>
+                                <input ng-model="searchParams.accountIdCard.currentVal" placeholder="身份证" class="form-control">
+                            </div>
+                            <div class="form-group m-l-md">
+                                <label>认证状态</label>
+                                <select ng-model="searchParams.accountAuthState.currentVal" ng-change="accountAuthStateSelect()" ng-options="value.id as value.name for value in accountAuthStates" class="form-control">
+                                </select>
+                            </div>
+
+                            <!--<div class="form-group m-l-md">-->
+                                <!--<label>用户类型</label>-->
+                                <!--<select ng-model="searchParams.accountType" ng-change="accountTypeSelect()" ng-options="value.id as value.name for value in accountTypes" class="form-control">-->
+                                <!--</select>-->
+                            <!--</div>-->
+
+                            <button type="submit" class="btn btn-sm btn-info m-l-md" ng-click="search()" ng-show="permits.account_auth.query">
+                                <i class="glyphicon glyphicon-search"></i>
+                                <stong>搜索</stong>
+                            </button>
+
+                        </form>
+                    </div>
+
+                    <div class="panel-body" ng-show="!permits.account_auth.query">
+                        您没有权限查看!
+                    </div>
+
+                    <div class="table-responsive" ng-show="permits.account_auth.query">
+                        <table ng-table="accountAuthCtrl.tableParams"
+                               class="table table-condensed table-bordered table-striped">
+                            <!--用户	验证信息	调用接口	认证状态	认证时间	返回码	返回文本-->
+                            <tr style="vertical-align: middle" ng-repeat="row in $data">
+                                <td data-title="'用户ID'">
+                                    {{row.basic.id}}
+                                </td>
+                                <td data-title="'用户'">
+                                    {{row.basic.name}}
+                                    ({{row.basic.sex_desc}})
+                                </td>
+                                <td title="'手机'" class="text-center">
+                                    {{row.basic.mobile}}
+                                </td>
+                                <td title="'验证信息'">
+                                    姓名:{{row.auth.realname}} &nbsp;&nbsp;证件:{{row.auth.idcard}}
+                                </td>
+                                <td title="'认证状态'">
+                                    <span class="{{formatRowData.accountAuthState(row.auth.state)}}" title='{{row.auth.state_desc}}'>{{row.auth.state_desc}}</span>
+                                </td>
+                                <td title="'原因'">
+                                    {{row.auth.reason}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </tab>
+    </tabset>
+</div>
+
+

@@ -1,0 +1,85 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="
+    app.settings.asideFolded = false;
+    app.settings.asideDock = false;
+  ">
+    <!-- main -->
+    <div class="col">
+        <!-- main header -->
+        <div class="bg-light lter b-b wrapper-md">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <h1 class="m-n font-thin h3 text-black">欢迎使用盖亚</h1>
+                    <!--<small class="text-muted">欢迎使用盖亚</small>-->
+                </div>
+                <!--<div class="col-sm-6 text-right hidden-xs">-->
+                <!--<div class="inline m-r text-left">-->
+                <!--<div class="m-b-xs">1290 <span class="text-muted">items</span></div>-->
+                <!--<div ng-init="data1=[ 106,108,110,105,110,109,105,104,107,109,105,100,105,102,101,99,98 ]"-->
+                <!--ui-jq="sparkline"-->
+                <!--ui-options="{{data1}}, {type:'bar', height:20, barWidth:5, barSpacing:1, barColor:'#dce5ec'}"-->
+                <!--class="sparkline inline">loading...-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="inline text-left">-->
+                <!--<div class="m-b-xs">$30,000 <span class="text-muted">revenue</span></div>-->
+                <!--<div ng-init="data2=[ 105,102,106,107,105,104,101,99,98,109,105,100,108,110,105,110,109 ]"-->
+                <!--ui-jq="sparkline"-->
+                <!--ui-options="{{data2}}, {type:'bar', height:20, barWidth:5, barSpacing:1, barColor:'#dce5ec'}"-->
+                <!--class="sparkline inline">loading...-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+        <!-- / main header -->
+        <div class="wrapper-md" ng-controller="MyServiceIndexCtrl as vm">
+            <!-- tasks -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel no-border">
+                        <div class="panel-heading wrapper b-b b-light">
+                         <span class="text-xs text-muted pull-right">
+                             <i class="fa fa-circle text-warning m-r-xs m-l-sm"></i> {{vm.doingListCount}}
+                         </span>
+                            <h4 class="font-thin m-t-none m-b-none text-muted">我的事项</h4>
+                        </div>
+                        <ul class="list-group list-group-lg m-b-none">
+                            <li class="list-group-item  m-b-none" ng-repeat="row in vm.doingList">
+                                <a  class="alert-info inline">
+                                   您于{{row.created_at}} 申请了 {{row.type_name}} 类型的 {{row.buss_name}} 业务，任务已分配给：{{row.alloc_name}},  处理状态为：{{row.statusDesc}}。
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="panel-footer">
+                            <!--<span class="pull-right badge badge-bg m-t-xs">32</span>-->
+                            <!--<button class="btn btn-primary btn-addon btn-sm"><i class="fa fa-plus"></i>Add Teammate</button>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel no-border">
+                        <div class="panel-heading wrapper b-b b-light">
+                         <span class="text-xs text-muted pull-right">
+                             <i class="fa fa-circle text-warning m-r-xs m-l-sm"></i> {{vm.jobListCount}}
+                         </span>
+                            <h4 class="font-thin m-t-none m-b-none text-muted">代办事项</h4>
+                        </div>
+                        <ul class="list-group list-group-lg m-b-none">
+                            <li class="list-group-item" ng-repeat="row in vm.jobList">
+                                <a ng-click="go(row.id)" class="alert-success inline">
+                                    {{row.username}} 在{{row.created_at}} 申请了{{row.type_name}} 类型的 {{row.buss_name}} 业务，请处理。
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="panel-footer">
+                            <!--<span class="pull-right badge badge-bg m-t-xs">32</span>-->
+                            <!--<button class="btn btn-primary btn-addon btn-sm"><i class="fa fa-plus"></i>Add Teammate</button>-->
+                        </div>
+                    </div>
+                </div>
+                <!-- / tasks -->
+            </div>
+        </div>
+    </div>
+</div>
+

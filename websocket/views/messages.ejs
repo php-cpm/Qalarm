@@ -1,0 +1,107 @@
+<div>
+<div id="detail_content">
+<style>
+.ui-list-table td{
+    font-size: 13;
+    border: 1px dashed #E6ECF6;
+    padding: 4px 7px;
+    text-align: left;
+}
+</style>
+<div class="cms-main">
+    <div id="searchContainer">
+        <div>
+            <div class="ui-debug-ie6-table" id="detail">
+                <div class="ui-toolbar">
+                    <div class="toolbar-pagination">   
+                        <table><tr><td><div id="footbar-page-top"></div></td></tr></table> 
+                    </div>    
+                </div>
+                <div>
+                    <table class="ui-list-table">
+                        <thead>
+                            <tr>
+                                <th width="120">时间</th>
+                                <th width="120">类型</th>
+                                <th width="40">错误号</th>
+                                <th width="40">环境</th>
+                                <th width="110">服务器ip</th>
+                                <th width="110">客户端ip</th>
+                                <th>脚本</th>
+                            </tr>
+
+                        </thead>
+                        <tbody id="sortable_tbody">
+                        <% for(var i=0; i<items.length; i++) { %>
+                        <tr class="{=cycle values='odd,'=}" >
+                            <td ><%= items[i].time %></td>
+                            <td ><%= items[i].name %></td>
+                            <td ><%= items[i].code %></td>
+                            <td ><%= items[i].env %></td>
+                            <td ><%= items[i].server_ip %></td>
+                            <td ><%= items[i].client_ip %></td>
+                            <td style="color:#357ebd;max-width:600px;white-space:nowrap;"> <%= items[i].script %> </td> 
+                        </tr>
+                        <tr class="{=cycle values='odd,'=} {=if $item.isJem=}jem-box{=/if=}">
+                            <td style="text-align:right">详细信息：</td>
+                            <td class="td_message" colspan="5" style="color:#ac2925;"><pre> <%= items[i].message %></pre></td>
+                        </tr>
+
+                        <% } %>
+
+                        </tbody>
+                        <thead>
+                            <tr>
+                                <th>时间</th>
+                                <th>类型</th>
+                                <th>错误号</th>
+                                <th>环境</th>
+                                <th>服务器ip</th>
+                                <th>客户端ip</th>
+                                <th>脚本</th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                </div>
+                <div class="ui-toolbar">
+                    <div class="toolbar-pagination">   
+                        <table><tr><td><div id="footbar-page-bottom"></div></td></tr></table> 
+                    </div>    
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+                <script type="text/javascript">
+                    var options = {
+                        currentPage:"<%=current_page%>",
+                        totalPages:"<%=total_pages%>",
+                        size:"small",
+                        alignment:"right",
+                        itemContainerClass: function (type, page, current) {
+                            return (page === current) ? "active" : "pointer-cursor";
+                        },
+                        onPageClicked: function(e,originalEvent,type,page){
+                            $.get('/graph/messages?module=<%=module%>&project=<%=project%>&page='+page, function(result) {
+                                    $result = $(result);
+                                    $('#searchContainer').empty();
+                                    $result.find('#detail_content').appendTo('#searchContainer');
+                                    $result.find('script').appendTo('#searchContainer');
+                            });
+                        },
+                        onPageChanged: function(e,oldPage,newPage){
+                            // alert("Current page changed, old: "+oldPage+" new: "+newPage);
+
+                        },
+                        pageUrl:function(type,page,current){
+                            // alert("Current page changed, old: "+type+" new: "+page+ "current"+current);
+
+                        }
+                    }
+                    $("#footbar-page-top").bootstrapPaginator(options);
+                    $("#footbar-page-bottom").bootstrapPaginator(options);
+                </script>
+</div>
