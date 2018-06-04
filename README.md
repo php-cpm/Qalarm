@@ -13,4 +13,4 @@ Qalarm 是一个专注于实时监控的业务监控报警系统，能快速发�
 4、直观图表反映实时线上情况；
 
 设计原理如下图：
-![avatar](https://www.processon.com/view/link/596c7a1de4b043caf882479b)
+![avatar](http://on-img.com/chart_image/5779fcaae4b08b6f0224e0f9.png)
